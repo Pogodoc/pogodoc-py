@@ -1,0 +1,860 @@
+openapi: 3.0.0
+info:
+  description: "API for Pogodoc document and template management service. Provides\
+    \ endpoints for rendering documents, managing templates, generating previews,\
+    \ and handling API tokens."
+  title: Pogodoc API
+  version: 0.1.0
+servers:
+- description: Pogodoc API
+  url: https://api.pogodoc.com
+paths:
+  /templates/init:
+    get:
+      description: Initializes template creation by generating a unique ID and providing
+        a presigned URL for template ZIP upload. Sets unfinished tag for tracking
+        incomplete templates.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates_init_get_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Initialize Template Creation
+      tags:
+      - templates
+  /templates/{templateId}:
+    delete:
+      description: Deletes a template from Strapi and associated S3 storage. Removes
+        all associated files and metadata.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                not: {}
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Delete Template
+      tags:
+      - templates
+    post:
+      description: "Finalizes template creation by saving template info to Strapi,\
+        \ copying preview files to permanent storage, and creating template index.\
+        \ Removes unfinished tag upon completion."
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                not: {}
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Save New Template
+      tags:
+      - templates
+    put:
+      description: "Updates template content, handles S3 storage cleanup for old content,\
+        \ updates template metadata in Strapi, and manages preview files. Removes\
+        \ unfinished tags after successful update."
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__put_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__put_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Update Template
+      tags:
+      - templates
+  /templates/{templateId}/unzip:
+    post:
+      description: Extracts contents from an uploaded template ZIP file and stores
+        individual files in the appropriate S3 storage structure.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__unzip_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                not: {}
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Extract Template Files
+      tags:
+      - templates
+  /templates/{templateId}/render-previews:
+    post:
+      description: Creates both PNG and PDF preview files for template visualization.
+        Generates previews in parallel and returns URLs for both formats.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__render_previews_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__render_previews_post_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Generate Template Previews
+      tags:
+      - templates
+  /templates/{templateId}/presigned-url:
+    get:
+      description: Generates a presigned URL for template access. Used for downloading
+        template files from S3 storage.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__presigned_url_get_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Generate Presigned URL
+      tags:
+      - templates
+  /templates/{templateId}/index-html:
+    get:
+      description: Retrieves the template index.html file from S3 storage. Used for
+        rendering the template in the browser.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__index_html_get_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Get Template Index HTML
+      tags:
+      - templates
+    post:
+      description: Uploads the template index.html file to S3 storage. Used for rendering
+        the template in the browser.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__index_html_get_200_response'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                not: {}
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Upload Template Index HTML
+      tags:
+      - templates
+  /templates/{templateId}/clone:
+    post:
+      description: Creates a new template by duplicating an existing template's content
+        and metadata. Includes copying preview files and template index.
+      parameters:
+      - explode: false
+        in: path
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__clone_post_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Clone Template
+      tags:
+      - templates
+  /documents/init:
+    post:
+      description: "Creates a new render job with a unique ID, sets up S3 storage\
+        \ for template and data files, and generates presigned upload URLs if needed.\
+        \ Requires subscription check."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_documents_init_post_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_documents_init_post_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Initialize Render Job
+      tags:
+      - render
+  /documents/{jobId}/render:
+    post:
+      description: "Takes a previously initialized job, updates its status to in-progress,\
+        \ and triggers the rendering process using Puppeteer. Can optionally wait\
+        \ for render completion."
+      parameters:
+      - explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_documents__jobId__render_post_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_documents__jobId__render_post_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Start Render Job
+      tags:
+      - render
+  /documents/render-preview:
+    post:
+      description: "Generates a preview by creating a single-page render job, processing\
+        \ it immediately, and returning the output URL. Used for template visualization."
+      parameters:
+      - explode: true
+        in: query
+        name: templateId
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_templates__templateId__render_previews_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_templates__templateId__render_previews_post_200_response_pngPreview'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Generate Document Preview
+      tags:
+      - render
+  /documents/immediate-render:
+    post:
+      description: "Combines initialization and rendering in one step. Creates a job,\
+        \ uploads template/data directly, starts rendering, and adds the document\
+        \ to Strapi. Requires subscription check."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_documents_immediate_render_post_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_documents_immediate_render_post_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Immediate Render
+      tags:
+      - render
+  /jobs/{jobId}:
+    get:
+      description: "Fetches detailed job information from S3 storage including job\
+        \ status, template ID, target format, and output details if available."
+      parameters:
+      - explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_jobs__jobId__get_200_response'
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Get Job Status
+      tags:
+      - render
+  /api-tokens/{tokenId}:
+    delete:
+      description: "Invalidates an API token by storing it in the deleted tokens S3\
+        \ bucket, preventing future use of the token for authentication."
+      parameters:
+      - explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                not: {}
+          description: Default Response
+      security:
+      - bearerAuth: []
+      summary: Delete API Token
+      tags:
+      - tokens
+components:
+  schemas:
+    _templates_init_get_200_response:
+      example:
+        jobId: jobId
+        presignedTemplateUploadUrl: presignedTemplateUploadUrl
+      properties:
+        jobId:
+          type: string
+        presignedTemplateUploadUrl:
+          type: string
+      required:
+      - jobId
+      - presignedTemplateUploadUrl
+      type: object
+    _templates__templateId__put_request_allOf_templateInfo_type:
+      anyOf:
+      - enum:
+        - docx
+        type: string
+      - enum:
+        - xlsx
+        type: string
+      - enum:
+        - pptx
+        type: string
+      - enum:
+        - ejs
+        type: string
+      - enum:
+        - html
+        type: string
+      - enum:
+        - latex
+        type: string
+      - enum:
+        - react
+        type: string
+    _templates__templateId__put_request_allOf_templateInfo_categories_inner:
+      anyOf:
+      - enum:
+        - invoice
+        type: string
+      - enum:
+        - mail
+        type: string
+      - enum:
+        - report
+        type: string
+      - enum:
+        - cv
+        type: string
+      - enum:
+        - other
+        type: string
+    _templates__templateId__put_request_allOf_templateInfo:
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_type'
+        sampleData:
+          additionalProperties: {}
+          type: object
+        sourceCode:
+          type: string
+        categories:
+          items:
+            $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_categories_inner'
+          type: array
+      required:
+      - categories
+      - description
+      - sampleData
+      - title
+      - type
+      type: object
+    _templates__templateId__put_request_allOf_previewIds:
+      properties:
+        pngJobId:
+          type: string
+        pdfJobId:
+          type: string
+      required:
+      - pdfJobId
+      - pngJobId
+      type: object
+    _templates__templateId__put_request:
+      allOf:
+      - properties:
+          templateInfo:
+            $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo'
+          previewIds:
+            $ref: '#/components/schemas/_templates__templateId__put_request_allOf_previewIds'
+        required:
+        - previewIds
+        - templateInfo
+        type: object
+      - properties:
+          contentId:
+            type: string
+        required:
+        - contentId
+        type: object
+      type: object
+    _templates__templateId__put_200_response:
+      example:
+        newContentId: newContentId
+      properties:
+        newContentId:
+          type: string
+      required:
+      - newContentId
+      type: object
+    _templates__templateId__post_request:
+      properties:
+        templateInfo:
+          $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo'
+        previewIds:
+          $ref: '#/components/schemas/_templates__templateId__put_request_allOf_previewIds'
+      required:
+      - previewIds
+      - templateInfo
+      type: object
+    _templates__templateId__unzip_post_request:
+      properties:
+        templateId:
+          type: string
+      required:
+      - templateId
+      type: object
+    _templates__templateId__render_previews_post_request_formatOpts_allOf_format:
+      anyOf:
+      - enum:
+        - letter
+        type: string
+      - enum:
+        - legal
+        type: string
+      - enum:
+        - tabloid
+        type: string
+      - enum:
+        - ledger
+        type: string
+      - enum:
+        - a0
+        type: string
+      - enum:
+        - a1
+        type: string
+      - enum:
+        - a2
+        type: string
+      - enum:
+        - a3
+        type: string
+      - enum:
+        - a4
+        type: string
+      - enum:
+        - a5
+        type: string
+      - enum:
+        - a6
+        type: string
+    _templates__templateId__render_previews_post_request_formatOpts:
+      allOf:
+      - properties:
+          fromPage:
+            type: number
+          toPage:
+            type: number
+          format:
+            $ref: '#/components/schemas/_templates__templateId__render_previews_post_request_formatOpts_allOf_format'
+          waitForSelector:
+            type: string
+        type: object
+      - additionalProperties: {}
+        type: object
+    _templates__templateId__render_previews_post_request:
+      properties:
+        type:
+          $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_type'
+        data:
+          additionalProperties: {}
+          type: object
+        formatOpts:
+          $ref: '#/components/schemas/_templates__templateId__render_previews_post_request_formatOpts'
+      required:
+      - data
+      - type
+      type: object
+    _templates__templateId__render_previews_post_200_response_pngPreview:
+      example:
+        jobId: jobId
+        url: url
+      properties:
+        url:
+          type: string
+        jobId:
+          type: string
+      required:
+      - jobId
+      type: object
+    _templates__templateId__render_previews_post_200_response:
+      example:
+        pdfPreview:
+          jobId: jobId
+          url: url
+        pngPreview:
+          jobId: jobId
+          url: url
+      properties:
+        pngPreview:
+          $ref: '#/components/schemas/_templates__templateId__render_previews_post_200_response_pngPreview'
+        pdfPreview:
+          $ref: '#/components/schemas/_templates__templateId__render_previews_post_200_response_pngPreview'
+      required:
+      - pdfPreview
+      - pngPreview
+      type: object
+    _templates__templateId__presigned_url_get_200_response:
+      example:
+        presignedUrl: presignedUrl
+      properties:
+        presignedUrl:
+          type: string
+      required:
+      - presignedUrl
+      type: object
+    _templates__templateId__index_html_get_200_response:
+      example:
+        templateIndex: templateIndex
+      properties:
+        templateIndex:
+          type: string
+      required:
+      - templateIndex
+      type: object
+    _templates__templateId__clone_post_200_response:
+      example:
+        newTemplateId: newTemplateId
+      properties:
+        newTemplateId:
+          type: string
+      required:
+      - newTemplateId
+      type: object
+    _documents_init_post_request_allOf_target:
+      anyOf:
+      - enum:
+        - pdf
+        type: string
+      - enum:
+        - html
+        type: string
+      - enum:
+        - docx
+        type: string
+      - enum:
+        - xlsx
+        type: string
+      - enum:
+        - pptx
+        type: string
+      - enum:
+        - png
+        type: string
+      - enum:
+        - jpg
+        type: string
+    _documents_init_post_request:
+      allOf:
+      - properties:
+          data:
+            additionalProperties: {}
+            type: object
+        type: object
+      - properties:
+          type:
+            $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_type'
+          target:
+            $ref: '#/components/schemas/_documents_init_post_request_allOf_target'
+          templateId:
+            type: string
+          formatOpts:
+            $ref: '#/components/schemas/_templates__templateId__render_previews_post_request_formatOpts'
+        required:
+        - target
+        - type
+        type: object
+      type: object
+    _documents_init_post_200_response:
+      example:
+        jobId: jobId
+        presignedDataUploadUrl: presignedDataUploadUrl
+        presignedTemplateUploadUrl: presignedTemplateUploadUrl
+        target: pdf
+      properties:
+        jobId:
+          type: string
+        target:
+          $ref: '#/components/schemas/_documents_init_post_request_allOf_target'
+        presignedDataUploadUrl:
+          nullable: true
+          type: string
+        presignedTemplateUploadUrl:
+          nullable: true
+          type: string
+      required:
+      - jobId
+      - presignedDataUploadUrl
+      - presignedTemplateUploadUrl
+      - target
+      type: object
+    _documents__jobId__render_post_request:
+      properties:
+        shouldWaitForRenderCompletion:
+          type: boolean
+        uploadPresignedS3Url:
+          type: string
+      type: object
+    _documents__jobId__render_post_200_response:
+      example:
+        jobId: jobId
+      properties:
+        jobId:
+          type: string
+      required:
+      - jobId
+      type: object
+    _documents_immediate_render_post_request:
+      allOf:
+      - allOf:
+        - properties:
+            data:
+              additionalProperties: {}
+              type: object
+          type: object
+        - properties:
+            type:
+              $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_type'
+            target:
+              $ref: '#/components/schemas/_documents_init_post_request_allOf_target'
+            templateId:
+              type: string
+            formatOpts:
+              $ref: '#/components/schemas/_templates__templateId__render_previews_post_request_formatOpts'
+          required:
+          - target
+          - type
+          type: object
+        type: object
+      - properties:
+          data:
+            additionalProperties: {}
+            type: object
+        required:
+        - data
+        type: object
+      - properties:
+          template:
+            type: string
+        type: object
+    _documents_immediate_render_post_200_response:
+      example:
+        url: url
+      properties:
+        url:
+          type: string
+      required:
+      - url
+      type: object
+    _jobs__jobId__get_200_response_output_metadata:
+      example:
+        renderTime: 0.8008281904610115
+      properties:
+        renderTime:
+          type: number
+      required:
+      - renderTime
+      type: object
+    _jobs__jobId__get_200_response_output:
+      example:
+        metadata:
+          renderTime: 0.8008281904610115
+        data:
+          url: url
+      properties:
+        data:
+          $ref: '#/components/schemas/_documents_immediate_render_post_200_response'
+        metadata:
+          $ref: '#/components/schemas/_jobs__jobId__get_200_response_output_metadata'
+      required:
+      - data
+      - metadata
+      type: object
+    _jobs__jobId__get_200_response:
+      example:
+        output:
+          metadata:
+            renderTime: 0.8008281904610115
+          data:
+            url: url
+        jobId: jobId
+        success: true
+        type: docx
+        target: pdf
+        status: status
+      properties:
+        type:
+          $ref: '#/components/schemas/_templates__templateId__put_request_allOf_templateInfo_type'
+        jobId:
+          type: string
+        target:
+          $ref: '#/components/schemas/_documents_init_post_request_allOf_target'
+        output:
+          $ref: '#/components/schemas/_jobs__jobId__get_200_response_output'
+        success:
+          type: boolean
+        status:
+          type: string
+      required:
+      - jobId
+      - target
+      - type
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: Api Token
+      scheme: bearer
+      type: http
+
