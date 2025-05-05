@@ -18,6 +18,7 @@
   "paths": {
     "/templates/init": {
       "get": {
+        "operationId": "initializeTemplateCreation",
         "summary": "Initialize Template Creation",
         "tags": [
           "templates"
@@ -56,6 +57,7 @@
     },
     "/templates/{templateId}": {
       "put": {
+        "operationId": "updateTemplate",
         "summary": "Update Template",
         "tags": [
           "templates"
@@ -252,6 +254,7 @@
         }
       },
       "post": {
+        "operationId": "saveCreatedTemplate",
         "summary": "Save New Template",
         "tags": [
           "templates"
@@ -425,6 +428,7 @@
         }
       },
       "delete": {
+        "operationId": "deleteTemplate",
         "summary": "Delete Template",
         "tags": [
           "templates"
@@ -461,34 +465,12 @@
     },
     "/templates/{templateId}/unzip": {
       "post": {
+        "operationId": "extractTemplateFiles",
         "summary": "Extract Template Files",
         "tags": [
           "templates"
         ],
         "description": "Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "templateId": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "templateId"
-                ]
-              }
-            }
-          },
-          "required": true
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "schema": {
@@ -497,6 +479,11 @@
             "in": "path",
             "name": "templateId",
             "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "responses": {
@@ -515,6 +502,7 @@
     },
     "/templates/{templateId}/render-previews": {
       "post": {
+        "operationId": "generateTemplatePreviews",
         "summary": "Generate Template Previews",
         "tags": [
           "templates"
@@ -743,6 +731,7 @@
     },
     "/templates/{templateId}/presigned-url": {
       "get": {
+        "operationId": "generatePresignedGetUrl",
         "summary": "Generate Presigned URL",
         "tags": [
           "templates"
@@ -787,6 +776,7 @@
     },
     "/templates/{templateId}/index-html": {
       "get": {
+        "operationId": "getTemplateIndexHtml",
         "summary": "Get Template Index HTML",
         "tags": [
           "templates"
@@ -829,6 +819,7 @@
         }
       },
       "post": {
+        "operationId": "uploadTemplateIndexHtml",
         "summary": "Upload Template Index HTML",
         "tags": [
           "templates"
@@ -883,6 +874,7 @@
     },
     "/templates/{templateId}/clone": {
       "post": {
+        "operationId": "cloneTemplate",
         "summary": "Clone Template",
         "tags": [
           "templates"
@@ -927,6 +919,7 @@
     },
     "/documents/init": {
       "post": {
+        "operationId": "initializeRenderJob",
         "summary": "Initialize Render Job",
         "tags": [
           "render"
@@ -1246,6 +1239,7 @@
     },
     "/documents/{jobId}/render": {
       "post": {
+        "operationId": "startRenderJob",
         "summary": "Start Render Job",
         "tags": [
           "render"
@@ -1307,6 +1301,7 @@
     },
     "/documents/render-preview": {
       "post": {
+        "operationId": "generateDocumentPreview",
         "summary": "Generate Document Preview",
         "tags": [
           "render"
@@ -1512,6 +1507,7 @@
     },
     "/documents/immediate-render": {
       "post": {
+        "operationId": "startImmediateRender",
         "summary": "Immediate Render",
         "tags": [
           "render"
@@ -1786,6 +1782,7 @@
     },
     "/jobs/{jobId}": {
       "get": {
+        "operationId": "getJobStatus",
         "summary": "Get Job Status",
         "tags": [
           "render"
@@ -1961,6 +1958,7 @@
     },
     "/api-tokens/{tokenId}": {
       "delete": {
+        "operationId": "deleteApiToken",
         "summary": "Delete API Token",
         "tags": [
           "tokens"
