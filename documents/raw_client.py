@@ -28,7 +28,7 @@ from .types.start_render_job_response import StartRenderJobResponse
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawRenderClient:
+class RawDocumentsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -326,7 +326,7 @@ class RawRenderClient:
         raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response_json)
 
 
-class AsyncRawRenderClient:
+class AsyncRawDocumentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 

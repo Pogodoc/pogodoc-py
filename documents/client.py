@@ -4,7 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from .raw_client import AsyncRawRenderClient, RawRenderClient
+from .raw_client import AsyncRawDocumentsClient, RawDocumentsClient
 from .types.generate_document_preview_request_format_opts import GenerateDocumentPreviewRequestFormatOpts
 from .types.generate_document_preview_request_type import GenerateDocumentPreviewRequestType
 from .types.generate_document_preview_response import GenerateDocumentPreviewResponse
@@ -23,18 +23,18 @@ from .types.start_render_job_response import StartRenderJobResponse
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RenderClient:
+class DocumentsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._raw_client = RawRenderClient(client_wrapper=client_wrapper)
+        self._raw_client = RawDocumentsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> RawRenderClient:
+    def with_raw_response(self) -> RawDocumentsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        RawRenderClient
+        RawDocumentsClient
         """
         return self._raw_client
 
@@ -75,7 +75,7 @@ class RenderClient:
         --------
         from pogodoc import PogodocApi
         client = PogodocApi(token="YOUR_TOKEN", )
-        client.render.initialize_render_job(type="docx", target="pdf", )
+        client.documents.initialize_render_job(type="docx", target="pdf", )
         """
         _response = self._raw_client.initialize_render_job(
             type=type,
@@ -118,7 +118,7 @@ class RenderClient:
         --------
         from pogodoc import PogodocApi
         client = PogodocApi(token="YOUR_TOKEN", )
-        client.render.start_render_job(job_id='jobId', )
+        client.documents.start_render_job(job_id='jobId', )
         """
         _response = self._raw_client.start_render_job(
             job_id,
@@ -162,7 +162,7 @@ class RenderClient:
         --------
         from pogodoc import PogodocApi
         client = PogodocApi(token="YOUR_TOKEN", )
-        client.render.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
+        client.documents.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
         }, )
         """
         _response = self._raw_client.generate_document_preview(
@@ -210,7 +210,7 @@ class RenderClient:
         --------
         from pogodoc import PogodocApi
         client = PogodocApi(token="YOUR_TOKEN", )
-        client.render.start_immediate_render(start_immediate_render_request_data={'key': 'value'
+        client.documents.start_immediate_render(start_immediate_render_request_data={'key': 'value'
         }, type="docx", target="pdf", )
         """
         _response = self._raw_client.start_immediate_render(
@@ -246,24 +246,24 @@ class RenderClient:
         --------
         from pogodoc import PogodocApi
         client = PogodocApi(token="YOUR_TOKEN", )
-        client.render.get_job_status(job_id='jobId', )
+        client.documents.get_job_status(job_id='jobId', )
         """
         _response = self._raw_client.get_job_status(job_id, request_options=request_options)
         return _response.data
 
 
-class AsyncRenderClient:
+class AsyncDocumentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawRenderClient(client_wrapper=client_wrapper)
+        self._raw_client = AsyncRawDocumentsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> AsyncRawRenderClient:
+    def with_raw_response(self) -> AsyncRawDocumentsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        AsyncRawRenderClient
+        AsyncRawDocumentsClient
         """
         return self._raw_client
 
@@ -306,7 +306,7 @@ class AsyncRenderClient:
         import asyncio
         client = AsyncPogodocApi(token="YOUR_TOKEN", )
         async def main() -> None:
-            await client.render.initialize_render_job(type="docx", target="pdf", )
+            await client.documents.initialize_render_job(type="docx", target="pdf", )
         asyncio.run(main())
         """
         _response = await self._raw_client.initialize_render_job(
@@ -352,7 +352,7 @@ class AsyncRenderClient:
         import asyncio
         client = AsyncPogodocApi(token="YOUR_TOKEN", )
         async def main() -> None:
-            await client.render.start_render_job(job_id='jobId', )
+            await client.documents.start_render_job(job_id='jobId', )
         asyncio.run(main())
         """
         _response = await self._raw_client.start_render_job(
@@ -399,7 +399,7 @@ class AsyncRenderClient:
         import asyncio
         client = AsyncPogodocApi(token="YOUR_TOKEN", )
         async def main() -> None:
-            await client.render.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
+            await client.documents.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
             }, )
         asyncio.run(main())
         """
@@ -450,7 +450,7 @@ class AsyncRenderClient:
         import asyncio
         client = AsyncPogodocApi(token="YOUR_TOKEN", )
         async def main() -> None:
-            await client.render.start_immediate_render(start_immediate_render_request_data={'key': 'value'
+            await client.documents.start_immediate_render(start_immediate_render_request_data={'key': 'value'
             }, type="docx", target="pdf", )
         asyncio.run(main())
         """
@@ -489,7 +489,7 @@ class AsyncRenderClient:
         import asyncio
         client = AsyncPogodocApi(token="YOUR_TOKEN", )
         async def main() -> None:
-            await client.render.get_job_status(job_id='jobId', )
+            await client.documents.get_job_status(job_id='jobId', )
         asyncio.run(main())
         """
         _response = await self._raw_client.get_job_status(job_id, request_options=request_options)
