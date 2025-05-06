@@ -4,8 +4,8 @@ import typing
 
 import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .documents.client import AsyncDocumentsClient, DocumentsClient
 from .environment import PogodocApiEnvironment
-from .render.client import AsyncRenderClient, RenderClient
 from .templates.client import AsyncTemplatesClient, TemplatesClient
 from .tokens.client import AsyncTokensClient, TokensClient
 
@@ -66,7 +66,7 @@ class PogodocApi:
             timeout=_defaulted_timeout,
         )
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
-        self.render = RenderClient(client_wrapper=self._client_wrapper)
+        self.documents = DocumentsClient(client_wrapper=self._client_wrapper)
         self.tokens = TokensClient(client_wrapper=self._client_wrapper)
 
 
@@ -126,7 +126,7 @@ class AsyncPogodocApi:
             timeout=_defaulted_timeout,
         )
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
-        self.render = AsyncRenderClient(client_wrapper=self._client_wrapper)
+        self.documents = AsyncDocumentsClient(client_wrapper=self._client_wrapper)
         self.tokens = AsyncTokensClient(client_wrapper=self._client_wrapper)
 
 

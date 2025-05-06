@@ -4,15 +4,15 @@ require_relative "environment"
 require_relative "types_export"
 require_relative "requests"
 require_relative "pogodoc_api_client/templates/client"
-require_relative "pogodoc_api_client/render/client"
+require_relative "pogodoc_api_client/documents/client"
 require_relative "pogodoc_api_client/tokens/client"
 
 module PogodocApiClient
   class Client
     # @return [PogodocApiClient::TemplatesClient]
     attr_reader :templates
-    # @return [PogodocApiClient::RenderClient]
-    attr_reader :render
+    # @return [PogodocApiClient::DocumentsClient]
+    attr_reader :documents
     # @return [PogodocApiClient::TokensClient]
     attr_reader :tokens
 
@@ -32,7 +32,7 @@ module PogodocApiClient
         token: token
       )
       @templates = PogodocApiClient::TemplatesClient.new(request_client: @request_client)
-      @render = PogodocApiClient::RenderClient.new(request_client: @request_client)
+      @documents = PogodocApiClient::DocumentsClient.new(request_client: @request_client)
       @tokens = PogodocApiClient::TokensClient.new(request_client: @request_client)
     end
   end
@@ -40,8 +40,8 @@ module PogodocApiClient
   class AsyncClient
     # @return [PogodocApiClient::AsyncTemplatesClient]
     attr_reader :templates
-    # @return [PogodocApiClient::AsyncRenderClient]
-    attr_reader :render
+    # @return [PogodocApiClient::AsyncDocumentsClient]
+    attr_reader :documents
     # @return [PogodocApiClient::AsyncTokensClient]
     attr_reader :tokens
 
@@ -61,7 +61,7 @@ module PogodocApiClient
         token: token
       )
       @templates = PogodocApiClient::AsyncTemplatesClient.new(request_client: @async_request_client)
-      @render = PogodocApiClient::AsyncRenderClient.new(request_client: @async_request_client)
+      @documents = PogodocApiClient::AsyncDocumentsClient.new(request_client: @async_request_client)
       @tokens = PogodocApiClient::AsyncTokensClient.new(request_client: @async_request_client)
     end
   end

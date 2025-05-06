@@ -5,7 +5,7 @@
 import core.ClientOptions;
 import core.Suppliers;
 import java.util.function.Supplier;
-import resources.render.AsyncRenderClient;
+import resources.documents.AsyncDocumentsClient;
 import resources.templates.AsyncTemplatesClient;
 import resources.tokens.AsyncTokensClient;
 
@@ -14,14 +14,14 @@ public class AsyncPogodocApiClient {
 
   protected final Supplier<AsyncTemplatesClient> templatesClient;
 
-  protected final Supplier<AsyncRenderClient> renderClient;
+  protected final Supplier<AsyncDocumentsClient> documentsClient;
 
   protected final Supplier<AsyncTokensClient> tokensClient;
 
   public AsyncPogodocApiClient(ClientOptions clientOptions) {
     this.clientOptions = clientOptions;
     this.templatesClient = Suppliers.memoize(() -> new AsyncTemplatesClient(clientOptions));
-    this.renderClient = Suppliers.memoize(() -> new AsyncRenderClient(clientOptions));
+    this.documentsClient = Suppliers.memoize(() -> new AsyncDocumentsClient(clientOptions));
     this.tokensClient = Suppliers.memoize(() -> new AsyncTokensClient(clientOptions));
   }
 
@@ -29,8 +29,8 @@ public class AsyncPogodocApiClient {
     return this.templatesClient.get();
   }
 
-  public AsyncRenderClient render() {
-    return this.renderClient.get();
+  public AsyncDocumentsClient documents() {
+    return this.documentsClient.get();
   }
 
   public AsyncTokensClient tokens() {

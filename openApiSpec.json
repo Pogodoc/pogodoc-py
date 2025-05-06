@@ -922,7 +922,7 @@
         "operationId": "initializeRenderJob",
         "summary": "Initialize Render Job",
         "tags": [
-          "render"
+          "documents"
         ],
         "description": "Creates a new render job with a unique ID, sets up S3 storage for template and data files, and generates presigned upload URLs if needed. Requires subscription check.",
         "requestBody": {
@@ -1242,7 +1242,7 @@
         "operationId": "startRenderJob",
         "summary": "Start Render Job",
         "tags": [
-          "render"
+          "documents"
         ],
         "description": "Takes a previously initialized job, updates its status to in-progress, and triggers the rendering process using Puppeteer. Can optionally wait for render completion.",
         "requestBody": {
@@ -1304,7 +1304,7 @@
         "operationId": "generateDocumentPreview",
         "summary": "Generate Document Preview",
         "tags": [
-          "render"
+          "documents"
         ],
         "description": "Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.",
         "requestBody": {
@@ -1510,7 +1510,7 @@
         "operationId": "startImmediateRender",
         "summary": "Immediate Render",
         "tags": [
-          "render"
+          "documents"
         ],
         "description": "Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.",
         "requestBody": {
@@ -1785,7 +1785,7 @@
         "operationId": "getJobStatus",
         "summary": "Get Job Status",
         "tags": [
-          "render"
+          "documents"
         ],
         "description": "Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.",
         "parameters": [

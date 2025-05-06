@@ -2,10 +2,9 @@
 
 # isort: skip_file
 
-from . import render, templates, tokens
+from . import documents, templates, tokens
 from .client import AsyncPogodocApi, PogodocApi
-from .environment import PogodocApiEnvironment
-from .render import (
+from .documents import (
     GenerateDocumentPreviewRequestFormatOpts,
     GenerateDocumentPreviewRequestFormatOptsFormat,
     GenerateDocumentPreviewRequestType,
@@ -29,6 +28,7 @@ from .render import (
     StartImmediateRenderResponse,
     StartRenderJobResponse,
 )
+from .environment import PogodocApiEnvironment
 from .templates import (
     CloneTemplateResponse,
     GeneratePresignedGetUrlResponse,
@@ -96,7 +96,7 @@ __all__ = [
     "UpdateTemplateRequestTemplateInfoCategoriesItem",
     "UpdateTemplateRequestTemplateInfoType",
     "UpdateTemplateResponse",
-    "render",
+    "documents",
     "templates",
     "tokens",
 ]
