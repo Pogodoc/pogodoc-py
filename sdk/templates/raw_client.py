@@ -74,7 +74,7 @@ class RawTemplatesClient:
         template_info: SaveCreatedTemplateRequestTemplateInfo,
         preview_ids: SaveCreatedTemplateRequestPreviewIds,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[None]:
         """
         Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
 
@@ -91,8 +91,7 @@ class RawTemplatesClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
-            Template created successfully
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -113,14 +112,7 @@ class RawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -191,7 +183,7 @@ class RawTemplatesClient:
 
     def delete_template(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[None]:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
 
@@ -204,8 +196,7 @@ class RawTemplatesClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
-            Template deleted successfully
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -214,14 +205,7 @@ class RawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -229,7 +213,7 @@ class RawTemplatesClient:
 
     def extract_template_files(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
 
@@ -242,8 +226,7 @@ class RawTemplatesClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
-            Template files extracted successfully
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
@@ -252,14 +235,7 @@ class RawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -404,7 +380,7 @@ class RawTemplatesClient:
 
     def upload_template_index_html(
         self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
 
@@ -419,8 +395,7 @@ class RawTemplatesClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
-            Template index.html uploaded successfully
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/index-html",
@@ -436,14 +411,7 @@ class RawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -535,7 +503,7 @@ class AsyncRawTemplatesClient:
         template_info: SaveCreatedTemplateRequestTemplateInfo,
         preview_ids: SaveCreatedTemplateRequestPreviewIds,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[None]:
         """
         Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
 
@@ -552,8 +520,7 @@ class AsyncRawTemplatesClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
-            Template created successfully
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -574,14 +541,7 @@ class AsyncRawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -652,7 +612,7 @@ class AsyncRawTemplatesClient:
 
     async def delete_template(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[None]:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
 
@@ -665,8 +625,7 @@ class AsyncRawTemplatesClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
-            Template deleted successfully
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -675,14 +634,7 @@ class AsyncRawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -690,7 +642,7 @@ class AsyncRawTemplatesClient:
 
     async def extract_template_files(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
 
@@ -703,8 +655,7 @@ class AsyncRawTemplatesClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
-            Template files extracted successfully
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
@@ -713,14 +664,7 @@ class AsyncRawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -865,7 +809,7 @@ class AsyncRawTemplatesClient:
 
     async def upload_template_index_html(
         self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
 
@@ -880,8 +824,7 @@ class AsyncRawTemplatesClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
-            Template index.html uploaded successfully
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/index-html",
@@ -897,14 +840,7 @@ class AsyncRawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)

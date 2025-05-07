@@ -69,7 +69,7 @@ class TemplatesClient:
         template_info: SaveCreatedTemplateRequestTemplateInfo,
         preview_ids: SaveCreatedTemplateRequestPreviewIds,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
 
@@ -86,8 +86,7 @@ class TemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template created successfully
+        None
 
         Examples
         --------
@@ -151,9 +150,7 @@ class TemplatesClient:
         )
         return _response.data
 
-    def delete_template(
-        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def delete_template(self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
 
@@ -166,8 +163,7 @@ class TemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template deleted successfully
+        None
 
         Examples
         --------
@@ -180,7 +176,7 @@ class TemplatesClient:
 
     def extract_template_files(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
 
@@ -193,8 +189,7 @@ class TemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template files extracted successfully
+        None
 
         Examples
         --------
@@ -303,7 +298,7 @@ class TemplatesClient:
 
     def upload_template_index_html(
         self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
 
@@ -318,8 +313,7 @@ class TemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template index.html uploaded successfully
+        None
 
         Examples
         --------
@@ -410,7 +404,7 @@ class AsyncTemplatesClient:
         template_info: SaveCreatedTemplateRequestTemplateInfo,
         preview_ids: SaveCreatedTemplateRequestPreviewIds,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
 
@@ -427,8 +421,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template created successfully
+        None
 
         Examples
         --------
@@ -500,7 +493,7 @@ class AsyncTemplatesClient:
 
     async def delete_template(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
 
@@ -513,8 +506,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template deleted successfully
+        None
 
         Examples
         --------
@@ -530,7 +522,7 @@ class AsyncTemplatesClient:
 
     async def extract_template_files(
         self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
 
@@ -543,8 +535,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template files extracted successfully
+        None
 
         Examples
         --------
@@ -665,7 +656,7 @@ class AsyncTemplatesClient:
 
     async def upload_template_index_html(
         self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
 
@@ -680,8 +671,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Template index.html uploaded successfully
+        None
 
         Examples
         --------
