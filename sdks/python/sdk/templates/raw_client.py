@@ -92,7 +92,7 @@ class RawTemplatesClient:
         Returns
         -------
         HttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template created successfully
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -205,7 +205,7 @@ class RawTemplatesClient:
         Returns
         -------
         HttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template deleted successfully
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -243,7 +243,7 @@ class RawTemplatesClient:
         Returns
         -------
         HttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template files extracted successfully
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
@@ -420,7 +420,7 @@ class RawTemplatesClient:
         Returns
         -------
         HttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template index.html uploaded successfully
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/index-html",
@@ -553,7 +553,7 @@ class AsyncRawTemplatesClient:
         Returns
         -------
         AsyncHttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template created successfully
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -666,7 +666,7 @@ class AsyncRawTemplatesClient:
         Returns
         -------
         AsyncHttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template deleted successfully
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}",
@@ -704,7 +704,7 @@ class AsyncRawTemplatesClient:
         Returns
         -------
         AsyncHttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template files extracted successfully
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
@@ -881,7 +881,7 @@ class AsyncRawTemplatesClient:
         Returns
         -------
         AsyncHttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Template index.html uploaded successfully
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/index-html",

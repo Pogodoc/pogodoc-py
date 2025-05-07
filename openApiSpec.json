@@ -21,7 +21,7 @@
         "operationId": "initializeTemplateCreation",
         "summary": "Initialize Template Creation",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Initializes template creation by generating a unique ID and providing a presigned URL for template ZIP upload. Sets unfinished tag for tracking incomplete templates.",
         "security": [
@@ -60,7 +60,7 @@
         "operationId": "updateTemplate",
         "summary": "Update Template",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Updates template content, handles S3 storage cleanup for old content, updates template metadata in Strapi, and manages preview files. Removes unfinished tags after successful update.",
         "requestBody": {
@@ -257,7 +257,7 @@
         "operationId": "saveCreatedTemplate",
         "summary": "Save New Template",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.",
         "requestBody": {
@@ -415,12 +415,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response",
+          "204": {
+            "description": "Template created successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "not": {}
+                  "description": "Template created successfully"
                 }
               }
             }
@@ -431,7 +431,7 @@
         "operationId": "deleteTemplate",
         "summary": "Delete Template",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.",
         "parameters": [
@@ -450,12 +450,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response",
+          "204": {
+            "description": "Template deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "not": {}
+                  "description": "Template deleted successfully"
                 }
               }
             }
@@ -468,7 +468,7 @@
         "operationId": "extractTemplateFiles",
         "summary": "Extract Template Files",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.",
         "parameters": [
@@ -487,12 +487,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response",
+          "204": {
+            "description": "Template files extracted successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "not": {}
+                  "description": "Template files extracted successfully"
                 }
               }
             }
@@ -505,7 +505,7 @@
         "operationId": "generateTemplatePreviews",
         "summary": "Generate Template Previews",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Creates both PNG and PDF preview files for template visualization. Generates previews in parallel and returns URLs for both formats.",
         "requestBody": {
@@ -734,7 +734,7 @@
         "operationId": "generatePresignedGetUrl",
         "summary": "Generate Presigned URL",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Generates a presigned URL for template access. Used for downloading template files from S3 storage.",
         "parameters": [
@@ -779,7 +779,7 @@
         "operationId": "getTemplateIndexHtml",
         "summary": "Get Template Index HTML",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Retrieves the template index.html file from S3 storage. Used for rendering the template in the browser.",
         "parameters": [
@@ -822,7 +822,7 @@
         "operationId": "uploadTemplateIndexHtml",
         "summary": "Upload Template Index HTML",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.",
         "requestBody": {
@@ -859,12 +859,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response",
+          "204": {
+            "description": "Template index.html uploaded successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "not": {}
+                  "description": "Template index.html uploaded successfully"
                 }
               }
             }
@@ -877,7 +877,7 @@
         "operationId": "cloneTemplate",
         "summary": "Clone Template",
         "tags": [
-          "templates"
+          "Templates"
         ],
         "description": "Creates a new template by duplicating an existing template's content and metadata. Includes copying preview files and template index.",
         "parameters": [
@@ -922,7 +922,7 @@
         "operationId": "initializeRenderJob",
         "summary": "Initialize Render Job",
         "tags": [
-          "documents"
+          "Documents"
         ],
         "description": "Creates a new render job with a unique ID, sets up S3 storage for template and data files, and generates presigned upload URLs if needed. Requires subscription check.",
         "requestBody": {
@@ -1242,7 +1242,7 @@
         "operationId": "startRenderJob",
         "summary": "Start Render Job",
         "tags": [
-          "documents"
+          "Documents"
         ],
         "description": "Takes a previously initialized job, updates its status to in-progress, and triggers the rendering process using Puppeteer. Can optionally wait for render completion.",
         "requestBody": {
@@ -1304,7 +1304,7 @@
         "operationId": "generateDocumentPreview",
         "summary": "Generate Document Preview",
         "tags": [
-          "documents"
+          "Documents"
         ],
         "description": "Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.",
         "requestBody": {
@@ -1510,7 +1510,7 @@
         "operationId": "startImmediateRender",
         "summary": "Immediate Render",
         "tags": [
-          "documents"
+          "Documents"
         ],
         "description": "Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.",
         "requestBody": {
@@ -1785,7 +1785,7 @@
         "operationId": "getJobStatus",
         "summary": "Get Job Status",
         "tags": [
-          "documents"
+          "Documents"
         ],
         "description": "Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.",
         "parameters": [
@@ -1961,7 +1961,7 @@
         "operationId": "deleteApiToken",
         "summary": "Delete API Token",
         "tags": [
-          "tokens"
+          "Tokens"
         ],
         "description": "Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.",
         "parameters": [
@@ -1980,12 +1980,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response",
+          "204": {
+            "description": "Token deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "not": {}
+                  "description": "Token deleted successfully"
                 }
               }
             }
