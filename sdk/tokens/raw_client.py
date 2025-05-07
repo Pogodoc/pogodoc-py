@@ -31,7 +31,7 @@ class RawTokensClient:
         Returns
         -------
         HttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Token deleted successfully
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api-tokens/{jsonable_encoder(token_id)}",
@@ -74,7 +74,7 @@ class AsyncRawTokensClient:
         Returns
         -------
         AsyncHttpResponse[typing.Optional[typing.Any]]
-            Default Response
+            Token deleted successfully
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api-tokens/{jsonable_encoder(token_id)}",

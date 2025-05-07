@@ -87,7 +87,7 @@ class TemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template created successfully
 
         Examples
         --------
@@ -167,7 +167,7 @@ class TemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template deleted successfully
 
         Examples
         --------
@@ -194,7 +194,7 @@ class TemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template files extracted successfully
 
         Examples
         --------
@@ -319,7 +319,7 @@ class TemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template index.html uploaded successfully
 
         Examples
         --------
@@ -428,7 +428,7 @@ class AsyncTemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template created successfully
 
         Examples
         --------
@@ -514,7 +514,7 @@ class AsyncTemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template deleted successfully
 
         Examples
         --------
@@ -544,7 +544,7 @@ class AsyncTemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template files extracted successfully
 
         Examples
         --------
@@ -681,7 +681,7 @@ class AsyncTemplatesClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Template index.html uploaded successfully
 
         Examples
         --------

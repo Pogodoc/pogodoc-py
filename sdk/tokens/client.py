@@ -38,7 +38,7 @@ class TokensClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Token deleted successfully
 
         Examples
         --------
@@ -81,7 +81,7 @@ class AsyncTokensClient:
         Returns
         -------
         typing.Optional[typing.Any]
-            Default Response
+            Token deleted successfully
 
         Examples
         --------
