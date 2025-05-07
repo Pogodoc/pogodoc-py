@@ -7,7 +7,6 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
-from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 
 
@@ -17,7 +16,7 @@ class RawTokensClient:
 
     def delete_api_token(
         self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[None]:
         """
         Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
 
@@ -30,8 +29,7 @@ class RawTokensClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
-            Token deleted successfully
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api-tokens/{jsonable_encoder(token_id)}",
@@ -40,14 +38,7 @@ class RawTokensClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)
@@ -60,7 +51,7 @@ class AsyncRawTokensClient:
 
     async def delete_api_token(
         self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[None]:
         """
         Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
 
@@ -73,8 +64,7 @@ class AsyncRawTokensClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
-            Token deleted successfully
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api-tokens/{jsonable_encoder(token_id)}",
@@ -83,14 +73,7 @@ class AsyncRawTokensClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Optional[typing.Any],
-                    parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response.text)

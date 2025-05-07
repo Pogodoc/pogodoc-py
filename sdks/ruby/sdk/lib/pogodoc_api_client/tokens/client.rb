@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "../../requests"
-require "json"
 require "async"
 
 module PogodocApiClient
@@ -20,7 +19,7 @@ module PogodocApiClient
     #
     # @param token_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -29,7 +28,7 @@ module PogodocApiClient
     #  )
     #  api.tokens.delete_api_token(token_id: "tokenId")
     def delete_api_token(token_id:, request_options: nil)
-      response = @request_client.conn.delete do |req|
+      @request_client.conn.delete do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -45,7 +44,6 @@ module PogodocApiClient
         end
         req.url "#{@request_client.get_url(request_options: request_options)}/api-tokens/#{token_id}"
       end
-      JSON.parse(response.body)
     end
   end
 
@@ -64,7 +62,7 @@ module PogodocApiClient
     #
     # @param token_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -74,7 +72,7 @@ module PogodocApiClient
     #  api.tokens.delete_api_token(token_id: "tokenId")
     def delete_api_token(token_id:, request_options: nil)
       Async do
-        response = @request_client.conn.delete do |req|
+        @request_client.conn.delete do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -90,8 +88,6 @@ module PogodocApiClient
           end
           req.url "#{@request_client.get_url(request_options: request_options)}/api-tokens/#{token_id}"
         end
-        parsed_json = JSON.parse(response.body)
-        parsed_json
       end
     end
   end

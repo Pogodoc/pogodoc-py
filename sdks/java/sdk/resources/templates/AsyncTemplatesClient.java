@@ -6,8 +6,8 @@ package resources.templates;
 
 import core.ClientOptions;
 import core.RequestOptions;
-import java.lang.Object;
 import java.lang.String;
+import java.lang.Void;
 import java.util.concurrent.CompletableFuture;
 import resources.templates.requests.GenerateTemplatePreviewsRequest;
 import resources.templates.requests.SaveCreatedTemplateRequest;
@@ -55,7 +55,7 @@ public class AsyncTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public CompletableFuture<Object> saveCreatedTemplate(String templateId,
+  public CompletableFuture<Void> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request) {
     return this.rawClient.saveCreatedTemplate(templateId, request).thenApply(response -> response.body());
   }
@@ -63,7 +63,7 @@ public class AsyncTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public CompletableFuture<Object> saveCreatedTemplate(String templateId,
+  public CompletableFuture<Void> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request, RequestOptions requestOptions) {
     return this.rawClient.saveCreatedTemplate(templateId, request, requestOptions).thenApply(response -> response.body());
   }
@@ -87,29 +87,28 @@ public class AsyncTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<Object> deleteTemplate(String templateId) {
+  public CompletableFuture<Void> deleteTemplate(String templateId) {
     return this.rawClient.deleteTemplate(templateId).thenApply(response -> response.body());
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<Object> deleteTemplate(String templateId,
-      RequestOptions requestOptions) {
+  public CompletableFuture<Void> deleteTemplate(String templateId, RequestOptions requestOptions) {
     return this.rawClient.deleteTemplate(templateId, requestOptions).thenApply(response -> response.body());
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public CompletableFuture<Object> extractTemplateFiles(String templateId) {
+  public CompletableFuture<Void> extractTemplateFiles(String templateId) {
     return this.rawClient.extractTemplateFiles(templateId).thenApply(response -> response.body());
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public CompletableFuture<Object> extractTemplateFiles(String templateId,
+  public CompletableFuture<Void> extractTemplateFiles(String templateId,
       RequestOptions requestOptions) {
     return this.rawClient.extractTemplateFiles(templateId, requestOptions).thenApply(response -> response.body());
   }
@@ -164,7 +163,7 @@ public class AsyncTemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public CompletableFuture<Object> uploadTemplateIndexHtml(String templateId,
+  public CompletableFuture<Void> uploadTemplateIndexHtml(String templateId,
       UploadTemplateIndexHtmlRequest request) {
     return this.rawClient.uploadTemplateIndexHtml(templateId, request).thenApply(response -> response.body());
   }
@@ -172,7 +171,7 @@ public class AsyncTemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public CompletableFuture<Object> uploadTemplateIndexHtml(String templateId,
+  public CompletableFuture<Void> uploadTemplateIndexHtml(String templateId,
       UploadTemplateIndexHtmlRequest request, RequestOptions requestOptions) {
     return this.rawClient.uploadTemplateIndexHtml(templateId, request, requestOptions).thenApply(response -> response.body());
   }

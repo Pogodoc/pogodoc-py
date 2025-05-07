@@ -6,8 +6,8 @@ package resources.tokens;
 
 import core.ClientOptions;
 import core.RequestOptions;
-import java.lang.Object;
 import java.lang.String;
+import java.lang.Void;
 import java.util.concurrent.CompletableFuture;
 
 public class AsyncTokensClient {
@@ -30,14 +30,14 @@ public class AsyncTokensClient {
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public CompletableFuture<Object> deleteApiToken(String tokenId) {
+  public CompletableFuture<Void> deleteApiToken(String tokenId) {
     return this.rawClient.deleteApiToken(tokenId).thenApply(response -> response.body());
   }
 
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public CompletableFuture<Object> deleteApiToken(String tokenId, RequestOptions requestOptions) {
+  public CompletableFuture<Void> deleteApiToken(String tokenId, RequestOptions requestOptions) {
     return this.rawClient.deleteApiToken(tokenId, requestOptions).thenApply(response -> response.body());
   }
 }

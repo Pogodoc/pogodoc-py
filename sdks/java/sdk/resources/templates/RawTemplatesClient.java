@@ -15,6 +15,7 @@ import core.RequestOptions;
 import java.io.IOException;
 import java.lang.Object;
 import java.lang.String;
+import java.lang.Void;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -83,7 +84,7 @@ public class RawTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public PogodocApiHttpResponse<Object> saveCreatedTemplate(String templateId,
+  public PogodocApiHttpResponse<Void> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request) {
     return saveCreatedTemplate(templateId,request,null);
   }
@@ -91,7 +92,7 @@ public class RawTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public PogodocApiHttpResponse<Object> saveCreatedTemplate(String templateId,
+  public PogodocApiHttpResponse<Void> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -110,7 +111,6 @@ public class RawTemplatesClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -119,7 +119,7 @@ public class RawTemplatesClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response);
+        return new PogodocApiHttpResponse<>(null, response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -181,14 +181,14 @@ public class RawTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public PogodocApiHttpResponse<Object> deleteTemplate(String templateId) {
+  public PogodocApiHttpResponse<Void> deleteTemplate(String templateId) {
     return deleteTemplate(templateId,null);
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public PogodocApiHttpResponse<Object> deleteTemplate(String templateId,
+  public PogodocApiHttpResponse<Void> deleteTemplate(String templateId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -199,8 +199,6 @@ public class RawTemplatesClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -209,7 +207,7 @@ public class RawTemplatesClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response);
+        return new PogodocApiHttpResponse<>(null, response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -222,14 +220,14 @@ public class RawTemplatesClient {
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public PogodocApiHttpResponse<Object> extractTemplateFiles(String templateId) {
+  public PogodocApiHttpResponse<Void> extractTemplateFiles(String templateId) {
     return extractTemplateFiles(templateId,null);
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public PogodocApiHttpResponse<Object> extractTemplateFiles(String templateId,
+  public PogodocApiHttpResponse<Void> extractTemplateFiles(String templateId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -241,8 +239,6 @@ public class RawTemplatesClient {
       .url(httpUrl)
       .method("POST", RequestBody.create("", null))
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -251,7 +247,7 @@ public class RawTemplatesClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response);
+        return new PogodocApiHttpResponse<>(null, response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);
@@ -400,7 +396,7 @@ public class RawTemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public PogodocApiHttpResponse<Object> uploadTemplateIndexHtml(String templateId,
+  public PogodocApiHttpResponse<Void> uploadTemplateIndexHtml(String templateId,
       UploadTemplateIndexHtmlRequest request) {
     return uploadTemplateIndexHtml(templateId,request,null);
   }
@@ -408,7 +404,7 @@ public class RawTemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public PogodocApiHttpResponse<Object> uploadTemplateIndexHtml(String templateId,
+  public PogodocApiHttpResponse<Void> uploadTemplateIndexHtml(String templateId,
       UploadTemplateIndexHtmlRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -428,7 +424,6 @@ public class RawTemplatesClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -437,7 +432,7 @@ public class RawTemplatesClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response);
+        return new PogodocApiHttpResponse<>(null, response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

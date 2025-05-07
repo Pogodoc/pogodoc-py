@@ -13,6 +13,7 @@ import core.RequestOptions;
 import java.io.IOException;
 import java.lang.Object;
 import java.lang.String;
+import java.lang.Void;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -30,14 +31,14 @@ public class RawTokensClient {
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public PogodocApiHttpResponse<Object> deleteApiToken(String tokenId) {
+  public PogodocApiHttpResponse<Void> deleteApiToken(String tokenId) {
     return deleteApiToken(tokenId,null);
   }
 
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public PogodocApiHttpResponse<Object> deleteApiToken(String tokenId,
+  public PogodocApiHttpResponse<Void> deleteApiToken(String tokenId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -48,8 +49,6 @@ public class RawTokensClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -58,7 +57,7 @@ public class RawTokensClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response);
+        return new PogodocApiHttpResponse<>(null, response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

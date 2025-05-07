@@ -22,9 +22,7 @@ class TokensClient:
         """
         return self._raw_client
 
-    def delete_api_token(
-        self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def delete_api_token(self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
 
@@ -37,8 +35,7 @@ class TokensClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Token deleted successfully
+        None
 
         Examples
         --------
@@ -65,9 +62,7 @@ class AsyncTokensClient:
         """
         return self._raw_client
 
-    async def delete_api_token(
-        self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    async def delete_api_token(self, token_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
 
@@ -80,8 +75,7 @@ class AsyncTokensClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
-            Token deleted successfully
+        None
 
         Examples
         --------

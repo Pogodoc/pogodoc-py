@@ -4,7 +4,6 @@ require_relative "../../requests"
 require_relative "types/initialize_template_creation_response"
 require_relative "types/save_created_template_request_template_info"
 require_relative "types/save_created_template_request_preview_ids"
-require "json"
 require_relative "types/update_template_request_template_info"
 require_relative "types/update_template_request_preview_ids"
 require_relative "types/update_template_response"
@@ -76,7 +75,7 @@ module PogodocApiClient
     #   * :png_job_id (String)
     #   * :pdf_job_id (String)
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -89,7 +88,7 @@ module PogodocApiClient
     #    preview_ids: { png_job_id: "pngJobId", pdf_job_id: "pdfJobId" }
     #  )
     def save_created_template(template_id:, template_info:, preview_ids:, request_options: nil)
-      response = @request_client.conn.post do |req|
+      @request_client.conn.post do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -107,7 +106,6 @@ module PogodocApiClient
         }.compact
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
       end
-      JSON.parse(response.body)
     end
 
     # Updates template content, handles S3 storage cleanup for old content, updates
@@ -168,7 +166,7 @@ module PogodocApiClient
     #
     # @param template_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -177,7 +175,7 @@ module PogodocApiClient
     #  )
     #  api.templates.delete_template(template_id: "templateId")
     def delete_template(template_id:, request_options: nil)
-      response = @request_client.conn.delete do |req|
+      @request_client.conn.delete do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -193,7 +191,6 @@ module PogodocApiClient
         end
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
       end
-      JSON.parse(response.body)
     end
 
     # Extracts contents from an uploaded template ZIP file and stores individual files
@@ -201,7 +198,7 @@ module PogodocApiClient
     #
     # @param template_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -210,7 +207,7 @@ module PogodocApiClient
     #  )
     #  api.templates.extract_template_files(template_id: "templateId")
     def extract_template_files(template_id:, request_options: nil)
-      response = @request_client.conn.post do |req|
+      @request_client.conn.post do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -226,7 +223,6 @@ module PogodocApiClient
         end
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/unzip"
       end
-      JSON.parse(response.body)
     end
 
     # Creates both PNG and PDF preview files for template visualization. Generates
@@ -348,7 +344,7 @@ module PogodocApiClient
     # @param template_id [String]
     # @param template_index [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -357,7 +353,7 @@ module PogodocApiClient
     #  )
     #  api.templates.upload_template_index_html(template_id: "templateId", template_index: "templateIndex")
     def upload_template_index_html(template_id:, template_index:, request_options: nil)
-      response = @request_client.conn.post do |req|
+      @request_client.conn.post do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -371,7 +367,6 @@ module PogodocApiClient
         req.body = { **(request_options&.additional_body_parameters || {}), templateIndex: template_index }.compact
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/index-html"
       end
-      JSON.parse(response.body)
     end
 
     # Creates a new template by duplicating an existing template's content and
@@ -469,7 +464,7 @@ module PogodocApiClient
     #   * :png_job_id (String)
     #   * :pdf_job_id (String)
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -483,7 +478,7 @@ module PogodocApiClient
     #  )
     def save_created_template(template_id:, template_info:, preview_ids:, request_options: nil)
       Async do
-        response = @request_client.conn.post do |req|
+        @request_client.conn.post do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -501,8 +496,6 @@ module PogodocApiClient
           }.compact
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
         end
-        parsed_json = JSON.parse(response.body)
-        parsed_json
       end
     end
 
@@ -566,7 +559,7 @@ module PogodocApiClient
     #
     # @param template_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -576,7 +569,7 @@ module PogodocApiClient
     #  api.templates.delete_template(template_id: "templateId")
     def delete_template(template_id:, request_options: nil)
       Async do
-        response = @request_client.conn.delete do |req|
+        @request_client.conn.delete do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -592,8 +585,6 @@ module PogodocApiClient
           end
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
         end
-        parsed_json = JSON.parse(response.body)
-        parsed_json
       end
     end
 
@@ -602,7 +593,7 @@ module PogodocApiClient
     #
     # @param template_id [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -612,7 +603,7 @@ module PogodocApiClient
     #  api.templates.extract_template_files(template_id: "templateId")
     def extract_template_files(template_id:, request_options: nil)
       Async do
-        response = @request_client.conn.post do |req|
+        @request_client.conn.post do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -628,8 +619,6 @@ module PogodocApiClient
           end
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/unzip"
         end
-        parsed_json = JSON.parse(response.body)
-        parsed_json
       end
     end
 
@@ -758,7 +747,7 @@ module PogodocApiClient
     # @param template_id [String]
     # @param template_index [String]
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Object]
+    # @return [Void]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -768,7 +757,7 @@ module PogodocApiClient
     #  api.templates.upload_template_index_html(template_id: "templateId", template_index: "templateIndex")
     def upload_template_index_html(template_id:, template_index:, request_options: nil)
       Async do
-        response = @request_client.conn.post do |req|
+        @request_client.conn.post do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -782,8 +771,6 @@ module PogodocApiClient
           req.body = { **(request_options&.additional_body_parameters || {}), templateIndex: template_index }.compact
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/index-html"
         end
-        parsed_json = JSON.parse(response.body)
-        parsed_json
       end
     end
 

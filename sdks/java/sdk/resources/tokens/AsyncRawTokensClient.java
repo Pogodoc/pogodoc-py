@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.Void;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,14 +36,14 @@ public class AsyncRawTokensClient {
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> deleteApiToken(String tokenId) {
+  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteApiToken(String tokenId) {
     return deleteApiToken(tokenId,null);
   }
 
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> deleteApiToken(String tokenId,
+  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteApiToken(String tokenId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -53,20 +54,18 @@ public class AsyncRawTokensClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Object>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response));
+            future.complete(new PogodocApiHttpResponse<>(null, response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";

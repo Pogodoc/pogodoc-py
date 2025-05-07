@@ -416,14 +416,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Template created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Template created successfully"
-                }
-              }
-            }
+            "description": "Template created successfully"
           }
         }
       },
@@ -451,14 +444,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Template deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Template deleted successfully"
-                }
-              }
-            }
+            "description": "Template deleted successfully"
           }
         }
       }
@@ -488,14 +474,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Template files extracted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Template files extracted successfully"
-                }
-              }
-            }
+            "description": "Template files extracted successfully"
           }
         }
       }
@@ -860,14 +839,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Template index.html uploaded successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Template index.html uploaded successfully"
-                }
-              }
-            }
+            "description": "Template index.html uploaded successfully"
           }
         }
       }
@@ -1981,14 +1953,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Token deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "Token deleted successfully"
-                }
-              }
-            }
+            "description": "Token deleted successfully"
           }
         }
       }

@@ -20,6 +20,9 @@ groups:
           path: ../sdks/python/sdk
       - name: fernapi/fern-go-sdk
         version: 0.1.0
+        config:
+          module:
+            path: github.com/pogodoc/sdk-go
         output:
           location: local-file-system
           path: ../sdks/go/sdk

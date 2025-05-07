@@ -6,7 +6,6 @@ package resources.tokens;
 
 import core.ClientOptions;
 import core.RequestOptions;
-import java.lang.Object;
 import java.lang.String;
 
 public class TokensClient {
@@ -29,14 +28,14 @@ public class TokensClient {
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public Object deleteApiToken(String tokenId) {
-    return this.rawClient.deleteApiToken(tokenId).body();
+  public void deleteApiToken(String tokenId) {
+    this.rawClient.deleteApiToken(tokenId).body();
   }
 
   /**
    * Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.
    */
-  public Object deleteApiToken(String tokenId, RequestOptions requestOptions) {
-    return this.rawClient.deleteApiToken(tokenId, requestOptions).body();
+  public void deleteApiToken(String tokenId, RequestOptions requestOptions) {
+    this.rawClient.deleteApiToken(tokenId, requestOptions).body();
   }
 }

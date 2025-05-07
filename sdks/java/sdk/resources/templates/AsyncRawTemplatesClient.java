@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.Void;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -102,7 +103,7 @@ public class AsyncRawTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> saveCreatedTemplate(String templateId,
+  public CompletableFuture<PogodocApiHttpResponse<Void>> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request) {
     return saveCreatedTemplate(templateId,request,null);
   }
@@ -110,7 +111,7 @@ public class AsyncRawTemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> saveCreatedTemplate(String templateId,
+  public CompletableFuture<PogodocApiHttpResponse<Void>> saveCreatedTemplate(String templateId,
       SaveCreatedTemplateRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -129,19 +130,18 @@ public class AsyncRawTemplatesClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Object>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response));
+            future.complete(new PogodocApiHttpResponse<>(null, response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -226,14 +226,14 @@ public class AsyncRawTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> deleteTemplate(String templateId) {
+  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteTemplate(String templateId) {
     return deleteTemplate(templateId,null);
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> deleteTemplate(String templateId,
+  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteTemplate(String templateId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -244,20 +244,18 @@ public class AsyncRawTemplatesClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Object>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response));
+            future.complete(new PogodocApiHttpResponse<>(null, response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -280,14 +278,14 @@ public class AsyncRawTemplatesClient {
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> extractTemplateFiles(String templateId) {
+  public CompletableFuture<PogodocApiHttpResponse<Void>> extractTemplateFiles(String templateId) {
     return extractTemplateFiles(templateId,null);
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> extractTemplateFiles(String templateId,
+  public CompletableFuture<PogodocApiHttpResponse<Void>> extractTemplateFiles(String templateId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -299,20 +297,18 @@ public class AsyncRawTemplatesClient {
       .url(httpUrl)
       .method("POST", RequestBody.create("", null))
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Object>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response));
+            future.complete(new PogodocApiHttpResponse<>(null, response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";
@@ -510,16 +506,16 @@ public class AsyncRawTemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> uploadTemplateIndexHtml(
-      String templateId, UploadTemplateIndexHtmlRequest request) {
+  public CompletableFuture<PogodocApiHttpResponse<Void>> uploadTemplateIndexHtml(String templateId,
+      UploadTemplateIndexHtmlRequest request) {
     return uploadTemplateIndexHtml(templateId,request,null);
   }
 
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Object>> uploadTemplateIndexHtml(
-      String templateId, UploadTemplateIndexHtmlRequest request, RequestOptions requestOptions) {
+  public CompletableFuture<PogodocApiHttpResponse<Void>> uploadTemplateIndexHtml(String templateId,
+      UploadTemplateIndexHtmlRequest request, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("templates")
@@ -538,19 +534,18 @@ public class AsyncRawTemplatesClient {
       .method("POST", body)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .addHeader("Content-Type", "application/json")
-      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Object>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), Object.class), response));
+            future.complete(new PogodocApiHttpResponse<>(null, response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";

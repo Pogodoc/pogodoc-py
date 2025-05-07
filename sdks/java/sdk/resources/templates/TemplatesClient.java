@@ -6,7 +6,6 @@ package resources.templates;
 
 import core.ClientOptions;
 import core.RequestOptions;
-import java.lang.Object;
 import java.lang.String;
 import resources.templates.requests.GenerateTemplatePreviewsRequest;
 import resources.templates.requests.SaveCreatedTemplateRequest;
@@ -54,16 +53,16 @@ public class TemplatesClient {
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public Object saveCreatedTemplate(String templateId, SaveCreatedTemplateRequest request) {
-    return this.rawClient.saveCreatedTemplate(templateId, request).body();
+  public void saveCreatedTemplate(String templateId, SaveCreatedTemplateRequest request) {
+    this.rawClient.saveCreatedTemplate(templateId, request).body();
   }
 
   /**
    * Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.
    */
-  public Object saveCreatedTemplate(String templateId, SaveCreatedTemplateRequest request,
+  public void saveCreatedTemplate(String templateId, SaveCreatedTemplateRequest request,
       RequestOptions requestOptions) {
-    return this.rawClient.saveCreatedTemplate(templateId, request, requestOptions).body();
+    this.rawClient.saveCreatedTemplate(templateId, request, requestOptions).body();
   }
 
   /**
@@ -84,29 +83,29 @@ public class TemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public Object deleteTemplate(String templateId) {
-    return this.rawClient.deleteTemplate(templateId).body();
+  public void deleteTemplate(String templateId) {
+    this.rawClient.deleteTemplate(templateId).body();
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public Object deleteTemplate(String templateId, RequestOptions requestOptions) {
-    return this.rawClient.deleteTemplate(templateId, requestOptions).body();
+  public void deleteTemplate(String templateId, RequestOptions requestOptions) {
+    this.rawClient.deleteTemplate(templateId, requestOptions).body();
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public Object extractTemplateFiles(String templateId) {
-    return this.rawClient.extractTemplateFiles(templateId).body();
+  public void extractTemplateFiles(String templateId) {
+    this.rawClient.extractTemplateFiles(templateId).body();
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public Object extractTemplateFiles(String templateId, RequestOptions requestOptions) {
-    return this.rawClient.extractTemplateFiles(templateId, requestOptions).body();
+  public void extractTemplateFiles(String templateId, RequestOptions requestOptions) {
+    this.rawClient.extractTemplateFiles(templateId, requestOptions).body();
   }
 
   /**
@@ -158,16 +157,16 @@ public class TemplatesClient {
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public Object uploadTemplateIndexHtml(String templateId, UploadTemplateIndexHtmlRequest request) {
-    return this.rawClient.uploadTemplateIndexHtml(templateId, request).body();
+  public void uploadTemplateIndexHtml(String templateId, UploadTemplateIndexHtmlRequest request) {
+    this.rawClient.uploadTemplateIndexHtml(templateId, request).body();
   }
 
   /**
    * Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
    */
-  public Object uploadTemplateIndexHtml(String templateId, UploadTemplateIndexHtmlRequest request,
+  public void uploadTemplateIndexHtml(String templateId, UploadTemplateIndexHtmlRequest request,
       RequestOptions requestOptions) {
-    return this.rawClient.uploadTemplateIndexHtml(templateId, request, requestOptions).body();
+    this.rawClient.uploadTemplateIndexHtml(templateId, request, requestOptions).body();
   }
 
   /**
