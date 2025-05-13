@@ -20,9 +20,7 @@
       "get": {
         "operationId": "initializeTemplateCreation",
         "summary": "Initialize Template Creation",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Initializes template creation by generating a unique ID and providing a presigned URL for template ZIP upload. Sets unfinished tag for tracking incomplete templates.",
         "security": [
           {
@@ -44,10 +42,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "jobId",
-                    "presignedTemplateUploadUrl"
-                  ]
+                  "required": ["jobId", "presignedTemplateUploadUrl"]
                 }
               }
             }
@@ -59,9 +54,7 @@
       "put": {
         "operationId": "updateTemplate",
         "summary": "Update Template",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Updates template content, handles S3 storage cleanup for old content, updates template metadata in Strapi, and manages preview files. Removes unfinished tags after successful update.",
         "requestBody": {
           "content": {
@@ -85,45 +78,31 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "enum": [
-                                  "docx"
-                                ]
+                                "enum": ["docx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "xlsx"
-                                ]
+                                "enum": ["xlsx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "pptx"
-                                ]
+                                "enum": ["pptx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "ejs"
-                                ]
+                                "enum": ["ejs"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "html"
-                                ]
+                                "enum": ["html"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "latex"
-                                ]
+                                "enum": ["latex"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "react"
-                                ]
+                                "enum": ["react"]
                               }
                             ]
                           },
@@ -140,33 +119,23 @@
                               "anyOf": [
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "invoice"
-                                  ]
+                                  "enum": ["invoice"]
                                 },
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "mail"
-                                  ]
+                                  "enum": ["mail"]
                                 },
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "report"
-                                  ]
+                                  "enum": ["report"]
                                 },
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "cv"
-                                  ]
+                                  "enum": ["cv"]
                                 },
                                 {
                                   "type": "string",
-                                  "enum": [
-                                    "other"
-                                  ]
+                                  "enum": ["other"]
                                 }
                               ]
                             }
@@ -190,16 +159,10 @@
                             "type": "string"
                           }
                         },
-                        "required": [
-                          "pngJobId",
-                          "pdfJobId"
-                        ]
+                        "required": ["pngJobId", "pdfJobId"]
                       }
                     },
-                    "required": [
-                      "templateInfo",
-                      "previewIds"
-                    ]
+                    "required": ["templateInfo", "previewIds"]
                   },
                   {
                     "type": "object",
@@ -208,9 +171,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "contentId"
-                    ]
+                    "required": ["contentId"]
                   }
                 ]
               }
@@ -244,9 +205,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "newContentId"
-                  ]
+                  "required": ["newContentId"]
                 }
               }
             }
@@ -256,9 +215,7 @@
       "post": {
         "operationId": "saveCreatedTemplate",
         "summary": "Save New Template",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Finalizes template creation by saving template info to Strapi, copying preview files to permanent storage, and creating template index. Removes unfinished tag upon completion.",
         "requestBody": {
           "content": {
@@ -279,45 +236,31 @@
                         "anyOf": [
                           {
                             "type": "string",
-                            "enum": [
-                              "docx"
-                            ]
+                            "enum": ["docx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "xlsx"
-                            ]
+                            "enum": ["xlsx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "pptx"
-                            ]
+                            "enum": ["pptx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "ejs"
-                            ]
+                            "enum": ["ejs"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "html"
-                            ]
+                            "enum": ["html"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "latex"
-                            ]
+                            "enum": ["latex"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "react"
-                            ]
+                            "enum": ["react"]
                           }
                         ]
                       },
@@ -334,33 +277,23 @@
                           "anyOf": [
                             {
                               "type": "string",
-                              "enum": [
-                                "invoice"
-                              ]
+                              "enum": ["invoice"]
                             },
                             {
                               "type": "string",
-                              "enum": [
-                                "mail"
-                              ]
+                              "enum": ["mail"]
                             },
                             {
                               "type": "string",
-                              "enum": [
-                                "report"
-                              ]
+                              "enum": ["report"]
                             },
                             {
                               "type": "string",
-                              "enum": [
-                                "cv"
-                              ]
+                              "enum": ["cv"]
                             },
                             {
                               "type": "string",
-                              "enum": [
-                                "other"
-                              ]
+                              "enum": ["other"]
                             }
                           ]
                         }
@@ -384,16 +317,10 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "pngJobId",
-                      "pdfJobId"
-                    ]
+                    "required": ["pngJobId", "pdfJobId"]
                   }
                 },
-                "required": [
-                  "templateInfo",
-                  "previewIds"
-                ]
+                "required": ["templateInfo", "previewIds"]
               }
             }
           },
@@ -423,9 +350,7 @@
       "delete": {
         "operationId": "deleteTemplate",
         "summary": "Delete Template",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.",
         "parameters": [
           {
@@ -453,9 +378,7 @@
       "post": {
         "operationId": "extractTemplateFiles",
         "summary": "Extract Template Files",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.",
         "parameters": [
           {
@@ -483,9 +406,7 @@
       "post": {
         "operationId": "generateTemplatePreviews",
         "summary": "Generate Template Previews",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Creates both PNG and PDF preview files for template visualization. Generates previews in parallel and returns URLs for both formats.",
         "requestBody": {
           "content": {
@@ -497,45 +418,31 @@
                     "anyOf": [
                       {
                         "type": "string",
-                        "enum": [
-                          "docx"
-                        ]
+                        "enum": ["docx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "xlsx"
-                        ]
+                        "enum": ["xlsx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "pptx"
-                        ]
+                        "enum": ["pptx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "ejs"
-                        ]
+                        "enum": ["ejs"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "html"
-                        ]
+                        "enum": ["html"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "latex"
-                        ]
+                        "enum": ["latex"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "react"
-                        ]
+                        "enum": ["react"]
                       }
                     ]
                   },
@@ -558,69 +465,47 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "enum": [
-                                  "letter"
-                                ]
+                                "enum": ["letter"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "legal"
-                                ]
+                                "enum": ["legal"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "tabloid"
-                                ]
+                                "enum": ["tabloid"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "ledger"
-                                ]
+                                "enum": ["ledger"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a0"
-                                ]
+                                "enum": ["a0"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a1"
-                                ]
+                                "enum": ["a1"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a2"
-                                ]
+                                "enum": ["a2"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a3"
-                                ]
+                                "enum": ["a3"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a4"
-                                ]
+                                "enum": ["a4"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a5"
-                                ]
+                                "enum": ["a5"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a6"
-                                ]
+                                "enum": ["a6"]
                               }
                             ]
                           },
@@ -636,10 +521,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "type",
-                  "data"
-                ]
+                "required": ["type", "data"]
               }
             }
           },
@@ -678,9 +560,7 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "jobId"
-                      ]
+                      "required": ["jobId"]
                     },
                     "pdfPreview": {
                       "type": "object",
@@ -692,15 +572,10 @@
                           "type": "string"
                         }
                       },
-                      "required": [
-                        "jobId"
-                      ]
+                      "required": ["jobId"]
                     }
                   },
-                  "required": [
-                    "pngPreview",
-                    "pdfPreview"
-                  ]
+                  "required": ["pngPreview", "pdfPreview"]
                 }
               }
             }
@@ -712,9 +587,7 @@
       "get": {
         "operationId": "generatePresignedGetUrl",
         "summary": "Generate Presigned URL",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Generates a presigned URL for template access. Used for downloading template files from S3 storage.",
         "parameters": [
           {
@@ -743,9 +616,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "presignedUrl"
-                  ]
+                  "required": ["presignedUrl"]
                 }
               }
             }
@@ -757,9 +628,7 @@
       "get": {
         "operationId": "getTemplateIndexHtml",
         "summary": "Get Template Index HTML",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Retrieves the template index.html file from S3 storage. Used for rendering the template in the browser.",
         "parameters": [
           {
@@ -788,9 +657,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "templateIndex"
-                  ]
+                  "required": ["templateIndex"]
                 }
               }
             }
@@ -800,9 +667,7 @@
       "post": {
         "operationId": "uploadTemplateIndexHtml",
         "summary": "Upload Template Index HTML",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.",
         "requestBody": {
           "content": {
@@ -814,9 +679,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "templateIndex"
-                ]
+                "required": ["templateIndex"]
               }
             }
           },
@@ -848,9 +711,7 @@
       "post": {
         "operationId": "cloneTemplate",
         "summary": "Clone Template",
-        "tags": [
-          "Templates"
-        ],
+        "tags": ["Templates"],
         "description": "Creates a new template by duplicating an existing template's content and metadata. Includes copying preview files and template index.",
         "parameters": [
           {
@@ -879,9 +740,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "newTemplateId"
-                  ]
+                  "required": ["newTemplateId"]
                 }
               }
             }
@@ -893,9 +752,7 @@
       "post": {
         "operationId": "initializeRenderJob",
         "summary": "Initialize Render Job",
-        "tags": [
-          "Documents"
-        ],
+        "tags": ["Documents"],
         "description": "Creates a new render job with a unique ID, sets up S3 storage for template and data files, and generates presigned upload URLs if needed. Requires subscription check.",
         "requestBody": {
           "content": {
@@ -919,45 +776,31 @@
                         "anyOf": [
                           {
                             "type": "string",
-                            "enum": [
-                              "docx"
-                            ]
+                            "enum": ["docx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "xlsx"
-                            ]
+                            "enum": ["xlsx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "pptx"
-                            ]
+                            "enum": ["pptx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "ejs"
-                            ]
+                            "enum": ["ejs"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "html"
-                            ]
+                            "enum": ["html"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "latex"
-                            ]
+                            "enum": ["latex"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "react"
-                            ]
+                            "enum": ["react"]
                           }
                         ]
                       },
@@ -965,45 +808,31 @@
                         "anyOf": [
                           {
                             "type": "string",
-                            "enum": [
-                              "pdf"
-                            ]
+                            "enum": ["pdf"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "html"
-                            ]
+                            "enum": ["html"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "docx"
-                            ]
+                            "enum": ["docx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "xlsx"
-                            ]
+                            "enum": ["xlsx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "pptx"
-                            ]
+                            "enum": ["pptx"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "png"
-                            ]
+                            "enum": ["png"]
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "jpg"
-                            ]
+                            "enum": ["jpg"]
                           }
                         ]
                       },
@@ -1025,69 +854,47 @@
                                 "anyOf": [
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "letter"
-                                    ]
+                                    "enum": ["letter"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "legal"
-                                    ]
+                                    "enum": ["legal"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "tabloid"
-                                    ]
+                                    "enum": ["tabloid"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "ledger"
-                                    ]
+                                    "enum": ["ledger"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a0"
-                                    ]
+                                    "enum": ["a0"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a1"
-                                    ]
+                                    "enum": ["a1"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a2"
-                                    ]
+                                    "enum": ["a2"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a3"
-                                    ]
+                                    "enum": ["a3"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a4"
-                                    ]
+                                    "enum": ["a4"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a5"
-                                    ]
+                                    "enum": ["a5"]
                                   },
                                   {
                                     "type": "string",
-                                    "enum": [
-                                      "a6"
-                                    ]
+                                    "enum": ["a6"]
                                   }
                                 ]
                               },
@@ -1103,10 +910,7 @@
                         ]
                       }
                     },
-                    "required": [
-                      "type",
-                      "target"
-                    ]
+                    "required": ["type", "target"]
                   }
                 ]
               }
@@ -1133,45 +937,31 @@
                       "anyOf": [
                         {
                           "type": "string",
-                          "enum": [
-                            "pdf"
-                          ]
+                          "enum": ["pdf"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "html"
-                          ]
+                          "enum": ["html"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "docx"
-                          ]
+                          "enum": ["docx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "xlsx"
-                          ]
+                          "enum": ["xlsx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "pptx"
-                          ]
+                          "enum": ["pptx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "png"
-                          ]
+                          "enum": ["png"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "jpg"
-                          ]
+                          "enum": ["jpg"]
                         }
                       ]
                     },
@@ -1213,9 +1003,7 @@
       "post": {
         "operationId": "startRenderJob",
         "summary": "Start Render Job",
-        "tags": [
-          "Documents"
-        ],
+        "tags": ["Documents"],
         "description": "Takes a previously initialized job, updates its status to in-progress, and triggers the rendering process using Puppeteer. Can optionally wait for render completion.",
         "requestBody": {
           "content": {
@@ -1261,9 +1049,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "jobId"
-                  ]
+                  "required": ["jobId"]
                 }
               }
             }
@@ -1275,9 +1061,7 @@
       "post": {
         "operationId": "generateDocumentPreview",
         "summary": "Generate Document Preview",
-        "tags": [
-          "Documents"
-        ],
+        "tags": ["Documents"],
         "description": "Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.",
         "requestBody": {
           "content": {
@@ -1289,45 +1073,31 @@
                     "anyOf": [
                       {
                         "type": "string",
-                        "enum": [
-                          "docx"
-                        ]
+                        "enum": ["docx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "xlsx"
-                        ]
+                        "enum": ["xlsx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "pptx"
-                        ]
+                        "enum": ["pptx"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "ejs"
-                        ]
+                        "enum": ["ejs"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "html"
-                        ]
+                        "enum": ["html"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "latex"
-                        ]
+                        "enum": ["latex"]
                       },
                       {
                         "type": "string",
-                        "enum": [
-                          "react"
-                        ]
+                        "enum": ["react"]
                       }
                     ]
                   },
@@ -1350,69 +1120,47 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "enum": [
-                                  "letter"
-                                ]
+                                "enum": ["letter"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "legal"
-                                ]
+                                "enum": ["legal"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "tabloid"
-                                ]
+                                "enum": ["tabloid"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "ledger"
-                                ]
+                                "enum": ["ledger"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a0"
-                                ]
+                                "enum": ["a0"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a1"
-                                ]
+                                "enum": ["a1"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a2"
-                                ]
+                                "enum": ["a2"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a3"
-                                ]
+                                "enum": ["a3"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a4"
-                                ]
+                                "enum": ["a4"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a5"
-                                ]
+                                "enum": ["a5"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "a6"
-                                ]
+                                "enum": ["a6"]
                               }
                             ]
                           },
@@ -1428,10 +1176,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "type",
-                  "data"
-                ]
+                "required": ["type", "data"]
               }
             }
           },
@@ -1467,9 +1212,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "jobId"
-                  ]
+                  "required": ["jobId"]
                 }
               }
             }
@@ -1481,9 +1224,7 @@
       "post": {
         "operationId": "startImmediateRender",
         "summary": "Immediate Render",
-        "tags": [
-          "Documents"
-        ],
+        "tags": ["Documents"],
         "description": "Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.",
         "requestBody": {
           "content": {
@@ -1509,45 +1250,31 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "enum": [
-                                  "docx"
-                                ]
+                                "enum": ["docx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "xlsx"
-                                ]
+                                "enum": ["xlsx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "pptx"
-                                ]
+                                "enum": ["pptx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "ejs"
-                                ]
+                                "enum": ["ejs"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "html"
-                                ]
+                                "enum": ["html"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "latex"
-                                ]
+                                "enum": ["latex"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "react"
-                                ]
+                                "enum": ["react"]
                               }
                             ]
                           },
@@ -1555,45 +1282,31 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "enum": [
-                                  "pdf"
-                                ]
+                                "enum": ["pdf"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "html"
-                                ]
+                                "enum": ["html"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "docx"
-                                ]
+                                "enum": ["docx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "xlsx"
-                                ]
+                                "enum": ["xlsx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "pptx"
-                                ]
+                                "enum": ["pptx"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "png"
-                                ]
+                                "enum": ["png"]
                               },
                               {
                                 "type": "string",
-                                "enum": [
-                                  "jpg"
-                                ]
+                                "enum": ["jpg"]
                               }
                             ]
                           },
@@ -1615,69 +1328,47 @@
                                     "anyOf": [
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "letter"
-                                        ]
+                                        "enum": ["letter"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "legal"
-                                        ]
+                                        "enum": ["legal"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "tabloid"
-                                        ]
+                                        "enum": ["tabloid"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "ledger"
-                                        ]
+                                        "enum": ["ledger"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a0"
-                                        ]
+                                        "enum": ["a0"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a1"
-                                        ]
+                                        "enum": ["a1"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a2"
-                                        ]
+                                        "enum": ["a2"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a3"
-                                        ]
+                                        "enum": ["a3"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a4"
-                                        ]
+                                        "enum": ["a4"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a5"
-                                        ]
+                                        "enum": ["a5"]
                                       },
                                       {
                                         "type": "string",
-                                        "enum": [
-                                          "a6"
-                                        ]
+                                        "enum": ["a6"]
                                       }
                                     ]
                                   },
@@ -1693,10 +1384,7 @@
                             ]
                           }
                         },
-                        "required": [
-                          "type",
-                          "target"
-                        ]
+                        "required": ["type", "target"]
                       }
                     ]
                   },
@@ -1708,9 +1396,7 @@
                         "additionalProperties": {}
                       }
                     },
-                    "required": [
-                      "data"
-                    ]
+                    "required": ["data"]
                   },
                   {
                     "type": "object",
@@ -1742,9 +1428,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "url"
-                  ]
+                  "required": ["url"]
                 }
               }
             }
@@ -1756,9 +1440,7 @@
       "get": {
         "operationId": "getJobStatus",
         "summary": "Get Job Status",
-        "tags": [
-          "Documents"
-        ],
+        "tags": ["Documents"],
         "description": "Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.",
         "parameters": [
           {
@@ -1787,45 +1469,31 @@
                       "anyOf": [
                         {
                           "type": "string",
-                          "enum": [
-                            "docx"
-                          ]
+                          "enum": ["docx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "xlsx"
-                          ]
+                          "enum": ["xlsx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "pptx"
-                          ]
+                          "enum": ["pptx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "ejs"
-                          ]
+                          "enum": ["ejs"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "html"
-                          ]
+                          "enum": ["html"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "latex"
-                          ]
+                          "enum": ["latex"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "react"
-                          ]
+                          "enum": ["react"]
                         }
                       ]
                     },
@@ -1836,45 +1504,31 @@
                       "anyOf": [
                         {
                           "type": "string",
-                          "enum": [
-                            "pdf"
-                          ]
+                          "enum": ["pdf"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "html"
-                          ]
+                          "enum": ["html"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "docx"
-                          ]
+                          "enum": ["docx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "xlsx"
-                          ]
+                          "enum": ["xlsx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "pptx"
-                          ]
+                          "enum": ["pptx"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "png"
-                          ]
+                          "enum": ["png"]
                         },
                         {
                           "type": "string",
-                          "enum": [
-                            "jpg"
-                          ]
+                          "enum": ["jpg"]
                         }
                       ]
                     },
@@ -1888,9 +1542,7 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "url"
-                          ]
+                          "required": ["url"]
                         },
                         "metadata": {
                           "type": "object",
@@ -1899,15 +1551,10 @@
                               "type": "number"
                             }
                           },
-                          "required": [
-                            "renderTime"
-                          ]
+                          "required": ["renderTime"]
                         }
                       },
-                      "required": [
-                        "data",
-                        "metadata"
-                      ]
+                      "required": ["data", "metadata"]
                     },
                     "success": {
                       "type": "boolean"
@@ -1916,11 +1563,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "type",
-                    "jobId",
-                    "target"
-                  ]
+                  "required": ["type", "jobId", "target"]
                 }
               }
             }
@@ -1932,9 +1575,7 @@
       "delete": {
         "operationId": "deleteApiToken",
         "summary": "Delete API Token",
-        "tags": [
-          "Tokens"
-        ],
+        "tags": ["Tokens"],
         "description": "Invalidates an API token by storing it in the deleted tokens S3 bucket, preventing future use of the token for authentication.",
         "parameters": [
           {
