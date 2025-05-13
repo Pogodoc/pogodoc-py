@@ -17,7 +17,16 @@ templatePath = "../../data/templates/React-Demo-App.zip"
 def main():
     client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"), base_url=os.getenv("LAMBDA_BASE_URL"))
 
-    templateId = client.save_template(path=templatePath, template_info=SaveCreatedTemplateRequestTemplateInfo(title="Test Template", description="Test Description", type="html", sample_data=sampleData, categories=["invoice"]))
+    templateId = client.save_template(
+        path=templatePath, 
+        template_info=SaveCreatedTemplateRequestTemplateInfo(
+            title="Test Template",
+            description="Test Description", 
+            type="html",
+            sample_data=sampleData, 
+            categories=["invoice"]
+        )
+    )
 
     document = client.generate_document(template_id=templateId, data=sampleData,should_wait_for_render_completion=True, render_config=RenderConfig(type="html", target="pdf", should_wait_for_render_completion=True))
     print(document)
