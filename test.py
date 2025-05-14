@@ -1,7 +1,7 @@
 import asyncio
 import json
 import os
-from main import PogodocClient
+from pogodocClient import PogodocClient
 from dotenv import load_dotenv
 from utils import RenderConfig
 from sdk.templates.types import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
