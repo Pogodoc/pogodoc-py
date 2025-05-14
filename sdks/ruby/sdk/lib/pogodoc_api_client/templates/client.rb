@@ -7,6 +7,7 @@ require_relative "types/save_created_template_request_preview_ids"
 require_relative "types/update_template_request_template_info"
 require_relative "types/update_template_request_preview_ids"
 require_relative "types/update_template_response"
+require_relative "types/extract_template_files_request"
 require_relative "types/generate_template_previews_request_type"
 require_relative "types/generate_template_previews_request_format_opts"
 require_relative "types/generate_template_previews_response"
@@ -197,6 +198,7 @@ module PogodocApiClient
     #  in the appropriate S3 storage structure.
     #
     # @param template_id [String]
+    # @param request [Hash] Request of type PogodocApiClient::Templates::ExtractTemplateFilesRequest, as a Hash
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -206,8 +208,8 @@ module PogodocApiClient
     #    token: "YOUR_AUTH_TOKEN"
     #  )
     #  api.templates.extract_template_files(template_id: "templateId")
-    def extract_template_files(template_id:, request_options: nil)
-      @request_client.conn.post do |req|
+    def extract_template_files(template_id:, request: nil, request_options: nil)
+      @request_client.conn.patch do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -218,9 +220,7 @@ module PogodocApiClient
         unless request_options.nil? || request_options&.additional_query_parameters.nil?
           req.params = { **(request_options&.additional_query_parameters || {}) }.compact
         end
-        unless request_options.nil? || request_options&.additional_body_parameters.nil?
-          req.body = { **(request_options&.additional_body_parameters || {}) }.compact
-        end
+        req.body = { **(request || {}), **(request_options&.additional_body_parameters || {}) }.compact
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/unzip"
       end
     end
@@ -592,6 +592,7 @@ module PogodocApiClient
     #  in the appropriate S3 storage structure.
     #
     # @param template_id [String]
+    # @param request [Hash] Request of type PogodocApiClient::Templates::ExtractTemplateFilesRequest, as a Hash
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -601,9 +602,9 @@ module PogodocApiClient
     #    token: "YOUR_AUTH_TOKEN"
     #  )
     #  api.templates.extract_template_files(template_id: "templateId")
-    def extract_template_files(template_id:, request_options: nil)
+    def extract_template_files(template_id:, request: nil, request_options: nil)
       Async do
-        @request_client.conn.post do |req|
+        @request_client.conn.patch do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -614,9 +615,7 @@ module PogodocApiClient
           unless request_options.nil? || request_options&.additional_query_parameters.nil?
             req.params = { **(request_options&.additional_query_parameters || {}) }.compact
           end
-          unless request_options.nil? || request_options&.additional_body_parameters.nil?
-            req.body = { **(request_options&.additional_body_parameters || {}) }.compact
-          end
+          req.body = { **(request || {}), **(request_options&.additional_body_parameters || {}) }.compact
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/unzip"
         end
       end

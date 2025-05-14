@@ -8,12 +8,14 @@ import core.ClientOptions;
 import core.RequestOptions;
 import java.lang.String;
 import java.lang.Void;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import resources.templates.requests.GenerateTemplatePreviewsRequest;
 import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
+import resources.templates.types.ExtractTemplateFilesRequest;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -109,8 +111,16 @@ public class AsyncTemplatesClient {
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
   public CompletableFuture<Void> extractTemplateFiles(String templateId,
-      RequestOptions requestOptions) {
-    return this.rawClient.extractTemplateFiles(templateId, requestOptions).thenApply(response -> response.body());
+      Optional<ExtractTemplateFilesRequest> request) {
+    return this.rawClient.extractTemplateFiles(templateId, request).thenApply(response -> response.body());
+  }
+
+  /**
+   * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
+   */
+  public CompletableFuture<Void> extractTemplateFiles(String templateId,
+      Optional<ExtractTemplateFilesRequest> request, RequestOptions requestOptions) {
+    return this.rawClient.extractTemplateFiles(templateId, request, requestOptions).thenApply(response -> response.body());
   }
 
   /**

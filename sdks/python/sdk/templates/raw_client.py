@@ -11,6 +11,7 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from .types.clone_template_response import CloneTemplateResponse
+from .types.extract_template_files_request import ExtractTemplateFilesRequest
 from .types.generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
 from .types.generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
 from .types.generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
@@ -212,7 +213,11 @@ class RawTemplatesClient:
         raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response_json)
 
     def extract_template_files(
-        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        template_id: str,
+        *,
+        request: typing.Optional[ExtractTemplateFilesRequest] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -220,6 +225,8 @@ class RawTemplatesClient:
         Parameters
         ----------
         template_id : str
+
+        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -230,8 +237,12 @@ class RawTemplatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
-            method="POST",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ExtractTemplateFilesRequest, direction="write"
+            ),
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -641,7 +652,11 @@ class AsyncRawTemplatesClient:
         raise ApiError(headers=dict(_response.headers), status_code=_response.status_code, body=_response_json)
 
     async def extract_template_files(
-        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        template_id: str,
+        *,
+        request: typing.Optional[ExtractTemplateFilesRequest] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -649,6 +664,8 @@ class AsyncRawTemplatesClient:
         Parameters
         ----------
         template_id : str
+
+        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -659,8 +676,12 @@ class AsyncRawTemplatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"templates/{jsonable_encoder(template_id)}/unzip",
-            method="POST",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ExtractTemplateFilesRequest, direction="write"
+            ),
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
