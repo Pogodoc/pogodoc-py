@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
 from .types.clone_template_response import CloneTemplateResponse
+from .types.extract_template_files_request import ExtractTemplateFilesRequest
 from .types.generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
 from .types.generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
 from .types.generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
@@ -175,7 +176,11 @@ class TemplatesClient:
         return _response.data
 
     def extract_template_files(
-        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        template_id: str,
+        *,
+        request: typing.Optional[ExtractTemplateFilesRequest] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -183,6 +188,8 @@ class TemplatesClient:
         Parameters
         ----------
         template_id : str
+
+        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -197,7 +204,9 @@ class TemplatesClient:
         client = PogodocApi(token="YOUR_TOKEN", )
         client.templates.extract_template_files(template_id='templateId', )
         """
-        _response = self._raw_client.extract_template_files(template_id, request_options=request_options)
+        _response = self._raw_client.extract_template_files(
+            template_id, request=request, request_options=request_options
+        )
         return _response.data
 
     def generate_template_previews(
@@ -521,7 +530,11 @@ class AsyncTemplatesClient:
         return _response.data
 
     async def extract_template_files(
-        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        template_id: str,
+        *,
+        request: typing.Optional[ExtractTemplateFilesRequest] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -529,6 +542,8 @@ class AsyncTemplatesClient:
         Parameters
         ----------
         template_id : str
+
+        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -546,7 +561,9 @@ class AsyncTemplatesClient:
             await client.templates.extract_template_files(template_id='templateId', )
         asyncio.run(main())
         """
-        _response = await self._raw_client.extract_template_files(template_id, request_options=request_options)
+        _response = await self._raw_client.extract_template_files(
+            template_id, request=request, request_options=request_options
+        )
         return _response.data
 
     async def generate_template_previews(

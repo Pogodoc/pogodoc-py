@@ -3,6 +3,7 @@
 # isort: skip_file
 
 from .clone_template_response import CloneTemplateResponse
+from .extract_template_files_request import ExtractTemplateFilesRequest
 from .generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
 from .generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
 from .generate_template_previews_request_format_opts_format import GenerateTemplatePreviewsRequestFormatOptsFormat
@@ -26,6 +27,7 @@ from .update_template_response import UpdateTemplateResponse
 
 __all__ = [
     "CloneTemplateResponse",
+    "ExtractTemplateFilesRequest",
     "GeneratePresignedGetUrlResponse",
     "GenerateTemplatePreviewsRequestFormatOpts",
     "GenerateTemplatePreviewsRequestFormatOptsFormat",

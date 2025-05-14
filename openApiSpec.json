@@ -111,7 +111,14 @@
                             "additionalProperties": {}
                           },
                           "sourceCode": {
-                            "type": "string"
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
                           },
                           "categories": {
                             "type": "array",
@@ -269,7 +276,14 @@
                         "additionalProperties": {}
                       },
                       "sourceCode": {
-                        "type": "string"
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "categories": {
                         "type": "array",
@@ -375,11 +389,28 @@
       }
     },
     "/templates/{templateId}/unzip": {
-      "post": {
+      "patch": {
         "operationId": "extractTemplateFiles",
         "summary": "Extract Template Files",
         "tags": ["Templates"],
         "description": "Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {}
+                  }
+                ]
+              }
+            }
+          }
+        },
         "parameters": [
           {
             "schema": {
@@ -451,72 +482,107 @@
                     "additionalProperties": {}
                   },
                   "formatOpts": {
-                    "allOf": [
+                    "anyOf": [
                       {
-                        "type": "object",
-                        "properties": {
-                          "fromPage": {
-                            "type": "number"
-                          },
-                          "toPage": {
-                            "type": "number"
-                          },
-                          "format": {
-                            "anyOf": [
-                              {
-                                "type": "string",
-                                "enum": ["letter"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["legal"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["tabloid"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["ledger"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a0"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a1"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a2"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a3"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a4"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a5"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a6"]
-                              }
-                            ]
-                          },
-                          "waitForSelector": {
-                            "type": "string"
-                          }
-                        }
+                        "type": "null"
                       },
                       {
-                        "type": "object",
-                        "additionalProperties": {}
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "fromPage": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "toPage": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "format": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": ["letter"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["legal"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["tabloid"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["ledger"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a0"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a1"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a2"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a3"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a4"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a5"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a6"]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "waitForSelector": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        ]
                       }
                     ]
                   }
@@ -764,8 +830,15 @@
                     "type": "object",
                     "properties": {
                       "data": {
-                        "type": "object",
-                        "additionalProperties": {}
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        ]
                       }
                     }
                   },
@@ -837,75 +910,117 @@
                         ]
                       },
                       "templateId": {
-                        "type": "string"
-                      },
-                      "formatOpts": {
-                        "allOf": [
+                        "anyOf": [
                           {
-                            "type": "object",
-                            "properties": {
-                              "fromPage": {
-                                "type": "number"
-                              },
-                              "toPage": {
-                                "type": "number"
-                              },
-                              "format": {
-                                "anyOf": [
-                                  {
-                                    "type": "string",
-                                    "enum": ["letter"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["legal"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["tabloid"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["ledger"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a0"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a1"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a2"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a3"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a4"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a5"]
-                                  },
-                                  {
-                                    "type": "string",
-                                    "enum": ["a6"]
-                                  }
-                                ]
-                              },
-                              "waitForSelector": {
-                                "type": "string"
-                              }
-                            }
+                            "type": "null"
                           },
                           {
-                            "type": "object",
-                            "additionalProperties": {}
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "formatOpts": {
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "fromPage": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "toPage": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "format": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "enum": ["letter"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["legal"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["tabloid"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["ledger"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a0"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a1"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a2"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a3"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a4"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a5"]
+                                          },
+                                          {
+                                            "type": "string",
+                                            "enum": ["a6"]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "waitForSelector": {
+                                    "anyOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": {}
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1012,10 +1127,24 @@
                 "type": "object",
                 "properties": {
                   "shouldWaitForRenderCompletion": {
-                    "type": "boolean"
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
                   },
                   "uploadPresignedS3Url": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   }
                 }
               }
@@ -1106,72 +1235,107 @@
                     "additionalProperties": {}
                   },
                   "formatOpts": {
-                    "allOf": [
+                    "anyOf": [
                       {
-                        "type": "object",
-                        "properties": {
-                          "fromPage": {
-                            "type": "number"
-                          },
-                          "toPage": {
-                            "type": "number"
-                          },
-                          "format": {
-                            "anyOf": [
-                              {
-                                "type": "string",
-                                "enum": ["letter"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["legal"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["tabloid"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["ledger"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a0"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a1"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a2"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a3"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a4"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a5"]
-                              },
-                              {
-                                "type": "string",
-                                "enum": ["a6"]
-                              }
-                            ]
-                          },
-                          "waitForSelector": {
-                            "type": "string"
-                          }
-                        }
+                        "type": "null"
                       },
                       {
-                        "type": "object",
-                        "additionalProperties": {}
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "fromPage": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "toPage": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              },
+                              "format": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "enum": ["letter"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["legal"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["tabloid"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["ledger"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a0"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a1"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a2"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a3"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a4"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a5"]
+                                      },
+                                      {
+                                        "type": "string",
+                                        "enum": ["a6"]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "waitForSelector": {
+                                "anyOf": [
+                                  {
+                                    "type": "null"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "type": "object",
+                            "additionalProperties": {}
+                          }
+                        ]
                       }
                     ]
                   }
@@ -1238,8 +1402,15 @@
                         "type": "object",
                         "properties": {
                           "data": {
-                            "type": "object",
-                            "additionalProperties": {}
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": {}
+                              }
+                            ]
                           }
                         }
                       },
@@ -1311,75 +1482,117 @@
                             ]
                           },
                           "templateId": {
-                            "type": "string"
-                          },
-                          "formatOpts": {
-                            "allOf": [
+                            "anyOf": [
                               {
-                                "type": "object",
-                                "properties": {
-                                  "fromPage": {
-                                    "type": "number"
-                                  },
-                                  "toPage": {
-                                    "type": "number"
-                                  },
-                                  "format": {
-                                    "anyOf": [
-                                      {
-                                        "type": "string",
-                                        "enum": ["letter"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["legal"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["tabloid"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["ledger"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a0"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a1"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a2"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a3"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a4"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a5"]
-                                      },
-                                      {
-                                        "type": "string",
-                                        "enum": ["a6"]
-                                      }
-                                    ]
-                                  },
-                                  "waitForSelector": {
-                                    "type": "string"
-                                  }
-                                }
+                                "type": "null"
                               },
                               {
-                                "type": "object",
-                                "additionalProperties": {}
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          "formatOpts": {
+                            "anyOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "fromPage": {
+                                        "anyOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      },
+                                      "toPage": {
+                                        "anyOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "number"
+                                          }
+                                        ]
+                                      },
+                                      "format": {
+                                        "anyOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "anyOf": [
+                                              {
+                                                "type": "string",
+                                                "enum": ["letter"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["legal"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["tabloid"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["ledger"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a0"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a1"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a2"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a3"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a4"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a5"]
+                                              },
+                                              {
+                                                "type": "string",
+                                                "enum": ["a6"]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "waitForSelector": {
+                                        "anyOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -1402,7 +1615,14 @@
                     "type": "object",
                     "properties": {
                       "template": {
-                        "type": "string"
+                        "anyOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       }
                     }
                   }
@@ -1533,34 +1753,55 @@
                       ]
                     },
                     "output": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "object",
-                          "properties": {
-                            "url": {
-                              "type": "string"
-                            }
-                          },
-                          "required": ["url"]
+                      "anyOf": [
+                        {
+                          "type": "null"
                         },
-                        "metadata": {
+                        {
                           "type": "object",
                           "properties": {
-                            "renderTime": {
-                              "type": "number"
+                            "data": {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["url"]
+                            },
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "renderTime": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": ["renderTime"]
                             }
                           },
-                          "required": ["renderTime"]
+                          "required": ["data", "metadata"]
                         }
-                      },
-                      "required": ["data", "metadata"]
+                      ]
                     },
                     "success": {
-                      "type": "boolean"
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "boolean"
+                        }
+                      ]
                     },
                     "status": {
-                      "type": "string"
+                      "anyOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
                     }
                   },
                   "required": ["type", "jobId", "target"]
