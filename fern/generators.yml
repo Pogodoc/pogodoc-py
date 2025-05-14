@@ -18,24 +18,24 @@ groups:
       #   output:
       #     location: local-file-system
       #     path: ../sdks/python/sdk
-      - name: fernapi/fern-go-sdk
-        version: 0.1.0
-        config:
-          module:
-            path: pogodoc/go/sdk
-        output:
-          location: local-file-system
-          path: ../sdks/go/sdk
+      # - name: fernapi/fern-go-sdk
+      #   version: 0.1.0
+      #   config:
+      #     module:
+      #       path: pogodoc/go/sdk
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/go/sdk
       # - name: fernapi/fern-csharp-sdk
       #   version: 0.1.0
       #   output:
       #     location: local-file-system
       #     path: ../sdks/csharp/sdk
-      # - name: fernapi/fern-php-sdk
-      #   version: 0.1.0
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/php/sdk
+      - name: fernapi/fern-php-sdk
+        version: 0.1.0
+        output:
+          location: local-file-system
+          path: ../sdks/php/sdk
       # - name: fernapi/fern-java-sdk
       #   version: 2.33.4
       #   output:
