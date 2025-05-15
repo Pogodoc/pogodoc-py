@@ -396,7 +396,7 @@
         "description": "Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.",
         "requestBody": {
           "content": {
-            "*/*": {
+            "application/*": {
               "schema": {
                 "anyOf": [
                   {
