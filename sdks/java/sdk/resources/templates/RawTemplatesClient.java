@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.lang.Object;
 import java.lang.String;
 import java.lang.Void;
-import java.util.Optional;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -29,7 +28,6 @@ import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
-import resources.templates.types.ExtractTemplateFilesRequest;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -223,43 +221,24 @@ public class RawTemplatesClient {
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
   public PogodocApiHttpResponse<Void> extractTemplateFiles(String templateId) {
-    return extractTemplateFiles(templateId,Optional.empty());
+    return extractTemplateFiles(templateId,null);
   }
 
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
   public PogodocApiHttpResponse<Void> extractTemplateFiles(String templateId,
-      Optional<ExtractTemplateFilesRequest> request) {
-    return extractTemplateFiles(templateId,request,null);
-  }
-
-  /**
-   * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
-   */
-  public PogodocApiHttpResponse<Void> extractTemplateFiles(String templateId,
-      Optional<ExtractTemplateFilesRequest> request, RequestOptions requestOptions) {
+      RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("templates")
       .addPathSegment(templateId)
       .addPathSegments("unzip")
       .build();
-    RequestBody body;
-    try {
-      body = RequestBody.create("", null);
-      if (request.isPresent()) {
-        body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
-      }
-    }
-    catch(JsonProcessingException e) {
-      throw new PogodocApiException("Failed to serialize request", e);
-    }
     Request okhttpRequest = new Request.Builder()
       .url(httpUrl)
-      .method("PATCH", body)
+      .method("PATCH", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
-      .addHeader("Content-Type", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {

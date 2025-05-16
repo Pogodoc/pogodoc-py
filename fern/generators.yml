@@ -7,42 +7,42 @@ groups:
   local:
     generators:
       - name: fernapi/fern-typescript-node-sdk
+        version: 1.0.0
         output:
           location: local-file-system
           path: ../sdks/typescript/src/sdk
         config:
           outputSourceFiles: true
-        version: 0.49.1
-      # - name: fernapi/fern-python-sdk
-      #   version: 4.17.0
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/python/sdk
-      # - name: fernapi/fern-go-sdk
-      #   version: 0.1.0
-      #   config:
-      #     module:
-      #       path: pogodoc/go/sdk
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/go/sdk
-      # - name: fernapi/fern-csharp-sdk
-      #   version: 0.1.0
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/csharp/sdk
-      # - name: fernapi/fern-php-sdk
-      #   version: 0.1.0
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/php/sdk
-      # - name: fernapi/fern-java-sdk
-      #   version: 2.33.4
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/java/sdk
-      # - name: fernapi/fern-ruby-sdk
-      #   version: 0.8.2
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/ruby/sdk
+      - name: fernapi/fern-python-sdk
+        version: 4.20.2
+        output:
+          location: local-file-system
+          path: ../sdks/python/sdk
+      - name: fernapi/fern-go-sdk
+        version: 0.38.0
+        config:
+          module:
+            path: pogodoc/go/sdk
+        output:
+          location: local-file-system
+          path: ../sdks/go/sdk
+      - name: fernapi/fern-csharp-sdk
+        version: 1.17.3
+        output:
+          location: local-file-system
+          path: ../sdks/csharp/sdk
+      - name: fernapi/fern-php-sdk
+        version: 0.15.0
+        output:
+          location: local-file-system
+          path: ../sdks/php/sdk
+      - name: fernapi/fern-java-sdk
+        version: 2.36.1
+        output:
+          location: local-file-system
+          path: ../sdks/java/sdk
+      - name: fernapi/fern-ruby-sdk
+        version: 0.8.2
+        output:
+          location: local-file-system
+          path: ../sdks/ruby/sdk

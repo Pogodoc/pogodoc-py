@@ -7,13 +7,11 @@ package resources.templates;
 import core.ClientOptions;
 import core.RequestOptions;
 import java.lang.String;
-import java.util.Optional;
 import resources.templates.requests.GenerateTemplatePreviewsRequest;
 import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
-import resources.templates.types.ExtractTemplateFilesRequest;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -106,17 +104,8 @@ public class TemplatesClient {
   /**
    * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
    */
-  public void extractTemplateFiles(String templateId,
-      Optional<ExtractTemplateFilesRequest> request) {
-    this.rawClient.extractTemplateFiles(templateId, request).body();
-  }
-
-  /**
-   * Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
-   */
-  public void extractTemplateFiles(String templateId, Optional<ExtractTemplateFilesRequest> request,
-      RequestOptions requestOptions) {
-    this.rawClient.extractTemplateFiles(templateId, request, requestOptions).body();
+  public void extractTemplateFiles(String templateId, RequestOptions requestOptions) {
+    this.rawClient.extractTemplateFiles(templateId, requestOptions).body();
   }
 
   /**

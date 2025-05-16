@@ -40,8 +40,13 @@ class TokensClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.tokens.delete_api_token(token_id='tokenId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.tokens.delete_api_token(
+            token_id="tokenId",
+        )
         """
         _response = self._raw_client.delete_api_token(token_id, request_options=request_options)
         return _response.data
@@ -79,11 +84,21 @@ class AsyncTokensClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.tokens.delete_api_token(token_id='tokenId', )
+            await client.tokens.delete_api_token(
+                token_id="tokenId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_api_token(token_id, request_options=request_options)
