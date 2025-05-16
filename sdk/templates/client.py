@@ -6,7 +6,6 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
 from .types.clone_template_response import CloneTemplateResponse
-from .types.extract_template_files_request import ExtractTemplateFilesRequest
 from .types.generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
 from .types.generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
 from .types.generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
@@ -57,7 +56,10 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
         client.templates.initialize_template_creation()
         """
         _response = self._raw_client.initialize_template_creation(request_options=request_options)
@@ -92,11 +94,28 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        from pogodoc.templates import SaveCreatedTemplateRequestTemplateInfo
-        from pogodoc.templates import SaveCreatedTemplateRequestPreviewIds
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.save_created_template(template_id='templateId', template_info=SaveCreatedTemplateRequestTemplateInfo(title='title', description='description', type="docx", sample_data={'key': 'value'
-        }, categories=["invoice"], ), preview_ids=SaveCreatedTemplateRequestPreviewIds(png_job_id='pngJobId', pdf_job_id='pdfJobId', ), )
+        from pogodoc.templates import (
+            SaveCreatedTemplateRequestPreviewIds,
+            SaveCreatedTemplateRequestTemplateInfo,
+        )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.save_created_template(
+            template_id="templateId",
+            template_info=SaveCreatedTemplateRequestTemplateInfo(
+                title="title",
+                description="description",
+                type="docx",
+                sample_data={"key": "value"},
+                categories=["invoice"],
+            ),
+            preview_ids=SaveCreatedTemplateRequestPreviewIds(
+                png_job_id="pngJobId",
+                pdf_job_id="pdfJobId",
+            ),
+        )
         """
         _response = self._raw_client.save_created_template(
             template_id, template_info=template_info, preview_ids=preview_ids, request_options=request_options
@@ -136,11 +155,29 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        from pogodoc.templates import UpdateTemplateRequestTemplateInfo
-        from pogodoc.templates import UpdateTemplateRequestPreviewIds
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.update_template(template_id='templateId', template_info=UpdateTemplateRequestTemplateInfo(title='title', description='description', type="docx", sample_data={'key': 'value'
-        }, categories=["invoice"], ), preview_ids=UpdateTemplateRequestPreviewIds(png_job_id='pngJobId', pdf_job_id='pdfJobId', ), content_id='contentId', )
+        from pogodoc.templates import (
+            UpdateTemplateRequestPreviewIds,
+            UpdateTemplateRequestTemplateInfo,
+        )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.update_template(
+            template_id="templateId",
+            template_info=UpdateTemplateRequestTemplateInfo(
+                title="title",
+                description="description",
+                type="docx",
+                sample_data={"key": "value"},
+                categories=["invoice"],
+            ),
+            preview_ids=UpdateTemplateRequestPreviewIds(
+                png_job_id="pngJobId",
+                pdf_job_id="pdfJobId",
+            ),
+            content_id="contentId",
+        )
         """
         _response = self._raw_client.update_template(
             template_id,
@@ -169,18 +206,19 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.delete_template(template_id='templateId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.delete_template(
+            template_id="templateId",
+        )
         """
         _response = self._raw_client.delete_template(template_id, request_options=request_options)
         return _response.data
 
     def extract_template_files(
-        self,
-        template_id: str,
-        *,
-        request: typing.Optional[ExtractTemplateFilesRequest] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -188,8 +226,6 @@ class TemplatesClient:
         Parameters
         ----------
         template_id : str
-
-        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -201,12 +237,15 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.extract_template_files(template_id='templateId', )
-        """
-        _response = self._raw_client.extract_template_files(
-            template_id, request=request, request_options=request_options
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
         )
+        client.templates.extract_template_files(
+            template_id="templateId",
+        )
+        """
+        _response = self._raw_client.extract_template_files(template_id, request_options=request_options)
         return _response.data
 
     def generate_template_previews(
@@ -242,9 +281,15 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.generate_template_previews(template_id='templateId', type="docx", data={'key': 'value'
-        }, )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.generate_template_previews(
+            template_id="templateId",
+            type="docx",
+            data={"key": "value"},
+        )
         """
         _response = self._raw_client.generate_template_previews(
             template_id, type=type, data=data, format_opts=format_opts, request_options=request_options
@@ -272,8 +317,13 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.generate_presigned_get_url(template_id='templateId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.generate_presigned_get_url(
+            template_id="templateId",
+        )
         """
         _response = self._raw_client.generate_presigned_get_url(template_id, request_options=request_options)
         return _response.data
@@ -299,8 +349,13 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.get_template_index_html(template_id='templateId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.get_template_index_html(
+            template_id="templateId",
+        )
         """
         _response = self._raw_client.get_template_index_html(template_id, request_options=request_options)
         return _response.data
@@ -327,8 +382,14 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.upload_template_index_html(template_id='templateId', template_index='templateIndex', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.upload_template_index_html(
+            template_id="templateId",
+            template_index="templateIndex",
+        )
         """
         _response = self._raw_client.upload_template_index_html(
             template_id, template_index=template_index, request_options=request_options
@@ -356,8 +417,13 @@ class TemplatesClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.templates.clone_template(template_id='templateId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.clone_template(
+            template_id="templateId",
+        )
         """
         _response = self._raw_client.clone_template(template_id, request_options=request_options)
         return _response.data
@@ -396,11 +462,19 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
             await client.templates.initialize_template_creation()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.initialize_template_creation(request_options=request_options)
@@ -434,14 +508,36 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
-        from pogodoc.templates import SaveCreatedTemplateRequestTemplateInfo
-        from pogodoc.templates import SaveCreatedTemplateRequestPreviewIds
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+        from pogodoc.templates import (
+            SaveCreatedTemplateRequestPreviewIds,
+            SaveCreatedTemplateRequestTemplateInfo,
+        )
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.save_created_template(template_id='templateId', template_info=SaveCreatedTemplateRequestTemplateInfo(title='title', description='description', type="docx", sample_data={'key': 'value'
-            }, categories=["invoice"], ), preview_ids=SaveCreatedTemplateRequestPreviewIds(png_job_id='pngJobId', pdf_job_id='pdfJobId', ), )
+            await client.templates.save_created_template(
+                template_id="templateId",
+                template_info=SaveCreatedTemplateRequestTemplateInfo(
+                    title="title",
+                    description="description",
+                    type="docx",
+                    sample_data={"key": "value"},
+                    categories=["invoice"],
+                ),
+                preview_ids=SaveCreatedTemplateRequestPreviewIds(
+                    png_job_id="pngJobId",
+                    pdf_job_id="pdfJobId",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.save_created_template(
@@ -481,14 +577,37 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
-        from pogodoc.templates import UpdateTemplateRequestTemplateInfo
-        from pogodoc.templates import UpdateTemplateRequestPreviewIds
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+        from pogodoc.templates import (
+            UpdateTemplateRequestPreviewIds,
+            UpdateTemplateRequestTemplateInfo,
+        )
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.update_template(template_id='templateId', template_info=UpdateTemplateRequestTemplateInfo(title='title', description='description', type="docx", sample_data={'key': 'value'
-            }, categories=["invoice"], ), preview_ids=UpdateTemplateRequestPreviewIds(png_job_id='pngJobId', pdf_job_id='pdfJobId', ), content_id='contentId', )
+            await client.templates.update_template(
+                template_id="templateId",
+                template_info=UpdateTemplateRequestTemplateInfo(
+                    title="title",
+                    description="description",
+                    type="docx",
+                    sample_data={"key": "value"},
+                    categories=["invoice"],
+                ),
+                preview_ids=UpdateTemplateRequestPreviewIds(
+                    png_job_id="pngJobId",
+                    pdf_job_id="pdfJobId",
+                ),
+                content_id="contentId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.update_template(
@@ -519,22 +638,28 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.delete_template(template_id='templateId', )
+            await client.templates.delete_template(
+                template_id="templateId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_template(template_id, request_options=request_options)
         return _response.data
 
     async def extract_template_files(
-        self,
-        template_id: str,
-        *,
-        request: typing.Optional[ExtractTemplateFilesRequest] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -542,8 +667,6 @@ class AsyncTemplatesClient:
         Parameters
         ----------
         template_id : str
-
-        request : typing.Optional[ExtractTemplateFilesRequest]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -554,16 +677,24 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.extract_template_files(template_id='templateId', )
+            await client.templates.extract_template_files(
+                template_id="templateId",
+            )
+
+
         asyncio.run(main())
         """
-        _response = await self._raw_client.extract_template_files(
-            template_id, request=request, request_options=request_options
-        )
+        _response = await self._raw_client.extract_template_files(template_id, request_options=request_options)
         return _response.data
 
     async def generate_template_previews(
@@ -598,12 +729,23 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.generate_template_previews(template_id='templateId', type="docx", data={'key': 'value'
-            }, )
+            await client.templates.generate_template_previews(
+                template_id="templateId",
+                type="docx",
+                data={"key": "value"},
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.generate_template_previews(
@@ -631,11 +773,21 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.generate_presigned_get_url(template_id='templateId', )
+            await client.templates.generate_presigned_get_url(
+                template_id="templateId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.generate_presigned_get_url(template_id, request_options=request_options)
@@ -661,11 +813,21 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.get_template_index_html(template_id='templateId', )
+            await client.templates.get_template_index_html(
+                template_id="templateId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_template_index_html(template_id, request_options=request_options)
@@ -692,11 +854,22 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.upload_template_index_html(template_id='templateId', template_index='templateIndex', )
+            await client.templates.upload_template_index_html(
+                template_id="templateId",
+                template_index="templateIndex",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.upload_template_index_html(
@@ -724,11 +897,21 @@ class AsyncTemplatesClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.templates.clone_template(template_id='templateId', )
+            await client.templates.clone_template(
+                template_id="templateId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.clone_template(template_id, request_options=request_options)

@@ -31,7 +31,6 @@ from .documents import (
 from .environment import PogodocApiEnvironment
 from .templates import (
     CloneTemplateResponse,
-    ExtractTemplateFilesRequest,
     GeneratePresignedGetUrlResponse,
     GenerateTemplatePreviewsRequestFormatOpts,
     GenerateTemplatePreviewsRequestFormatOptsFormat,
@@ -55,7 +54,6 @@ from .templates import (
 __all__ = [
     "AsyncPogodocApi",
     "CloneTemplateResponse",
-    "ExtractTemplateFilesRequest",
     "GenerateDocumentPreviewRequestFormatOpts",
     "GenerateDocumentPreviewRequestFormatOptsFormat",
     "GenerateDocumentPreviewRequestType",

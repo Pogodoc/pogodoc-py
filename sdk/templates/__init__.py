@@ -4,7 +4,6 @@
 
 from .types import (
     CloneTemplateResponse,
-    ExtractTemplateFilesRequest,
     GeneratePresignedGetUrlResponse,
     GenerateTemplatePreviewsRequestFormatOpts,
     GenerateTemplatePreviewsRequestFormatOptsFormat,
@@ -27,7 +26,6 @@ from .types import (
 
 __all__ = [
     "CloneTemplateResponse",
-    "ExtractTemplateFilesRequest",
     "GeneratePresignedGetUrlResponse",
     "GenerateTemplatePreviewsRequestFormatOpts",
     "GenerateTemplatePreviewsRequestFormatOptsFormat",
