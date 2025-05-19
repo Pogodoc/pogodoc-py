@@ -18,5 +18,5 @@ go test
 echo "Go tests completed"
 cd ..
 cd csharp
-dotnet test
+dotnet test -l "console;verbosity=detailed" 
 echo "C# tests completed"
