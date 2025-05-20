@@ -10,7 +10,7 @@ echo "TypeScript tests completed"
 cd ..
 cd ..
 cd python
-python test.py
+python3 test.py
 echo "Python tests completed"
 cd ..
 cd go

@@ -22,7 +22,7 @@ groups:
         version: 0.38.0
         config:
           module:
-            path: pogodoc/go/sdk
+            path: github.com/pogodoc/pogodoc-go/sdk
         output:
           location: local-file-system
           path: ../sdks/go/sdk
