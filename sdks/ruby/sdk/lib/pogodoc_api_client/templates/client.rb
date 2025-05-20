@@ -207,7 +207,7 @@ module PogodocApiClient
     #  )
     #  api.templates.extract_template_files(template_id: "templateId")
     def extract_template_files(template_id:, request_options: nil)
-      @request_client.conn.post do |req|
+      @request_client.conn.patch do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -603,7 +603,7 @@ module PogodocApiClient
     #  api.templates.extract_template_files(template_id: "templateId")
     def extract_template_files(template_id:, request_options: nil)
       Async do
-        @request_client.conn.post do |req|
+        @request_client.conn.patch do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {

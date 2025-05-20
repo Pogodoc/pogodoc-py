@@ -237,7 +237,7 @@ public class RawTemplatesClient {
       .build();
     Request okhttpRequest = new Request.Builder()
       .url(httpUrl)
-      .method("POST", RequestBody.create("", null))
+      .method("PATCH", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
       .build();
     OkHttpClient client = clientOptions.httpClient();

@@ -4,8 +4,10 @@ import typing
 
 import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .core.request_options import RequestOptions
 from .documents.client import AsyncDocumentsClient, DocumentsClient
 from .environment import PogodocApiEnvironment
+from .raw_client import AsyncRawPogodocApi, RawPogodocApi
 from .templates.client import AsyncTemplatesClient, TemplatesClient
 from .tokens.client import AsyncTokensClient, TokensClient
 
@@ -22,11 +24,13 @@ class PogodocApi:
     environment : PogodocApiEnvironment
         The environment to use for requests from the client. from .environment import PogodocApiEnvironment
 
+
+
         Defaults to PogodocApiEnvironment.DEFAULT
 
 
 
-    token : typing.Union[str, typing.Callable[[], str]]
+    token : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -39,7 +43,10 @@ class PogodocApi:
     Examples
     --------
     from pogodoc import PogodocApi
-    client = PogodocApi(token="YOUR_TOKEN", )
+
+    client = PogodocApi(
+        token="YOUR_TOKEN",
+    )
     """
 
     def __init__(
@@ -47,7 +54,7 @@ class PogodocApi:
         *,
         base_url: typing.Optional[str] = None,
         environment: PogodocApiEnvironment = PogodocApiEnvironment.DEFAULT,
-        token: typing.Union[str, typing.Callable[[], str]],
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -65,9 +72,44 @@ class PogodocApi:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self._raw_client = RawPogodocApi(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.documents = DocumentsClient(client_wrapper=self._client_wrapper)
         self.tokens = TokensClient(client_wrapper=self._client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawPogodocApi:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawPogodocApi
+        """
+        return self._raw_client
+
+    def post_boshe(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from pogodoc import PogodocApi
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.post_boshe()
+        """
+        _response = self._raw_client.post_boshe(request_options=request_options)
+        return _response.data
 
 
 class AsyncPogodocApi:
@@ -82,11 +124,13 @@ class AsyncPogodocApi:
     environment : PogodocApiEnvironment
         The environment to use for requests from the client. from .environment import PogodocApiEnvironment
 
+
+
         Defaults to PogodocApiEnvironment.DEFAULT
 
 
 
-    token : typing.Union[str, typing.Callable[[], str]]
+    token : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -99,7 +143,10 @@ class AsyncPogodocApi:
     Examples
     --------
     from pogodoc import AsyncPogodocApi
-    client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+    client = AsyncPogodocApi(
+        token="YOUR_TOKEN",
+    )
     """
 
     def __init__(
@@ -107,7 +154,7 @@ class AsyncPogodocApi:
         *,
         base_url: typing.Optional[str] = None,
         environment: PogodocApiEnvironment = PogodocApiEnvironment.DEFAULT,
-        token: typing.Union[str, typing.Callable[[], str]],
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -125,9 +172,52 @@ class AsyncPogodocApi:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self._raw_client = AsyncRawPogodocApi(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.documents = AsyncDocumentsClient(client_wrapper=self._client_wrapper)
         self.tokens = AsyncTokensClient(client_wrapper=self._client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawPogodocApi:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawPogodocApi
+        """
+        return self._raw_client
+
+    async def post_boshe(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.post_boshe()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.post_boshe(request_options=request_options)
+        return _response.data
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: PogodocApiEnvironment) -> str:

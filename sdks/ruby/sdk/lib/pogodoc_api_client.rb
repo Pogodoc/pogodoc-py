@@ -35,6 +35,34 @@ module PogodocApiClient
       @documents = PogodocApiClient::DocumentsClient.new(request_client: @request_client)
       @tokens = PogodocApiClient::TokensClient.new(request_client: @request_client)
     end
+
+    # @param request_options [PogodocApiClient::RequestOptions]
+    # @return [Void]
+    # @example
+    #  api = PogodocApiClient::Client.new(
+    #    base_url: "https://api.example.com",
+    #    environment: PogodocApiClient::Environment::DEFAULT,
+    #    token: "YOUR_AUTH_TOKEN"
+    #  )
+    #  api.post_boshe
+    def post_boshe(request_options: nil)
+      @request_client.conn.post do |req|
+        req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
+        req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
+        req.headers = {
+      **(req.headers || {}),
+      **@request_client.get_headers,
+      **(request_options&.additional_headers || {})
+        }.compact
+        unless request_options.nil? || request_options&.additional_query_parameters.nil?
+          req.params = { **(request_options&.additional_query_parameters || {}) }.compact
+        end
+        unless request_options.nil? || request_options&.additional_body_parameters.nil?
+          req.body = { **(request_options&.additional_body_parameters || {}) }.compact
+        end
+        req.url "#{@request_client.get_url(request_options: request_options)}/boshe"
+      end
+    end
   end
 
   class AsyncClient
@@ -63,6 +91,34 @@ module PogodocApiClient
       @templates = PogodocApiClient::AsyncTemplatesClient.new(request_client: @async_request_client)
       @documents = PogodocApiClient::AsyncDocumentsClient.new(request_client: @async_request_client)
       @tokens = PogodocApiClient::AsyncTokensClient.new(request_client: @async_request_client)
+    end
+
+    # @param request_options [PogodocApiClient::RequestOptions]
+    # @return [Void]
+    # @example
+    #  api = PogodocApiClient::Client.new(
+    #    base_url: "https://api.example.com",
+    #    environment: PogodocApiClient::Environment::DEFAULT,
+    #    token: "YOUR_AUTH_TOKEN"
+    #  )
+    #  api.post_boshe
+    def post_boshe(request_options: nil)
+      @async_request_client.conn.post do |req|
+        req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
+        req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
+        req.headers = {
+      **(req.headers || {}),
+      **@async_request_client.get_headers,
+      **(request_options&.additional_headers || {})
+        }.compact
+        unless request_options.nil? || request_options&.additional_query_parameters.nil?
+          req.params = { **(request_options&.additional_query_parameters || {}) }.compact
+        end
+        unless request_options.nil? || request_options&.additional_body_parameters.nil?
+          req.body = { **(request_options&.additional_body_parameters || {}) }.compact
+        end
+        req.url "#{@async_request_client.get_url(request_options: request_options)}/boshe"
+      end
     end
   end
 end

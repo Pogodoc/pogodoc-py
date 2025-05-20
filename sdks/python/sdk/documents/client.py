@@ -74,8 +74,14 @@ class DocumentsClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.documents.initialize_render_job(type="docx", target="pdf", )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.documents.initialize_render_job(
+            type="docx",
+            target="pdf",
+        )
         """
         _response = self._raw_client.initialize_render_job(
             type=type,
@@ -117,8 +123,13 @@ class DocumentsClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.documents.start_render_job(job_id='jobId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.documents.start_render_job(
+            job_id="jobId",
+        )
         """
         _response = self._raw_client.start_render_job(
             job_id,
@@ -161,9 +172,15 @@ class DocumentsClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.documents.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
-        }, )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.documents.generate_document_preview(
+            template_id="templateId",
+            type="docx",
+            data={"key": "value"},
+        )
         """
         _response = self._raw_client.generate_document_preview(
             template_id=template_id, type=type, data=data, format_opts=format_opts, request_options=request_options
@@ -209,9 +226,15 @@ class DocumentsClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.documents.start_immediate_render(start_immediate_render_request_data={'key': 'value'
-        }, type="docx", target="pdf", )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.documents.start_immediate_render(
+            start_immediate_render_request_data={"key": "value"},
+            type="docx",
+            target="pdf",
+        )
         """
         _response = self._raw_client.start_immediate_render(
             start_immediate_render_request_data=start_immediate_render_request_data,
@@ -245,8 +268,13 @@ class DocumentsClient:
         Examples
         --------
         from pogodoc import PogodocApi
-        client = PogodocApi(token="YOUR_TOKEN", )
-        client.documents.get_job_status(job_id='jobId', )
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.documents.get_job_status(
+            job_id="jobId",
+        )
         """
         _response = self._raw_client.get_job_status(job_id, request_options=request_options)
         return _response.data
@@ -302,11 +330,22 @@ class AsyncDocumentsClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.documents.initialize_render_job(type="docx", target="pdf", )
+            await client.documents.initialize_render_job(
+                type="docx",
+                target="pdf",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.initialize_render_job(
@@ -348,11 +387,21 @@ class AsyncDocumentsClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.documents.start_render_job(job_id='jobId', )
+            await client.documents.start_render_job(
+                job_id="jobId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.start_render_job(
@@ -395,12 +444,23 @@ class AsyncDocumentsClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.documents.generate_document_preview(template_id='templateId', type="docx", data={'key': 'value'
-            }, )
+            await client.documents.generate_document_preview(
+                template_id="templateId",
+                type="docx",
+                data={"key": "value"},
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.generate_document_preview(
@@ -446,12 +506,23 @@ class AsyncDocumentsClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.documents.start_immediate_render(start_immediate_render_request_data={'key': 'value'
-            }, type="docx", target="pdf", )
+            await client.documents.start_immediate_render(
+                start_immediate_render_request_data={"key": "value"},
+                type="docx",
+                target="pdf",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.start_immediate_render(
@@ -485,11 +556,21 @@ class AsyncDocumentsClient:
 
         Examples
         --------
-        from pogodoc import AsyncPogodocApi
         import asyncio
-        client = AsyncPogodocApi(token="YOUR_TOKEN", )
+
+        from pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
         async def main() -> None:
-            await client.documents.get_job_status(job_id='jobId', )
+            await client.documents.get_job_status(
+                job_id="jobId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_job_status(job_id, request_options=request_options)
