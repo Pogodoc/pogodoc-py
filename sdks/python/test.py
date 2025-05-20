@@ -43,7 +43,7 @@ def main():
     immediateRender = client.documents.start_immediate_render(template="<h1>Hello <%= name %></h1>", start_immediate_render_request_data={"name": "Ferdzo"}, target="pdf", type="html")
     print(immediateRender)
     # delete template
-    client.templates.delete_template(template_id=templateId)
+    # client.templates.delete_template(template_id=templateId)
 
 
 
