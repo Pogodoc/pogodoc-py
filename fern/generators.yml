@@ -35,14 +35,14 @@ groups:
         version: 0.15.0
         output:
           location: local-file-system
-          path: ../sdks/php/sdk
-      - name: fernapi/fern-java-sdk
-        version: 2.36.1
-        output:
-          location: local-file-system
-          path: ../sdks/java/sdk
-      - name: fernapi/fern-ruby-sdk
-        version: 0.8.2
-        output:
-          location: local-file-system
-          path: ../sdks/ruby/sdk
+          path: ../sdks/php/src/sdk
+      # - name: fernapi/fern-java-sdk
+      #   version: 2.36.1
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/java/sdk
+      # - name: fernapi/fern-ruby-sdk
+      #   version: 0.8.2
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/ruby/sdk

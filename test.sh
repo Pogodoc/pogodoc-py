@@ -1,13 +1,12 @@
 #!/bin/bash
 cd sdks
 cd php 
-php test.php
+php src/test.php
 echo "PHP tests completed"
 cd ..
-cd typescript/src
-npm test
+cd typescript
+npm run test
 echo "TypeScript tests completed"
-cd ..
 cd ..
 cd python
 python3 test.py
