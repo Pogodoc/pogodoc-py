@@ -1,8 +1,8 @@
 import httpx
-from sdk.documents.types.initialize_render_job_request_format_opts import InitializeRenderJobRequestFormatOpts
-from sdk.documents.types.initialize_render_job_request_type import InitializeRenderJobRequestType
-from sdk.core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from sdk.documents.types.initialize_render_job_request_target import InitializeRenderJobRequestTarget
+from pogodoc.sdk.documents.types.initialize_render_job_request_format_opts import InitializeRenderJobRequestFormatOpts
+from pogodoc.sdk.documents.types.initialize_render_job_request_type import InitializeRenderJobRequestType
+from pogodoc.sdk.core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from pogodoc.sdk.documents.types.initialize_render_job_request_target import InitializeRenderJobRequestTarget
 import pydantic
 import typing
 

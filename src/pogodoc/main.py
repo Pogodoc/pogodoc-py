@@ -1,12 +1,12 @@
 import os
 import json
 import io
-from sdk.client import PogodocApi
-from utils import RenderConfig, upload_to_s3_with_url
-from sdk.templates.types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
-from sdk.templates.types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
-from sdk.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
-from sdk.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
+from pogodoc.sdk.client import PogodocApi
+from pogodoc.utils import RenderConfig, upload_to_s3_with_url
+from pogodoc.sdk.templates.types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
+from pogodoc.sdk.templates.types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
+from pogodoc.sdk.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
+from pogodoc.sdk.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
 import typing
 
 class PogodocClient(PogodocApi):
