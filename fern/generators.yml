@@ -17,7 +17,7 @@ groups:
         version: 4.20.2
         output:
           location: local-file-system
-          path: ../sdks/python/sdk
+          path: ../sdks/python/src/sdk
       - name: fernapi/fern-go-sdk
         version: 0.38.0
         config:
@@ -36,13 +36,13 @@ groups:
         output:
           location: local-file-system
           path: ../sdks/php/src/sdk
-      # - name: fernapi/fern-java-sdk
-      #   version: 2.36.1
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/java/sdk
-      # - name: fernapi/fern-ruby-sdk
-      #   version: 0.8.2
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/ruby/sdk
+      - name: fernapi/fern-java-sdk
+        version: 2.36.1
+        output:
+          location: local-file-system
+          path: ../sdks/java/src/sdk
+      - name: fernapi/fern-ruby-sdk
+        version: 0.8.2
+        output:
+          location: local-file-system
+          path: ../sdks/ruby/src/sdk

@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "fern-api": "^0.61.18",
+    "fern-api": "^0.63.6",
     "typescript": "^5.8.3"
   }
 }
