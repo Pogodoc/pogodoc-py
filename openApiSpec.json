@@ -648,7 +648,7 @@
                           "type": "string"
                         }
                       },
-                      "required": ["jobId"]
+                      "required": ["url", "jobId"]
                     },
                     "pdfPreview": {
                       "type": "object",
@@ -662,7 +662,7 @@
                           "type": "string"
                         }
                       },
-                      "required": ["jobId"]
+                      "required": ["url", "jobId"]
                     }
                   },
                   "required": ["pngPreview", "pdfPreview"]
