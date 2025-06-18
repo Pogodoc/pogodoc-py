@@ -6,9 +6,9 @@ require "json"
 module PogodocApiClient
   class Templates
     class UpdateTemplateRequestPreviewIds
-      # @return [String]
+      # @return [String] ID of the job for the PNG preview
       attr_reader :png_job_id
-      # @return [String]
+      # @return [String] ID of the job for the PDF preview
       attr_reader :pdf_job_id
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -18,8 +18,8 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param png_job_id [String]
-      # @param pdf_job_id [String]
+      # @param png_job_id [String] ID of the job for the PNG preview
+      # @param pdf_job_id [String] ID of the job for the PDF preview
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::UpdateTemplateRequestPreviewIds]
       def initialize(png_job_id:, pdf_job_id:, additional_properties: nil)

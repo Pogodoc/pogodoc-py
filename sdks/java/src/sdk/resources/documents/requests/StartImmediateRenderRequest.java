@@ -57,31 +57,49 @@ public final class StartImmediateRenderRequest {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Sample data for the template
+   */
   @JsonProperty("data")
   public Map<String, Object> getStartImmediateRenderRequestData() {
     return startImmediateRenderRequestData;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public StartImmediateRenderRequestType getType() {
     return type;
   }
 
+  /**
+   * @return Type of output to be rendered
+   */
   @JsonProperty("target")
   public StartImmediateRenderRequestTarget getTarget() {
     return target;
   }
 
+  /**
+   * @return ID of the template to be used
+   */
   @JsonProperty("templateId")
   public Optional<String> getTemplateId() {
     return templateId;
   }
 
+  /**
+   * @return Format options for the rendered document
+   */
   @JsonProperty("formatOpts")
   public Optional<StartImmediateRenderRequestFormatOpts> getFormatOpts() {
     return formatOpts;
   }
 
+  /**
+   * @return index.html or ejs file of the template as a string
+   */
   @JsonProperty("template")
   public Optional<String> getTemplate() {
     return template;
@@ -183,6 +201,10 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public TargetStage type(@NotNull StartImmediateRenderRequestType type) {
@@ -190,6 +212,10 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>Type of output to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("target")
     public _FinalStage target(@NotNull StartImmediateRenderRequestTarget target) {
@@ -197,6 +223,10 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>index.html or ejs file of the template as a string</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage template(String template) {
       this.template = Optional.ofNullable(template);
@@ -213,6 +243,10 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>Format options for the rendered document</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage formatOpts(StartImmediateRenderRequestFormatOpts formatOpts) {
       this.formatOpts = Optional.ofNullable(formatOpts);
@@ -229,6 +263,10 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>ID of the template to be used</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage templateId(String templateId) {
       this.templateId = Optional.ofNullable(templateId);
@@ -245,12 +283,20 @@ public final class StartImmediateRenderRequest {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage startImmediateRenderRequestData(String key, Object value) {
       this.startImmediateRenderRequestData.put(key, value);
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage putAllStartImmediateRenderRequestData(
         Map<String, Object> startImmediateRenderRequestData) {

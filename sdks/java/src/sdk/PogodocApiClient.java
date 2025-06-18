@@ -3,45 +3,22 @@
  */
 
 import core.ClientOptions;
-import core.RequestOptions;
 import core.Suppliers;
 import java.util.function.Supplier;
 import resources.documents.DocumentsClient;
 import resources.templates.TemplatesClient;
-import resources.tokens.TokensClient;
 
 public class PogodocApiClient {
   protected final ClientOptions clientOptions;
-
-  private final RawPogodocApiClient rawClient;
 
   protected final Supplier<TemplatesClient> templatesClient;
 
   protected final Supplier<DocumentsClient> documentsClient;
 
-  protected final Supplier<TokensClient> tokensClient;
-
   public PogodocApiClient(ClientOptions clientOptions) {
     this.clientOptions = clientOptions;
-    this.rawClient = new RawPogodocApiClient(clientOptions);
     this.templatesClient = Suppliers.memoize(() -> new TemplatesClient(clientOptions));
     this.documentsClient = Suppliers.memoize(() -> new DocumentsClient(clientOptions));
-    this.tokensClient = Suppliers.memoize(() -> new TokensClient(clientOptions));
-  }
-
-  /**
-   * Get responses with HTTP metadata like headers
-   */
-  public RawPogodocApiClient withRawResponse() {
-    return this.rawClient;
-  }
-
-  public void postBoshe() {
-    this.rawClient.postBoshe().body();
-  }
-
-  public void postBoshe(RequestOptions requestOptions) {
-    this.rawClient.postBoshe(requestOptions).body();
   }
 
   public TemplatesClient templates() {
@@ -50,10 +27,6 @@ public class PogodocApiClient {
 
   public DocumentsClient documents() {
     return this.documentsClient.get();
-  }
-
-  public TokensClient tokens() {
-    return this.tokensClient.get();
   }
 
   public static PogodocApiClientBuilder builder() {

@@ -57,21 +57,33 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Title of the template
+   */
   @JsonProperty("title")
   public String getTitle() {
     return title;
   }
 
+  /**
+   * @return Description of the template
+   */
   @JsonProperty("description")
   public String getDescription() {
     return description;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public SaveCreatedTemplateRequestTemplateInfoType getType() {
     return type;
   }
 
+  /**
+   * @return Sample data for the template
+   */
   @JsonProperty("sampleData")
   public Map<String, Object> getSampleData() {
     return sampleData;
@@ -82,6 +94,9 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
     return sourceCode;
   }
 
+  /**
+   * @return Categories of the template
+   */
   @JsonProperty("categories")
   public List<SaveCreatedTemplateRequestTemplateInfoCategoriesItem> getCategories() {
     return categories;
@@ -184,6 +199,10 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Title of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("title")
     public DescriptionStage title(@NotNull String title) {
@@ -191,6 +210,10 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Description of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("description")
     public TypeStage description(@NotNull String description) {
@@ -198,6 +221,10 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public _FinalStage type(@NotNull SaveCreatedTemplateRequestTemplateInfoType type) {
@@ -205,6 +232,10 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Categories of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage addAllCategories(
         List<SaveCreatedTemplateRequestTemplateInfoCategoriesItem> categories) {
@@ -212,6 +243,10 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Categories of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage addCategories(
         SaveCreatedTemplateRequestTemplateInfoCategoriesItem categories) {
@@ -247,12 +282,20 @@ public final class SaveCreatedTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage sampleData(String key, Object value) {
       this.sampleData.put(key, value);
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage putAllSampleData(Map<String, Object> sampleData) {
       this.sampleData.putAll(sampleData);

@@ -6,7 +6,7 @@ require "json"
 module PogodocApiClient
   class Templates
     class GetTemplateIndexHtmlResponse
-      # @return [String]
+      # @return [String] Index.html file of the template
       attr_reader :template_index
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -16,7 +16,7 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param template_index [String]
+      # @param template_index [String] Index.html file of the template
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::GetTemplateIndexHtmlResponse]
       def initialize(template_index:, additional_properties: nil)

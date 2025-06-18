@@ -56,21 +56,33 @@ public final class UpdateTemplateRequestTemplateInfo {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Title of the template
+   */
   @JsonProperty("title")
   public String getTitle() {
     return title;
   }
 
+  /**
+   * @return Description of the template
+   */
   @JsonProperty("description")
   public String getDescription() {
     return description;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public UpdateTemplateRequestTemplateInfoType getType() {
     return type;
   }
 
+  /**
+   * @return Sample data for the template
+   */
   @JsonProperty("sampleData")
   public Map<String, Object> getSampleData() {
     return sampleData;
@@ -81,6 +93,9 @@ public final class UpdateTemplateRequestTemplateInfo {
     return sourceCode;
   }
 
+  /**
+   * @return Categories of the template
+   */
   @JsonProperty("categories")
   public List<UpdateTemplateRequestTemplateInfoCategoriesItem> getCategories() {
     return categories;
@@ -182,6 +197,10 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Title of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("title")
     public DescriptionStage title(@NotNull String title) {
@@ -189,6 +208,10 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Description of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("description")
     public TypeStage description(@NotNull String description) {
@@ -196,6 +219,10 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public _FinalStage type(@NotNull UpdateTemplateRequestTemplateInfoType type) {
@@ -203,6 +230,10 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Categories of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage addAllCategories(
         List<UpdateTemplateRequestTemplateInfoCategoriesItem> categories) {
@@ -210,6 +241,10 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Categories of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage addCategories(UpdateTemplateRequestTemplateInfoCategoriesItem categories) {
       this.categories.add(categories);
@@ -244,12 +279,20 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage sampleData(String key, Object value) {
       this.sampleData.put(key, value);
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage putAllSampleData(Map<String, Object> sampleData) {
       this.sampleData.putAll(sampleData);

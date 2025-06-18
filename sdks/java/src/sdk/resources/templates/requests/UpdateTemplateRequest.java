@@ -53,6 +53,9 @@ public final class UpdateTemplateRequest {
     return previewIds;
   }
 
+  /**
+   * @return ID by which the new template content is saved
+   */
   @JsonProperty("contentId")
   public String getContentId() {
     return contentId;
@@ -143,6 +146,10 @@ public final class UpdateTemplateRequest {
       return this;
     }
 
+    /**
+     * <p>ID by which the new template content is saved</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("contentId")
     public _FinalStage contentId(@NotNull String contentId) {

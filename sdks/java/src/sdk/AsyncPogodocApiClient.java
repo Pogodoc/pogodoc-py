@@ -3,47 +3,22 @@
  */
 
 import core.ClientOptions;
-import core.RequestOptions;
 import core.Suppliers;
-import java.lang.Void;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 import resources.documents.AsyncDocumentsClient;
 import resources.templates.AsyncTemplatesClient;
-import resources.tokens.AsyncTokensClient;
 
 public class AsyncPogodocApiClient {
   protected final ClientOptions clientOptions;
-
-  private final AsyncRawPogodocApiClient rawClient;
 
   protected final Supplier<AsyncTemplatesClient> templatesClient;
 
   protected final Supplier<AsyncDocumentsClient> documentsClient;
 
-  protected final Supplier<AsyncTokensClient> tokensClient;
-
   public AsyncPogodocApiClient(ClientOptions clientOptions) {
     this.clientOptions = clientOptions;
-    this.rawClient = new AsyncRawPogodocApiClient(clientOptions);
     this.templatesClient = Suppliers.memoize(() -> new AsyncTemplatesClient(clientOptions));
     this.documentsClient = Suppliers.memoize(() -> new AsyncDocumentsClient(clientOptions));
-    this.tokensClient = Suppliers.memoize(() -> new AsyncTokensClient(clientOptions));
-  }
-
-  /**
-   * Get responses with HTTP metadata like headers
-   */
-  public AsyncRawPogodocApiClient withRawResponse() {
-    return this.rawClient;
-  }
-
-  public CompletableFuture<Void> postBoshe() {
-    return this.rawClient.postBoshe().thenApply(response -> response.body());
-  }
-
-  public CompletableFuture<Void> postBoshe(RequestOptions requestOptions) {
-    return this.rawClient.postBoshe(requestOptions).thenApply(response -> response.body());
   }
 
   public AsyncTemplatesClient templates() {
@@ -52,10 +27,6 @@ public class AsyncPogodocApiClient {
 
   public AsyncDocumentsClient documents() {
     return this.documentsClient.get();
-  }
-
-  public AsyncTokensClient tokens() {
-    return this.tokensClient.get();
   }
 
   public static AsyncPogodocApiClientBuilder builder() {

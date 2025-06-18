@@ -33,6 +33,9 @@ public final class StartRenderJobResponse {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return ID of the render job
+   */
   @JsonProperty("jobId")
   public String getJobId() {
     return jobId;
@@ -95,6 +98,10 @@ public final class StartRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>ID of the render job</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("jobId")
     public _FinalStage jobId(@NotNull String jobId) {

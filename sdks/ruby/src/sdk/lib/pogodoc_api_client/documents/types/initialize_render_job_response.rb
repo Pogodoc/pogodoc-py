@@ -7,13 +7,14 @@ require "json"
 module PogodocApiClient
   class Documents
     class InitializeRenderJobResponse
-      # @return [String]
+      # @return [String] ID of the render job
       attr_reader :job_id
-      # @return [PogodocApiClient::Documents::InitializeRenderJobResponseTarget]
+      # @return [PogodocApiClient::Documents::InitializeRenderJobResponseTarget] Type of output to be rendered
       attr_reader :target
-      # @return [String]
+      # @return [String] Presigned URL to upload the data for the render job to S3
       attr_reader :presigned_data_upload_url
-      # @return [String]
+      # @return [String] Presigned URL to upload the template for the render job to S3. Only works with
+      #  EJS templates
       attr_reader :presigned_template_upload_url
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -23,10 +24,11 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param job_id [String]
-      # @param target [PogodocApiClient::Documents::InitializeRenderJobResponseTarget]
-      # @param presigned_data_upload_url [String]
-      # @param presigned_template_upload_url [String]
+      # @param job_id [String] ID of the render job
+      # @param target [PogodocApiClient::Documents::InitializeRenderJobResponseTarget] Type of output to be rendered
+      # @param presigned_data_upload_url [String] Presigned URL to upload the data for the render job to S3
+      # @param presigned_template_upload_url [String] Presigned URL to upload the template for the render job to S3. Only works with
+      #  EJS templates
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Documents::InitializeRenderJobResponse]
       def initialize(job_id:, target:, presigned_data_upload_url: OMIT, presigned_template_upload_url: OMIT,

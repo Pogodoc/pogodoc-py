@@ -6,7 +6,7 @@ require "json"
 module PogodocApiClient
   class Documents
     class StartRenderJobResponse
-      # @return [String]
+      # @return [String] ID of the render job
       attr_reader :job_id
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -16,7 +16,7 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param job_id [String]
+      # @param job_id [String] ID of the render job
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Documents::StartRenderJobResponse]
       def initialize(job_id:, additional_properties: nil)

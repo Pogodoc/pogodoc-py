@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import core.ObjectMappers;
 import java.lang.Object;
@@ -18,7 +17,6 @@ import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
@@ -26,24 +24,30 @@ import org.jetbrains.annotations.NotNull;
     builder = GenerateTemplatePreviewsResponsePngPreview.Builder.class
 )
 public final class GenerateTemplatePreviewsResponsePngPreview {
-  private final Optional<String> url;
+  private final String url;
 
   private final String jobId;
 
   private final Map<String, Object> additionalProperties;
 
-  private GenerateTemplatePreviewsResponsePngPreview(Optional<String> url, String jobId,
+  private GenerateTemplatePreviewsResponsePngPreview(String url, String jobId,
       Map<String, Object> additionalProperties) {
     this.url = url;
     this.jobId = jobId;
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return URL of the rendered preview
+   */
   @JsonProperty("url")
-  public Optional<String> getUrl() {
+  public String getUrl() {
     return url;
   }
 
+  /**
+   * @return ID of the render job
+   */
   @JsonProperty("jobId")
   public String getJobId() {
     return jobId;
@@ -74,31 +78,31 @@ public final class GenerateTemplatePreviewsResponsePngPreview {
     return ObjectMappers.stringify(this);
   }
 
-  public static JobIdStage builder() {
+  public static UrlStage builder() {
     return new Builder();
   }
 
-  public interface JobIdStage {
-    _FinalStage jobId(@NotNull String jobId);
+  public interface UrlStage {
+    JobIdStage url(@NotNull String url);
 
     Builder from(GenerateTemplatePreviewsResponsePngPreview other);
   }
 
+  public interface JobIdStage {
+    _FinalStage jobId(@NotNull String jobId);
+  }
+
   public interface _FinalStage {
     GenerateTemplatePreviewsResponsePngPreview build();
-
-    _FinalStage url(Optional<String> url);
-
-    _FinalStage url(String url);
   }
 
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements JobIdStage, _FinalStage {
-    private String jobId;
+  public static final class Builder implements UrlStage, JobIdStage, _FinalStage {
+    private String url;
 
-    private Optional<String> url = Optional.empty();
+    private String jobId;
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -113,26 +117,25 @@ public final class GenerateTemplatePreviewsResponsePngPreview {
       return this;
     }
 
+    /**
+     * <p>URL of the rendered preview</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
+    @java.lang.Override
+    @JsonSetter("url")
+    public JobIdStage url(@NotNull String url) {
+      this.url = Objects.requireNonNull(url, "url must not be null");
+      return this;
+    }
+
+    /**
+     * <p>ID of the render job</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("jobId")
     public _FinalStage jobId(@NotNull String jobId) {
       this.jobId = Objects.requireNonNull(jobId, "jobId must not be null");
-      return this;
-    }
-
-    @java.lang.Override
-    public _FinalStage url(String url) {
-      this.url = Optional.ofNullable(url);
-      return this;
-    }
-
-    @java.lang.Override
-    @JsonSetter(
-        value = "url",
-        nulls = Nulls.SKIP
-    )
-    public _FinalStage url(Optional<String> url) {
-      this.url = url;
       return this;
     }
 

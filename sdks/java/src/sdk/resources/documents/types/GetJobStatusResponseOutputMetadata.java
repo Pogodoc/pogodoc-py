@@ -33,6 +33,9 @@ public final class GetJobStatusResponseOutputMetadata {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Time taken to render the output
+   */
   @JsonProperty("renderTime")
   public double getRenderTime() {
     return renderTime;
@@ -95,6 +98,10 @@ public final class GetJobStatusResponseOutputMetadata {
       return this;
     }
 
+    /**
+     * <p>Time taken to render the output</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("renderTime")
     public _FinalStage renderTime(double renderTime) {

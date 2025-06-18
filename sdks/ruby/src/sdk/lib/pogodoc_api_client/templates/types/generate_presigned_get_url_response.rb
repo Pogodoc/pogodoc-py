@@ -6,7 +6,7 @@ require "json"
 module PogodocApiClient
   class Templates
     class GeneratePresignedGetUrlResponse
-      # @return [String]
+      # @return [String] Presigned URL to get the template
       attr_reader :presigned_url
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -16,7 +16,7 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param presigned_url [String]
+      # @param presigned_url [String] Presigned URL to get the template
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::GeneratePresignedGetUrlResponse]
       def initialize(presigned_url:, additional_properties: nil)

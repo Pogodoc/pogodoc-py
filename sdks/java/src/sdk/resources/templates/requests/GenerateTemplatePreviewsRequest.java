@@ -46,16 +46,25 @@ public final class GenerateTemplatePreviewsRequest {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public GenerateTemplatePreviewsRequestType getType() {
     return type;
   }
 
+  /**
+   * @return Sample data for the template
+   */
   @JsonProperty("data")
   public Map<String, Object> getData() {
     return data;
   }
 
+  /**
+   * @return Format options for the rendered document
+   */
   @JsonProperty("formatOpts")
   public Optional<GenerateTemplatePreviewsRequestFormatOpts> getFormatOpts() {
     return formatOpts;
@@ -134,6 +143,10 @@ public final class GenerateTemplatePreviewsRequest {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public _FinalStage type(@NotNull GenerateTemplatePreviewsRequestType type) {
@@ -141,6 +154,10 @@ public final class GenerateTemplatePreviewsRequest {
       return this;
     }
 
+    /**
+     * <p>Format options for the rendered document</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage formatOpts(GenerateTemplatePreviewsRequestFormatOpts formatOpts) {
       this.formatOpts = Optional.ofNullable(formatOpts);
@@ -157,12 +174,20 @@ public final class GenerateTemplatePreviewsRequest {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage data(String key, Object value) {
       this.data.put(key, value);
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage putAllData(Map<String, Object> data) {
       this.data.putAll(data);

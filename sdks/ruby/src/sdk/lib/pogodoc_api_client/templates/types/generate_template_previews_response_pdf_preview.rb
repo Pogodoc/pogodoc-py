@@ -6,9 +6,9 @@ require "json"
 module PogodocApiClient
   class Templates
     class GenerateTemplatePreviewsResponsePdfPreview
-      # @return [String]
+      # @return [String] URL of the rendered preview
       attr_reader :url
-      # @return [String]
+      # @return [String] ID of the render job
       attr_reader :job_id
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -18,17 +18,15 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param url [String]
-      # @param job_id [String]
+      # @param url [String] URL of the rendered preview
+      # @param job_id [String] ID of the render job
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::GenerateTemplatePreviewsResponsePdfPreview]
-      def initialize(job_id:, url: OMIT, additional_properties: nil)
-        @url = url if url != OMIT
+      def initialize(url:, job_id:, additional_properties: nil)
+        @url = url
         @job_id = job_id
         @additional_properties = additional_properties
-        @_field_set = { "url": url, "jobId": job_id }.reject do |_k, v|
-          v == OMIT
-        end
+        @_field_set = { "url": url, "jobId": job_id }
       end
 
       # Deserialize a JSON object to an instance of
@@ -63,7 +61,7 @@ module PogodocApiClient
       # @param obj [Object]
       # @return [Void]
       def self.validate_raw(obj:)
-        obj.url&.is_a?(String) != false || raise("Passed value for field obj.url is not the expected type, validation failed.")
+        obj.url.is_a?(String) != false || raise("Passed value for field obj.url is not the expected type, validation failed.")
         obj.job_id.is_a?(String) != false || raise("Passed value for field obj.job_id is not the expected type, validation failed.")
       end
     end

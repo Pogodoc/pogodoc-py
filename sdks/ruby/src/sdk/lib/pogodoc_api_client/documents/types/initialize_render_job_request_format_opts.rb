@@ -6,6 +6,7 @@ require "json"
 
 module PogodocApiClient
   class Documents
+    # Format options for the rendered document
     class InitializeRenderJobRequestFormatOpts
       # @return [Float]
       attr_reader :from_page
@@ -13,7 +14,8 @@ module PogodocApiClient
       attr_reader :to_page
       # @return [PogodocApiClient::Documents::InitializeRenderJobRequestFormatOptsFormat]
       attr_reader :format
-      # @return [String]
+      # @return [String] Selector to wait for to know when the page is loaded and can be saved as pdf,
+      #  png, etc.
       attr_reader :wait_for_selector
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -26,7 +28,8 @@ module PogodocApiClient
       # @param from_page [Float]
       # @param to_page [Float]
       # @param format [PogodocApiClient::Documents::InitializeRenderJobRequestFormatOptsFormat]
-      # @param wait_for_selector [String]
+      # @param wait_for_selector [String] Selector to wait for to know when the page is loaded and can be saved as pdf,
+      #  png, etc.
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Documents::InitializeRenderJobRequestFormatOpts]
       def initialize(from_page: OMIT, to_page: OMIT, format: OMIT, wait_for_selector: OMIT, additional_properties: nil)

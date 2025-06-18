@@ -2,6 +2,7 @@
 
 module PogodocApiClient
   class Documents
+    # Type of output to be rendered
     class InitializeRenderJobResponseTarget
       PDF = "pdf"
       HTML = "html"

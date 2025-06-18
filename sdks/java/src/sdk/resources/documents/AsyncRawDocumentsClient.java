@@ -11,16 +11,11 @@ import core.ObjectMappers;
 import core.PogodocApiApiException;
 import core.PogodocApiException;
 import core.PogodocApiHttpResponse;
-import core.QueryStringMapper;
 import core.RequestOptions;
 import java.io.IOException;
-import java.lang.Exception;
 import java.lang.Object;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,11 +27,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
-import resources.documents.requests.GenerateDocumentPreviewRequest;
 import resources.documents.requests.InitializeRenderJobRequest;
 import resources.documents.requests.StartImmediateRenderRequest;
 import resources.documents.requests.StartRenderJobRequest;
-import resources.documents.types.GenerateDocumentPreviewResponse;
 import resources.documents.types.GetJobStatusResponse;
 import resources.documents.types.InitializeRenderJobResponse;
 import resources.documents.types.StartImmediateRenderResponse;
@@ -182,184 +175,118 @@ public class AsyncRawDocumentsClient {
   }
 
   /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
+   * Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.
    */
-  public CompletableFuture<PogodocApiHttpResponse<GenerateDocumentPreviewResponse>> generateDocumentPreview(
-      GenerateDocumentPreviewRequest request) {
-    return generateDocumentPreview(request,null);
+  public CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> startImmediateRender(
+      StartImmediateRenderRequest request) {
+    return startImmediateRender(request,null);
   }
 
   /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
+   * Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.
    */
-  public CompletableFuture<PogodocApiHttpResponse<GenerateDocumentPreviewResponse>> generateDocumentPreview(
-      GenerateDocumentPreviewRequest request, RequestOptions requestOptions) {
-    HttpUrl.Builder httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+  public CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> startImmediateRender(
+      StartImmediateRenderRequest request, RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
-      .addPathSegments("documents/render-preview");QueryStringMapper.addQueryParameter(httpUrl, "templateId", request.getTemplateId(), false);
-      Map<String, Object> properties = new HashMap<>();
-      properties.put("type", request.getType());
-      properties.put("data", request.getData());
-      if (request.getFormatOpts().isPresent()) {
-        properties.put("formatOpts", request.getFormatOpts());
-      }
-      RequestBody body;
-      try {
-        body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(properties), MediaTypes.APPLICATION_JSON);
-      }
-      catch(Exception e) {
-        throw new RuntimeException(e);
-      }
-      Request.Builder _requestBuilder = new Request.Builder()
-        .url(httpUrl.build())
-        .method("POST", body)
-        .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json")
-        .addHeader("Accept", "application/json");
-      Request okhttpRequest = _requestBuilder.build();
-      OkHttpClient client = clientOptions.httpClient();
-      if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-        client = clientOptions.httpClientWithTimeout(requestOptions);
-      }
-      CompletableFuture<PogodocApiHttpResponse<GenerateDocumentPreviewResponse>> future = new CompletableFuture<>();
-      client.newCall(okhttpRequest).enqueue(new Callback() {
-        @Override
-        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-          try (ResponseBody responseBody = response.body()) {
-            if (response.isSuccessful()) {
-              future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GenerateDocumentPreviewResponse.class), response));
-              return;
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            future.completeExceptionally(new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response));
+      .addPathSegments("documents/immediate-render")
+      .build();
+    RequestBody body;
+    try {
+      body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
+    }
+    catch(JsonProcessingException e) {
+      throw new PogodocApiException("Failed to serialize request", e);
+    }
+    Request okhttpRequest = new Request.Builder()
+      .url(httpUrl)
+      .method("POST", body)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
+      .build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> future = new CompletableFuture<>();
+    client.newCall(okhttpRequest).enqueue(new Callback() {
+      @Override
+      public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+        try (ResponseBody responseBody = response.body()) {
+          if (response.isSuccessful()) {
+            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), StartImmediateRenderResponse.class), response));
             return;
           }
-          catch (IOException e) {
-            future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
-          }
+          String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+          future.completeExceptionally(new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response));
+          return;
         }
-
-        @Override
-        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+        catch (IOException e) {
           future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
         }
-      });
-      return future;
-    }
-
-    /**
-     * Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.
-     */
-    public CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> startImmediateRender(
-        StartImmediateRenderRequest request) {
-      return startImmediateRender(request,null);
-    }
-
-    /**
-     * Combines initialization and rendering in one step. Creates a job, uploads template/data directly, starts rendering, and adds the document to Strapi. Requires subscription check.
-     */
-    public CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> startImmediateRender(
-        StartImmediateRenderRequest request, RequestOptions requestOptions) {
-      HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
-
-        .addPathSegments("documents/immediate-render")
-        .build();
-      RequestBody body;
-      try {
-        body = RequestBody.create(ObjectMappers.JSON_MAPPER.writeValueAsBytes(request), MediaTypes.APPLICATION_JSON);
       }
-      catch(JsonProcessingException e) {
-        throw new PogodocApiException("Failed to serialize request", e);
+
+      @Override
+      public void onFailure(@NotNull Call call, @NotNull IOException e) {
+        future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
       }
-      Request okhttpRequest = new Request.Builder()
-        .url(httpUrl)
-        .method("POST", body)
-        .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json")
-        .addHeader("Accept", "application/json")
-        .build();
-      OkHttpClient client = clientOptions.httpClient();
-      if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-        client = clientOptions.httpClientWithTimeout(requestOptions);
-      }
-      CompletableFuture<PogodocApiHttpResponse<StartImmediateRenderResponse>> future = new CompletableFuture<>();
-      client.newCall(okhttpRequest).enqueue(new Callback() {
-        @Override
-        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-          try (ResponseBody responseBody = response.body()) {
-            if (response.isSuccessful()) {
-              future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), StartImmediateRenderResponse.class), response));
-              return;
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            future.completeExceptionally(new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response));
-            return;
-          }
-          catch (IOException e) {
-            future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
-          }
-        }
-
-        @Override
-        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-          future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
-        }
-      });
-      return future;
-    }
-
-    /**
-     * Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.
-     */
-    public CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> getJobStatus(
-        String jobId) {
-      return getJobStatus(jobId,null);
-    }
-
-    /**
-     * Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.
-     */
-    public CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> getJobStatus(
-        String jobId, RequestOptions requestOptions) {
-      HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
-
-        .addPathSegments("jobs")
-        .addPathSegment(jobId)
-        .build();
-      Request okhttpRequest = new Request.Builder()
-        .url(httpUrl)
-        .method("GET", null)
-        .headers(Headers.of(clientOptions.headers(requestOptions)))
-        .addHeader("Content-Type", "application/json")
-        .addHeader("Accept", "application/json")
-        .build();
-      OkHttpClient client = clientOptions.httpClient();
-      if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
-        client = clientOptions.httpClientWithTimeout(requestOptions);
-      }
-      CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> future = new CompletableFuture<>();
-      client.newCall(okhttpRequest).enqueue(new Callback() {
-        @Override
-        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-          try (ResponseBody responseBody = response.body()) {
-            if (response.isSuccessful()) {
-              future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetJobStatusResponse.class), response));
-              return;
-            }
-            String responseBodyString = responseBody != null ? responseBody.string() : "{}";
-            future.completeExceptionally(new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response));
-            return;
-          }
-          catch (IOException e) {
-            future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
-          }
-        }
-
-        @Override
-        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-          future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
-        }
-      });
-      return future;
-    }
+    });
+    return future;
   }
+
+  /**
+   * Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.
+   */
+  public CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> getJobStatus(
+      String jobId) {
+    return getJobStatus(jobId,null);
+  }
+
+  /**
+   * Fetches detailed job information from S3 storage including job status, template ID, target format, and output details if available.
+   */
+  public CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> getJobStatus(String jobId,
+      RequestOptions requestOptions) {
+    HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
+
+      .addPathSegments("jobs")
+      .addPathSegment(jobId)
+      .build();
+    Request okhttpRequest = new Request.Builder()
+      .url(httpUrl)
+      .method("GET", null)
+      .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
+      .build();
+    OkHttpClient client = clientOptions.httpClient();
+    if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
+      client = clientOptions.httpClientWithTimeout(requestOptions);
+    }
+    CompletableFuture<PogodocApiHttpResponse<GetJobStatusResponse>> future = new CompletableFuture<>();
+    client.newCall(okhttpRequest).enqueue(new Callback() {
+      @Override
+      public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+        try (ResponseBody responseBody = response.body()) {
+          if (response.isSuccessful()) {
+            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), GetJobStatusResponse.class), response));
+            return;
+          }
+          String responseBodyString = responseBody != null ? responseBody.string() : "{}";
+          future.completeExceptionally(new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response));
+          return;
+        }
+        catch (IOException e) {
+          future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
+        }
+      }
+
+      @Override
+      public void onFailure(@NotNull Call call, @NotNull IOException e) {
+        future.completeExceptionally(new PogodocApiException("Network error executing HTTP request", e));
+      }
+    });
+    return future;
+  }
+}

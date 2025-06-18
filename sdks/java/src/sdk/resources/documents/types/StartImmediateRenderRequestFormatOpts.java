@@ -61,6 +61,9 @@ public final class StartImmediateRenderRequestFormatOpts {
     return format;
   }
 
+  /**
+   * @return Selector to wait for to know when the page is loaded and can be saved as pdf, png, etc.
+   */
   @JsonProperty("waitForSelector")
   public Optional<String> getWaitForSelector() {
     return waitForSelector;

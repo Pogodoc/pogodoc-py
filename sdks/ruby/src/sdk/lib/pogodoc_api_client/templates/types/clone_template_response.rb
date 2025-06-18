@@ -6,7 +6,7 @@ require "json"
 module PogodocApiClient
   class Templates
     class CloneTemplateResponse
-      # @return [String]
+      # @return [String] ID of the new template
       attr_reader :new_template_id
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -16,7 +16,7 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param new_template_id [String]
+      # @param new_template_id [String] ID of the new template
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::CloneTemplateResponse]
       def initialize(new_template_id:, additional_properties: nil)

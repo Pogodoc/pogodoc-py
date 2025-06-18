@@ -8,7 +8,7 @@ use Pogodoc\Core\Json\JsonProperty;
 class StartRenderJobResponse extends JsonSerializableType
 {
     /**
-     * @var string $jobId
+     * @var string $jobId ID of the render job
      */
     #[JsonProperty('jobId')]
     public string $jobId;

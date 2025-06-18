@@ -33,6 +33,9 @@ public final class CloneTemplateResponse {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return ID of the new template
+   */
   @JsonProperty("newTemplateId")
   public String getNewTemplateId() {
     return newTemplateId;
@@ -95,6 +98,10 @@ public final class CloneTemplateResponse {
       return this;
     }
 
+    /**
+     * <p>ID of the new template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("newTemplateId")
     public _FinalStage newTemplateId(@NotNull String newTemplateId) {

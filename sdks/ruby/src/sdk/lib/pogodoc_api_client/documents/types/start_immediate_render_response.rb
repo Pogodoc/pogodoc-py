@@ -6,7 +6,7 @@ require "json"
 module PogodocApiClient
   class Documents
     class StartImmediateRenderResponse
-      # @return [String]
+      # @return [String] URL of the rendered output
       attr_reader :url
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -16,7 +16,7 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param url [String]
+      # @param url [String] URL of the rendered output
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Documents::StartImmediateRenderResponse]
       def initialize(url:, additional_properties: nil)

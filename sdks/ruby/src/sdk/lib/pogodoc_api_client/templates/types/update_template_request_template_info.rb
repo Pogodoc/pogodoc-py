@@ -8,17 +8,17 @@ require "json"
 module PogodocApiClient
   class Templates
     class UpdateTemplateRequestTemplateInfo
-      # @return [String]
+      # @return [String] Title of the template
       attr_reader :title
-      # @return [String]
+      # @return [String] Description of the template
       attr_reader :description
-      # @return [PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoType]
+      # @return [PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoType] Type of template to be rendered
       attr_reader :type
-      # @return [Hash{String => Object}]
+      # @return [Hash{String => Object}] Sample data for the template
       attr_reader :sample_data
       # @return [String]
       attr_reader :source_code
-      # @return [Array<PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoCategoriesItem>]
+      # @return [Array<PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoCategoriesItem>] Categories of the template
       attr_reader :categories
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -28,12 +28,12 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param title [String]
-      # @param description [String]
-      # @param type [PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoType]
-      # @param sample_data [Hash{String => Object}]
+      # @param title [String] Title of the template
+      # @param description [String] Description of the template
+      # @param type [PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoType] Type of template to be rendered
+      # @param sample_data [Hash{String => Object}] Sample data for the template
       # @param source_code [String]
-      # @param categories [Array<PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoCategoriesItem>]
+      # @param categories [Array<PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfoCategoriesItem>] Categories of the template
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::UpdateTemplateRequestTemplateInfo]
       def initialize(title:, description:, type:, sample_data:, categories:, source_code: OMIT,

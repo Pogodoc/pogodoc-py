@@ -37,11 +37,17 @@ public final class UpdateTemplateRequestPreviewIds {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return ID of the job for the PNG preview
+   */
   @JsonProperty("pngJobId")
   public String getPngJobId() {
     return pngJobId;
   }
 
+  /**
+   * @return ID of the job for the PDF preview
+   */
   @JsonProperty("pdfJobId")
   public String getPdfJobId() {
     return pdfJobId;
@@ -111,6 +117,10 @@ public final class UpdateTemplateRequestPreviewIds {
       return this;
     }
 
+    /**
+     * <p>ID of the job for the PNG preview</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("pngJobId")
     public PdfJobIdStage pngJobId(@NotNull String pngJobId) {
@@ -118,6 +128,10 @@ public final class UpdateTemplateRequestPreviewIds {
       return this;
     }
 
+    /**
+     * <p>ID of the job for the PDF preview</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("pdfJobId")
     public _FinalStage pdfJobId(@NotNull String pdfJobId) {

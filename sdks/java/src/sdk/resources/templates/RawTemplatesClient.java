@@ -28,6 +28,7 @@ import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
+import resources.templates.types.DeleteTemplateResponse;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -181,14 +182,14 @@ public class RawTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public PogodocApiHttpResponse<Void> deleteTemplate(String templateId) {
+  public PogodocApiHttpResponse<DeleteTemplateResponse> deleteTemplate(String templateId) {
     return deleteTemplate(templateId,null);
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public PogodocApiHttpResponse<Void> deleteTemplate(String templateId,
+  public PogodocApiHttpResponse<DeleteTemplateResponse> deleteTemplate(String templateId,
       RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
@@ -199,6 +200,8 @@ public class RawTemplatesClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
@@ -207,7 +210,7 @@ public class RawTemplatesClient {
     try (Response response = client.newCall(okhttpRequest).execute()) {
       ResponseBody responseBody = response.body();
       if (response.isSuccessful()) {
-        return new PogodocApiHttpResponse<>(null, response);
+        return new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DeleteTemplateResponse.class), response);
       }
       String responseBodyString = responseBody != null ? responseBody.string() : "{}";
       throw new PogodocApiApiException("Error with status code " + response.code(), response.code(), ObjectMappers.JSON_MAPPER.readValue(responseBodyString, Object.class), response);

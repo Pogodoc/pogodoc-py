@@ -24,24 +24,30 @@ import org.jetbrains.annotations.NotNull;
     builder = InitializeTemplateCreationResponse.Builder.class
 )
 public final class InitializeTemplateCreationResponse {
-  private final String jobId;
+  private final String templateId;
 
   private final String presignedTemplateUploadUrl;
 
   private final Map<String, Object> additionalProperties;
 
-  private InitializeTemplateCreationResponse(String jobId, String presignedTemplateUploadUrl,
+  private InitializeTemplateCreationResponse(String templateId, String presignedTemplateUploadUrl,
       Map<String, Object> additionalProperties) {
-    this.jobId = jobId;
+    this.templateId = templateId;
     this.presignedTemplateUploadUrl = presignedTemplateUploadUrl;
     this.additionalProperties = additionalProperties;
   }
 
-  @JsonProperty("jobId")
-  public String getJobId() {
-    return jobId;
+  /**
+   * @return ID of the template
+   */
+  @JsonProperty("templateId")
+  public String getTemplateId() {
+    return templateId;
   }
 
+  /**
+   * @return Presigned URL to upload the template to S3
+   */
   @JsonProperty("presignedTemplateUploadUrl")
   public String getPresignedTemplateUploadUrl() {
     return presignedTemplateUploadUrl;
@@ -59,12 +65,12 @@ public final class InitializeTemplateCreationResponse {
   }
 
   private boolean equalTo(InitializeTemplateCreationResponse other) {
-    return jobId.equals(other.jobId) && presignedTemplateUploadUrl.equals(other.presignedTemplateUploadUrl);
+    return templateId.equals(other.templateId) && presignedTemplateUploadUrl.equals(other.presignedTemplateUploadUrl);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.jobId, this.presignedTemplateUploadUrl);
+    return Objects.hash(this.templateId, this.presignedTemplateUploadUrl);
   }
 
   @java.lang.Override
@@ -72,12 +78,12 @@ public final class InitializeTemplateCreationResponse {
     return ObjectMappers.stringify(this);
   }
 
-  public static JobIdStage builder() {
+  public static TemplateIdStage builder() {
     return new Builder();
   }
 
-  public interface JobIdStage {
-    PresignedTemplateUploadUrlStage jobId(@NotNull String jobId);
+  public interface TemplateIdStage {
+    PresignedTemplateUploadUrlStage templateId(@NotNull String templateId);
 
     Builder from(InitializeTemplateCreationResponse other);
   }
@@ -93,8 +99,8 @@ public final class InitializeTemplateCreationResponse {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements JobIdStage, PresignedTemplateUploadUrlStage, _FinalStage {
-    private String jobId;
+  public static final class Builder implements TemplateIdStage, PresignedTemplateUploadUrlStage, _FinalStage {
+    private String templateId;
 
     private String presignedTemplateUploadUrl;
 
@@ -106,18 +112,26 @@ public final class InitializeTemplateCreationResponse {
 
     @java.lang.Override
     public Builder from(InitializeTemplateCreationResponse other) {
-      jobId(other.getJobId());
+      templateId(other.getTemplateId());
       presignedTemplateUploadUrl(other.getPresignedTemplateUploadUrl());
       return this;
     }
 
+    /**
+     * <p>ID of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
-    @JsonSetter("jobId")
-    public PresignedTemplateUploadUrlStage jobId(@NotNull String jobId) {
-      this.jobId = Objects.requireNonNull(jobId, "jobId must not be null");
+    @JsonSetter("templateId")
+    public PresignedTemplateUploadUrlStage templateId(@NotNull String templateId) {
+      this.templateId = Objects.requireNonNull(templateId, "templateId must not be null");
       return this;
     }
 
+    /**
+     * <p>Presigned URL to upload the template to S3</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("presignedTemplateUploadUrl")
     public _FinalStage presignedTemplateUploadUrl(@NotNull String presignedTemplateUploadUrl) {
@@ -127,7 +141,7 @@ public final class InitializeTemplateCreationResponse {
 
     @java.lang.Override
     public InitializeTemplateCreationResponse build() {
-      return new InitializeTemplateCreationResponse(jobId, presignedTemplateUploadUrl, additionalProperties);
+      return new InitializeTemplateCreationResponse(templateId, presignedTemplateUploadUrl, additionalProperties);
     }
   }
 }

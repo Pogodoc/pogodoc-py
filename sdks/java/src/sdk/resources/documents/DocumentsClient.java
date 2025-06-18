@@ -7,11 +7,9 @@ package resources.documents;
 import core.ClientOptions;
 import core.RequestOptions;
 import java.lang.String;
-import resources.documents.requests.GenerateDocumentPreviewRequest;
 import resources.documents.requests.InitializeRenderJobRequest;
 import resources.documents.requests.StartImmediateRenderRequest;
 import resources.documents.requests.StartRenderJobRequest;
-import resources.documents.types.GenerateDocumentPreviewResponse;
 import resources.documents.types.GetJobStatusResponse;
 import resources.documents.types.InitializeRenderJobResponse;
 import resources.documents.types.StartImmediateRenderResponse;
@@ -69,22 +67,6 @@ public class DocumentsClient {
   public StartRenderJobResponse startRenderJob(String jobId, StartRenderJobRequest request,
       RequestOptions requestOptions) {
     return this.rawClient.startRenderJob(jobId, request, requestOptions).body();
-  }
-
-  /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
-   */
-  public GenerateDocumentPreviewResponse generateDocumentPreview(
-      GenerateDocumentPreviewRequest request) {
-    return this.rawClient.generateDocumentPreview(request).body();
-  }
-
-  /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
-   */
-  public GenerateDocumentPreviewResponse generateDocumentPreview(
-      GenerateDocumentPreviewRequest request, RequestOptions requestOptions) {
-    return this.rawClient.generateDocumentPreview(request, requestOptions).body();
   }
 
   /**

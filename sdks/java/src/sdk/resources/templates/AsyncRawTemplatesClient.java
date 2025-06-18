@@ -33,6 +33,7 @@ import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
+import resources.templates.types.DeleteTemplateResponse;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -226,15 +227,16 @@ public class AsyncRawTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteTemplate(String templateId) {
+  public CompletableFuture<PogodocApiHttpResponse<DeleteTemplateResponse>> deleteTemplate(
+      String templateId) {
     return deleteTemplate(templateId,null);
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<PogodocApiHttpResponse<Void>> deleteTemplate(String templateId,
-      RequestOptions requestOptions) {
+  public CompletableFuture<PogodocApiHttpResponse<DeleteTemplateResponse>> deleteTemplate(
+      String templateId, RequestOptions requestOptions) {
     HttpUrl httpUrl = HttpUrl.parse(this.clientOptions.environment().getUrl()).newBuilder()
 
       .addPathSegments("templates")
@@ -244,18 +246,20 @@ public class AsyncRawTemplatesClient {
       .url(httpUrl)
       .method("DELETE", null)
       .headers(Headers.of(clientOptions.headers(requestOptions)))
+      .addHeader("Content-Type", "application/json")
+      .addHeader("Accept", "application/json")
       .build();
     OkHttpClient client = clientOptions.httpClient();
     if (requestOptions != null && requestOptions.getTimeout().isPresent()) {
       client = clientOptions.httpClientWithTimeout(requestOptions);
     }
-    CompletableFuture<PogodocApiHttpResponse<Void>> future = new CompletableFuture<>();
+    CompletableFuture<PogodocApiHttpResponse<DeleteTemplateResponse>> future = new CompletableFuture<>();
     client.newCall(okhttpRequest).enqueue(new Callback() {
       @Override
       public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
           if (response.isSuccessful()) {
-            future.complete(new PogodocApiHttpResponse<>(null, response));
+            future.complete(new PogodocApiHttpResponse<>(ObjectMappers.JSON_MAPPER.readValue(responseBody.string(), DeleteTemplateResponse.class), response));
             return;
           }
           String responseBodyString = responseBody != null ? responseBody.string() : "{}";

@@ -46,21 +46,33 @@ public final class InitializeRenderJobResponse {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return ID of the render job
+   */
   @JsonProperty("jobId")
   public String getJobId() {
     return jobId;
   }
 
+  /**
+   * @return Type of output to be rendered
+   */
   @JsonProperty("target")
   public InitializeRenderJobResponseTarget getTarget() {
     return target;
   }
 
+  /**
+   * @return Presigned URL to upload the data for the render job to S3
+   */
   @JsonProperty("presignedDataUploadUrl")
   public Optional<String> getPresignedDataUploadUrl() {
     return presignedDataUploadUrl;
   }
 
+  /**
+   * @return Presigned URL to upload the template for the render job to S3. Only works with EJS templates
+   */
   @JsonProperty("presignedTemplateUploadUrl")
   public Optional<String> getPresignedTemplateUploadUrl() {
     return presignedTemplateUploadUrl;
@@ -144,6 +156,10 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>ID of the render job</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("jobId")
     public TargetStage jobId(@NotNull String jobId) {
@@ -151,6 +167,10 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>Type of output to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("target")
     public _FinalStage target(@NotNull InitializeRenderJobResponseTarget target) {
@@ -158,6 +178,10 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>Presigned URL to upload the template for the render job to S3. Only works with EJS templates</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage presignedTemplateUploadUrl(String presignedTemplateUploadUrl) {
       this.presignedTemplateUploadUrl = Optional.ofNullable(presignedTemplateUploadUrl);
@@ -174,6 +198,10 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>Presigned URL to upload the data for the render job to S3</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage presignedDataUploadUrl(String presignedDataUploadUrl) {
       this.presignedDataUploadUrl = Optional.ofNullable(presignedDataUploadUrl);

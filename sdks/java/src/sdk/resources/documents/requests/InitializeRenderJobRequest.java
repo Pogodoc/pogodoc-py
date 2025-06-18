@@ -53,26 +53,41 @@ public final class InitializeRenderJobRequest {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Sample data for the template
+   */
   @JsonProperty("data")
   public Optional<Map<String, Object>> getData() {
     return data;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public InitializeRenderJobRequestType getType() {
     return type;
   }
 
+  /**
+   * @return Type of output to be rendered
+   */
   @JsonProperty("target")
   public InitializeRenderJobRequestTarget getTarget() {
     return target;
   }
 
+  /**
+   * @return ID of the template to be used
+   */
   @JsonProperty("templateId")
   public Optional<String> getTemplateId() {
     return templateId;
   }
 
+  /**
+   * @return Format options for the rendered document
+   */
   @JsonProperty("formatOpts")
   public Optional<InitializeRenderJobRequestFormatOpts> getFormatOpts() {
     return formatOpts;
@@ -163,6 +178,10 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public TargetStage type(@NotNull InitializeRenderJobRequestType type) {
@@ -170,6 +189,10 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Type of output to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("target")
     public _FinalStage target(@NotNull InitializeRenderJobRequestTarget target) {
@@ -177,6 +200,10 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Format options for the rendered document</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage formatOpts(InitializeRenderJobRequestFormatOpts formatOpts) {
       this.formatOpts = Optional.ofNullable(formatOpts);
@@ -193,6 +220,10 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>ID of the template to be used</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage templateId(String templateId) {
       this.templateId = Optional.ofNullable(templateId);
@@ -209,6 +240,10 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     public _FinalStage data(Map<String, Object> data) {
       this.data = Optional.ofNullable(data);

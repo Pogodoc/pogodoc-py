@@ -9,11 +9,11 @@ require "json"
 module PogodocApiClient
   class Documents
     class GetJobStatusResponse
-      # @return [PogodocApiClient::Documents::GetJobStatusResponseType]
+      # @return [PogodocApiClient::Documents::GetJobStatusResponseType] Type of template to be rendered
       attr_reader :type
-      # @return [String]
+      # @return [String] ID of the render job
       attr_reader :job_id
-      # @return [PogodocApiClient::Documents::GetJobStatusResponseTarget]
+      # @return [PogodocApiClient::Documents::GetJobStatusResponseTarget] Type of output to be rendered
       attr_reader :target
       # @return [PogodocApiClient::Documents::GetJobStatusResponseOutput]
       attr_reader :output
@@ -29,9 +29,9 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param type [PogodocApiClient::Documents::GetJobStatusResponseType]
-      # @param job_id [String]
-      # @param target [PogodocApiClient::Documents::GetJobStatusResponseTarget]
+      # @param type [PogodocApiClient::Documents::GetJobStatusResponseType] Type of template to be rendered
+      # @param job_id [String] ID of the render job
+      # @param target [PogodocApiClient::Documents::GetJobStatusResponseTarget] Type of output to be rendered
       # @param output [PogodocApiClient::Documents::GetJobStatusResponseOutput]
       # @param success [Boolean]
       # @param status [String]

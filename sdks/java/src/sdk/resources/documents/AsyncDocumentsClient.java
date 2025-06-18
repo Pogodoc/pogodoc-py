@@ -8,11 +8,9 @@ import core.ClientOptions;
 import core.RequestOptions;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
-import resources.documents.requests.GenerateDocumentPreviewRequest;
 import resources.documents.requests.InitializeRenderJobRequest;
 import resources.documents.requests.StartImmediateRenderRequest;
 import resources.documents.requests.StartRenderJobRequest;
-import resources.documents.types.GenerateDocumentPreviewResponse;
 import resources.documents.types.GetJobStatusResponse;
 import resources.documents.types.InitializeRenderJobResponse;
 import resources.documents.types.StartImmediateRenderResponse;
@@ -72,22 +70,6 @@ public class AsyncDocumentsClient {
   public CompletableFuture<StartRenderJobResponse> startRenderJob(String jobId,
       StartRenderJobRequest request, RequestOptions requestOptions) {
     return this.rawClient.startRenderJob(jobId, request, requestOptions).thenApply(response -> response.body());
-  }
-
-  /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
-   */
-  public CompletableFuture<GenerateDocumentPreviewResponse> generateDocumentPreview(
-      GenerateDocumentPreviewRequest request) {
-    return this.rawClient.generateDocumentPreview(request).thenApply(response -> response.body());
-  }
-
-  /**
-   * Generates a preview by creating a single-page render job, processing it immediately, and returning the output URL. Used for template visualization.
-   */
-  public CompletableFuture<GenerateDocumentPreviewResponse> generateDocumentPreview(
-      GenerateDocumentPreviewRequest request, RequestOptions requestOptions) {
-    return this.rawClient.generateDocumentPreview(request, requestOptions).thenApply(response -> response.body());
   }
 
   /**

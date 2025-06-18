@@ -39,6 +39,9 @@ public final class StartRenderJobRequest {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Whether to wait for the render job to complete, if false, the job will be returned immediately
+   */
   @JsonProperty("shouldWaitForRenderCompletion")
   public Optional<Boolean> getShouldWaitForRenderCompletion() {
     return shouldWaitForRenderCompletion;

@@ -12,6 +12,7 @@ import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
+import resources.templates.types.DeleteTemplateResponse;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -83,15 +84,15 @@ public class TemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public void deleteTemplate(String templateId) {
-    this.rawClient.deleteTemplate(templateId).body();
+  public DeleteTemplateResponse deleteTemplate(String templateId) {
+    return this.rawClient.deleteTemplate(templateId).body();
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public void deleteTemplate(String templateId, RequestOptions requestOptions) {
-    this.rawClient.deleteTemplate(templateId, requestOptions).body();
+  public DeleteTemplateResponse deleteTemplate(String templateId, RequestOptions requestOptions) {
+    return this.rawClient.deleteTemplate(templateId, requestOptions).body();
   }
 
   /**

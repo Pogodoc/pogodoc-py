@@ -7,6 +7,7 @@ require_relative "types/save_created_template_request_preview_ids"
 require_relative "types/update_template_request_template_info"
 require_relative "types/update_template_request_preview_ids"
 require_relative "types/update_template_response"
+require_relative "types/delete_template_response"
 require_relative "types/generate_template_previews_request_type"
 require_relative "types/generate_template_previews_request_format_opts"
 require_relative "types/generate_template_previews_response"
@@ -123,7 +124,7 @@ module PogodocApiClient
     # @param preview_ids [Hash] Request of type PogodocApiClient::Templates::UpdateTemplateRequestPreviewIds, as a Hash
     #   * :png_job_id (String)
     #   * :pdf_job_id (String)
-    # @param content_id [String]
+    # @param content_id [String] ID by which the new template content is saved
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::UpdateTemplateResponse]
     # @example
@@ -164,9 +165,9 @@ module PogodocApiClient
     # Deletes a template from Strapi and associated S3 storage. Removes all associated
     #  files and metadata.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be deleted
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Void]
+    # @return [PogodocApiClient::Templates::DeleteTemplateResponse]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -175,7 +176,7 @@ module PogodocApiClient
     #  )
     #  api.templates.delete_template(template_id: "templateId")
     def delete_template(template_id:, request_options: nil)
-      @request_client.conn.delete do |req|
+      response = @request_client.conn.delete do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
         req.headers = {
@@ -191,12 +192,13 @@ module PogodocApiClient
         end
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
       end
+      PogodocApiClient::Templates::DeleteTemplateResponse.from_json(json_object: response.body)
     end
 
     # Extracts contents from an uploaded template ZIP file and stores individual files
     #  in the appropriate S3 storage structure.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -228,10 +230,10 @@ module PogodocApiClient
     # Creates both PNG and PDF preview files for template visualization. Generates
     #  previews in parallel and returns URLs for both formats.
     #
-    # @param template_id [String]
-    # @param type [PogodocApiClient::Templates::GenerateTemplatePreviewsRequestType]
-    # @param data [Hash{String => Object}]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOpts, as a Hash
+    # @param template_id [String] ID of the template to be used
+    # @param type [PogodocApiClient::Templates::GenerateTemplatePreviewsRequestType] Type of template to be rendered
+    # @param data [Hash{String => Object}] Sample data for the template
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOptsFormat)
@@ -275,7 +277,7 @@ module PogodocApiClient
     # Generates a presigned URL for template access. Used for downloading template
     #  files from S3 storage.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template that is being downloaded
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::GeneratePresignedGetUrlResponse]
     # @example
@@ -308,7 +310,7 @@ module PogodocApiClient
     # Retrieves the template index.html file from S3 storage. Used for rendering the
     #  template in the browser.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::GetTemplateIndexHtmlResponse]
     # @example
@@ -341,8 +343,8 @@ module PogodocApiClient
     # Uploads the template index.html file to S3 storage. Used for rendering the
     #  template in the browser.
     #
-    # @param template_id [String]
-    # @param template_index [String]
+    # @param template_id [String] ID of the template to be used
+    # @param template_index [String] New index.html file of the template
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -372,7 +374,7 @@ module PogodocApiClient
     # Creates a new template by duplicating an existing template's content and
     #  metadata. Includes copying preview files and template index.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::CloneTemplateResponse]
     # @example
@@ -514,7 +516,7 @@ module PogodocApiClient
     # @param preview_ids [Hash] Request of type PogodocApiClient::Templates::UpdateTemplateRequestPreviewIds, as a Hash
     #   * :png_job_id (String)
     #   * :pdf_job_id (String)
-    # @param content_id [String]
+    # @param content_id [String] ID by which the new template content is saved
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::UpdateTemplateResponse]
     # @example
@@ -557,9 +559,9 @@ module PogodocApiClient
     # Deletes a template from Strapi and associated S3 storage. Removes all associated
     #  files and metadata.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be deleted
     # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [Void]
+    # @return [PogodocApiClient::Templates::DeleteTemplateResponse]
     # @example
     #  api = PogodocApiClient::Client.new(
     #    base_url: "https://api.example.com",
@@ -569,7 +571,7 @@ module PogodocApiClient
     #  api.templates.delete_template(template_id: "templateId")
     def delete_template(template_id:, request_options: nil)
       Async do
-        @request_client.conn.delete do |req|
+        response = @request_client.conn.delete do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
           req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
           req.headers = {
@@ -585,13 +587,14 @@ module PogodocApiClient
           end
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}"
         end
+        PogodocApiClient::Templates::DeleteTemplateResponse.from_json(json_object: response.body)
       end
     end
 
     # Extracts contents from an uploaded template ZIP file and stores individual files
     #  in the appropriate S3 storage structure.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -625,10 +628,10 @@ module PogodocApiClient
     # Creates both PNG and PDF preview files for template visualization. Generates
     #  previews in parallel and returns URLs for both formats.
     #
-    # @param template_id [String]
-    # @param type [PogodocApiClient::Templates::GenerateTemplatePreviewsRequestType]
-    # @param data [Hash{String => Object}]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOpts, as a Hash
+    # @param template_id [String] ID of the template to be used
+    # @param type [PogodocApiClient::Templates::GenerateTemplatePreviewsRequestType] Type of template to be rendered
+    # @param data [Hash{String => Object}] Sample data for the template
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Templates::GenerateTemplatePreviewsRequestFormatOptsFormat)
@@ -674,7 +677,7 @@ module PogodocApiClient
     # Generates a presigned URL for template access. Used for downloading template
     #  files from S3 storage.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template that is being downloaded
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::GeneratePresignedGetUrlResponse]
     # @example
@@ -709,7 +712,7 @@ module PogodocApiClient
     # Retrieves the template index.html file from S3 storage. Used for rendering the
     #  template in the browser.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::GetTemplateIndexHtmlResponse]
     # @example
@@ -744,8 +747,8 @@ module PogodocApiClient
     # Uploads the template index.html file to S3 storage. Used for rendering the
     #  template in the browser.
     #
-    # @param template_id [String]
-    # @param template_index [String]
+    # @param template_id [String] ID of the template to be used
+    # @param template_index [String] New index.html file of the template
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -777,7 +780,7 @@ module PogodocApiClient
     # Creates a new template by duplicating an existing template's content and
     #  metadata. Includes copying preview files and template index.
     #
-    # @param template_id [String]
+    # @param template_id [String] ID of the template to be used
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Templates::CloneTemplateResponse]
     # @example

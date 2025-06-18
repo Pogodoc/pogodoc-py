@@ -2,6 +2,7 @@
 
 module PogodocApiClient
   class Templates
+    # Type of template to be rendered
     class SaveCreatedTemplateRequestTemplateInfoType
       DOCX = "docx"
       XLSX = "xlsx"

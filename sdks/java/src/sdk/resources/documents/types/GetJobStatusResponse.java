@@ -54,16 +54,25 @@ public final class GetJobStatusResponse {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Type of template to be rendered
+   */
   @JsonProperty("type")
   public GetJobStatusResponseType getType() {
     return type;
   }
 
+  /**
+   * @return ID of the render job
+   */
   @JsonProperty("jobId")
   public String getJobId() {
     return jobId;
   }
 
+  /**
+   * @return Type of output to be rendered
+   */
   @JsonProperty("target")
   public GetJobStatusResponseTarget getTarget() {
     return target;
@@ -176,6 +185,10 @@ public final class GetJobStatusResponse {
       return this;
     }
 
+    /**
+     * <p>Type of template to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("type")
     public JobIdStage type(@NotNull GetJobStatusResponseType type) {
@@ -183,6 +196,10 @@ public final class GetJobStatusResponse {
       return this;
     }
 
+    /**
+     * <p>ID of the render job</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("jobId")
     public TargetStage jobId(@NotNull String jobId) {
@@ -190,6 +207,10 @@ public final class GetJobStatusResponse {
       return this;
     }
 
+    /**
+     * <p>Type of output to be rendered</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("target")
     public _FinalStage target(@NotNull GetJobStatusResponseTarget target) {

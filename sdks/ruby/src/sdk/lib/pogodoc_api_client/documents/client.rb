@@ -6,9 +6,6 @@ require_relative "types/initialize_render_job_request_target"
 require_relative "types/initialize_render_job_request_format_opts"
 require_relative "types/initialize_render_job_response"
 require_relative "types/start_render_job_response"
-require_relative "types/generate_document_preview_request_type"
-require_relative "types/generate_document_preview_request_format_opts"
-require_relative "types/generate_document_preview_response"
 require_relative "types/start_immediate_render_request_type"
 require_relative "types/start_immediate_render_request_target"
 require_relative "types/start_immediate_render_request_format_opts"
@@ -31,11 +28,11 @@ module PogodocApiClient
     #  data files, and generates presigned upload URLs if needed. Requires subscription
     #  check.
     #
-    # @param data [Hash{String => Object}]
-    # @param type [PogodocApiClient::Documents::InitializeRenderJobRequestType]
-    # @param target [PogodocApiClient::Documents::InitializeRenderJobRequestTarget]
-    # @param template_id [String]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::InitializeRenderJobRequestFormatOpts, as a Hash
+    # @param data [Hash{String => Object}] Sample data for the template
+    # @param type [PogodocApiClient::Documents::InitializeRenderJobRequestType] Type of template to be rendered
+    # @param target [PogodocApiClient::Documents::InitializeRenderJobRequestTarget] Type of output to be rendered
+    # @param template_id [String] ID of the template to be used
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Documents::InitializeRenderJobRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Documents::InitializeRenderJobRequestFormatOptsFormat)
@@ -79,7 +76,8 @@ module PogodocApiClient
     #  completion.
     #
     # @param job_id [String]
-    # @param should_wait_for_render_completion [Boolean]
+    # @param should_wait_for_render_completion [Boolean] Whether to wait for the render job to complete, if false, the job will be
+    #  returned immediately
     # @param upload_presigned_s_3_url [String]
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::StartRenderJobResponse]
@@ -113,65 +111,20 @@ module PogodocApiClient
       PogodocApiClient::Documents::StartRenderJobResponse.from_json(json_object: response.body)
     end
 
-    # Generates a preview by creating a single-page render job, processing it
-    #  immediately, and returning the output URL. Used for template visualization.
-    #
-    # @param template_id [String]
-    # @param type [PogodocApiClient::Documents::GenerateDocumentPreviewRequestType]
-    # @param data [Hash{String => Object}]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::GenerateDocumentPreviewRequestFormatOpts, as a Hash
-    #   * :from_page (Float)
-    #   * :to_page (Float)
-    #   * :format (PogodocApiClient::Documents::GenerateDocumentPreviewRequestFormatOptsFormat)
-    #   * :wait_for_selector (String)
-    # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [PogodocApiClient::Documents::GenerateDocumentPreviewResponse]
-    # @example
-    #  api = PogodocApiClient::Client.new(
-    #    base_url: "https://api.example.com",
-    #    environment: PogodocApiClient::Environment::DEFAULT,
-    #    token: "YOUR_AUTH_TOKEN"
-    #  )
-    #  api.documents.generate_document_preview(
-    #    template_id: "templateId",
-    #    type: DOCX,
-    #    data: { "key": "value" }
-    #  )
-    def generate_document_preview(template_id:, type:, data:, format_opts: nil, request_options: nil)
-      response = @request_client.conn.post do |req|
-        req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
-        req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
-        req.headers = {
-      **(req.headers || {}),
-      **@request_client.get_headers,
-      **(request_options&.additional_headers || {})
-        }.compact
-        req.params = { **(request_options&.additional_query_parameters || {}), "templateId": template_id }.compact
-        req.body = {
-          **(request_options&.additional_body_parameters || {}),
-          type: type,
-          data: data,
-          formatOpts: format_opts
-        }.compact
-        req.url "#{@request_client.get_url(request_options: request_options)}/documents/render-preview"
-      end
-      PogodocApiClient::Documents::GenerateDocumentPreviewResponse.from_json(json_object: response.body)
-    end
-
     # Combines initialization and rendering in one step. Creates a job, uploads
     #  template/data directly, starts rendering, and adds the document to Strapi.
     #  Requires subscription check.
     #
-    # @param start_immediate_render_request_data [Hash{String => Object}]
-    # @param type [PogodocApiClient::Documents::StartImmediateRenderRequestType]
-    # @param target [PogodocApiClient::Documents::StartImmediateRenderRequestTarget]
-    # @param template_id [String]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::StartImmediateRenderRequestFormatOpts, as a Hash
+    # @param start_immediate_render_request_data [Hash{String => Object}] Sample data for the template
+    # @param type [PogodocApiClient::Documents::StartImmediateRenderRequestType] Type of template to be rendered
+    # @param target [PogodocApiClient::Documents::StartImmediateRenderRequestTarget] Type of output to be rendered
+    # @param template_id [String] ID of the template to be used
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Documents::StartImmediateRenderRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Documents::StartImmediateRenderRequestFormatOptsFormat)
     #   * :wait_for_selector (String)
-    # @param template [String]
+    # @param template [String] index.html or ejs file of the template as a string
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::StartImmediateRenderResponse]
     # @example
@@ -215,7 +168,7 @@ module PogodocApiClient
     # Fetches detailed job information from S3 storage including job status, template
     #  ID, target format, and output details if available.
     #
-    # @param job_id [String]
+    # @param job_id [String] ID of the render job
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::GetJobStatusResponse]
     # @example
@@ -260,11 +213,11 @@ module PogodocApiClient
     #  data files, and generates presigned upload URLs if needed. Requires subscription
     #  check.
     #
-    # @param data [Hash{String => Object}]
-    # @param type [PogodocApiClient::Documents::InitializeRenderJobRequestType]
-    # @param target [PogodocApiClient::Documents::InitializeRenderJobRequestTarget]
-    # @param template_id [String]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::InitializeRenderJobRequestFormatOpts, as a Hash
+    # @param data [Hash{String => Object}] Sample data for the template
+    # @param type [PogodocApiClient::Documents::InitializeRenderJobRequestType] Type of template to be rendered
+    # @param target [PogodocApiClient::Documents::InitializeRenderJobRequestTarget] Type of output to be rendered
+    # @param template_id [String] ID of the template to be used
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Documents::InitializeRenderJobRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Documents::InitializeRenderJobRequestFormatOptsFormat)
@@ -310,7 +263,8 @@ module PogodocApiClient
     #  completion.
     #
     # @param job_id [String]
-    # @param should_wait_for_render_completion [Boolean]
+    # @param should_wait_for_render_completion [Boolean] Whether to wait for the render job to complete, if false, the job will be
+    #  returned immediately
     # @param upload_presigned_s_3_url [String]
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::StartRenderJobResponse]
@@ -346,67 +300,20 @@ module PogodocApiClient
       end
     end
 
-    # Generates a preview by creating a single-page render job, processing it
-    #  immediately, and returning the output URL. Used for template visualization.
-    #
-    # @param template_id [String]
-    # @param type [PogodocApiClient::Documents::GenerateDocumentPreviewRequestType]
-    # @param data [Hash{String => Object}]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::GenerateDocumentPreviewRequestFormatOpts, as a Hash
-    #   * :from_page (Float)
-    #   * :to_page (Float)
-    #   * :format (PogodocApiClient::Documents::GenerateDocumentPreviewRequestFormatOptsFormat)
-    #   * :wait_for_selector (String)
-    # @param request_options [PogodocApiClient::RequestOptions]
-    # @return [PogodocApiClient::Documents::GenerateDocumentPreviewResponse]
-    # @example
-    #  api = PogodocApiClient::Client.new(
-    #    base_url: "https://api.example.com",
-    #    environment: PogodocApiClient::Environment::DEFAULT,
-    #    token: "YOUR_AUTH_TOKEN"
-    #  )
-    #  api.documents.generate_document_preview(
-    #    template_id: "templateId",
-    #    type: DOCX,
-    #    data: { "key": "value" }
-    #  )
-    def generate_document_preview(template_id:, type:, data:, format_opts: nil, request_options: nil)
-      Async do
-        response = @request_client.conn.post do |req|
-          req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
-          req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
-          req.headers = {
-        **(req.headers || {}),
-        **@request_client.get_headers,
-        **(request_options&.additional_headers || {})
-          }.compact
-          req.params = { **(request_options&.additional_query_parameters || {}), "templateId": template_id }.compact
-          req.body = {
-            **(request_options&.additional_body_parameters || {}),
-            type: type,
-            data: data,
-            formatOpts: format_opts
-          }.compact
-          req.url "#{@request_client.get_url(request_options: request_options)}/documents/render-preview"
-        end
-        PogodocApiClient::Documents::GenerateDocumentPreviewResponse.from_json(json_object: response.body)
-      end
-    end
-
     # Combines initialization and rendering in one step. Creates a job, uploads
     #  template/data directly, starts rendering, and adds the document to Strapi.
     #  Requires subscription check.
     #
-    # @param start_immediate_render_request_data [Hash{String => Object}]
-    # @param type [PogodocApiClient::Documents::StartImmediateRenderRequestType]
-    # @param target [PogodocApiClient::Documents::StartImmediateRenderRequestTarget]
-    # @param template_id [String]
-    # @param format_opts [Hash] Request of type PogodocApiClient::Documents::StartImmediateRenderRequestFormatOpts, as a Hash
+    # @param start_immediate_render_request_data [Hash{String => Object}] Sample data for the template
+    # @param type [PogodocApiClient::Documents::StartImmediateRenderRequestType] Type of template to be rendered
+    # @param target [PogodocApiClient::Documents::StartImmediateRenderRequestTarget] Type of output to be rendered
+    # @param template_id [String] ID of the template to be used
+    # @param format_opts [Hash] Format options for the rendered documentRequest of type PogodocApiClient::Documents::StartImmediateRenderRequestFormatOpts, as a Hash
     #   * :from_page (Float)
     #   * :to_page (Float)
     #   * :format (PogodocApiClient::Documents::StartImmediateRenderRequestFormatOptsFormat)
     #   * :wait_for_selector (String)
-    # @param template [String]
+    # @param template [String] index.html or ejs file of the template as a string
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::StartImmediateRenderResponse]
     # @example
@@ -452,7 +359,7 @@ module PogodocApiClient
     # Fetches detailed job information from S3 storage including job status, template
     #  ID, target format, and output details if available.
     #
-    # @param job_id [String]
+    # @param job_id [String] ID of the render job
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [PogodocApiClient::Documents::GetJobStatusResponse]
     # @example

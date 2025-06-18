@@ -34,6 +34,9 @@ public final class UploadTemplateIndexHtmlRequest {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return New index.html file of the template
+   */
   @JsonProperty("templateIndex")
   public String getTemplateIndex() {
     return templateIndex;
@@ -96,6 +99,10 @@ public final class UploadTemplateIndexHtmlRequest {
       return this;
     }
 
+    /**
+     * <p>New index.html file of the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("templateIndex")
     public _FinalStage templateIndex(@NotNull String templateIndex) {

@@ -14,6 +14,7 @@ import resources.templates.requests.SaveCreatedTemplateRequest;
 import resources.templates.requests.UpdateTemplateRequest;
 import resources.templates.requests.UploadTemplateIndexHtmlRequest;
 import resources.templates.types.CloneTemplateResponse;
+import resources.templates.types.DeleteTemplateResponse;
 import resources.templates.types.GeneratePresignedGetUrlResponse;
 import resources.templates.types.GenerateTemplatePreviewsResponse;
 import resources.templates.types.GetTemplateIndexHtmlResponse;
@@ -87,14 +88,15 @@ public class AsyncTemplatesClient {
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<Void> deleteTemplate(String templateId) {
+  public CompletableFuture<DeleteTemplateResponse> deleteTemplate(String templateId) {
     return this.rawClient.deleteTemplate(templateId).thenApply(response -> response.body());
   }
 
   /**
    * Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
    */
-  public CompletableFuture<Void> deleteTemplate(String templateId, RequestOptions requestOptions) {
+  public CompletableFuture<DeleteTemplateResponse> deleteTemplate(String templateId,
+      RequestOptions requestOptions) {
     return this.rawClient.deleteTemplate(templateId, requestOptions).thenApply(response -> response.body());
   }
 

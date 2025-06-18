@@ -33,6 +33,9 @@ public final class GetJobStatusResponseOutputData {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return URL of the rendered output
+   */
   @JsonProperty("url")
   public String getUrl() {
     return url;
@@ -95,6 +98,10 @@ public final class GetJobStatusResponseOutputData {
       return this;
     }
 
+    /**
+     * <p>URL of the rendered output</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("url")
     public _FinalStage url(@NotNull String url) {

@@ -6,9 +6,9 @@ require "json"
 module PogodocApiClient
   class Templates
     class InitializeTemplateCreationResponse
-      # @return [String]
-      attr_reader :job_id
-      # @return [String]
+      # @return [String] ID of the template
+      attr_reader :template_id
+      # @return [String] Presigned URL to upload the template to S3
       attr_reader :presigned_template_upload_url
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
@@ -18,15 +18,15 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param job_id [String]
-      # @param presigned_template_upload_url [String]
+      # @param template_id [String] ID of the template
+      # @param presigned_template_upload_url [String] Presigned URL to upload the template to S3
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::InitializeTemplateCreationResponse]
-      def initialize(job_id:, presigned_template_upload_url:, additional_properties: nil)
-        @job_id = job_id
+      def initialize(template_id:, presigned_template_upload_url:, additional_properties: nil)
+        @template_id = template_id
         @presigned_template_upload_url = presigned_template_upload_url
         @additional_properties = additional_properties
-        @_field_set = { "jobId": job_id, "presignedTemplateUploadUrl": presigned_template_upload_url }
+        @_field_set = { "templateId": template_id, "presignedTemplateUploadUrl": presigned_template_upload_url }
       end
 
       # Deserialize a JSON object to an instance of InitializeTemplateCreationResponse
@@ -36,10 +36,10 @@ module PogodocApiClient
       def self.from_json(json_object:)
         struct = JSON.parse(json_object, object_class: OpenStruct)
         parsed_json = JSON.parse(json_object)
-        job_id = parsed_json["jobId"]
+        template_id = parsed_json["templateId"]
         presigned_template_upload_url = parsed_json["presignedTemplateUploadUrl"]
         new(
-          job_id: job_id,
+          template_id: template_id,
           presigned_template_upload_url: presigned_template_upload_url,
           additional_properties: struct
         )
@@ -59,7 +59,7 @@ module PogodocApiClient
       # @param obj [Object]
       # @return [Void]
       def self.validate_raw(obj:)
-        obj.job_id.is_a?(String) != false || raise("Passed value for field obj.job_id is not the expected type, validation failed.")
+        obj.template_id.is_a?(String) != false || raise("Passed value for field obj.template_id is not the expected type, validation failed.")
         obj.presigned_template_upload_url.is_a?(String) != false || raise("Passed value for field obj.presigned_template_upload_url is not the expected type, validation failed.")
       end
     end

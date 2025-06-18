@@ -34,6 +34,9 @@ public final class GeneratePresignedGetUrlResponse {
     this.additionalProperties = additionalProperties;
   }
 
+  /**
+   * @return Presigned URL to get the template
+   */
   @JsonProperty("presignedUrl")
   public String getPresignedUrl() {
     return presignedUrl;
@@ -96,6 +99,10 @@ public final class GeneratePresignedGetUrlResponse {
       return this;
     }
 
+    /**
+     * <p>Presigned URL to get the template</p>
+     * @return Reference to {@code this} so that method calls can be chained together.
+     */
     @java.lang.Override
     @JsonSetter("presignedUrl")
     public _FinalStage presignedUrl(@NotNull String presignedUrl) {
