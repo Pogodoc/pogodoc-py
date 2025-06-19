@@ -2,6 +2,6 @@
 
 module PogodocApiClient
   class Environment
-    DEFAULT = "https://api.pogodoc.com"
+    DEFAULT = "https://api.pogodoc.com/v1"
   end
 end

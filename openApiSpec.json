@@ -1994,7 +1994,7 @@
   },
   "servers": [
     {
-      "url": "https://api.pogodoc.com",
+      "url": "https://api.pogodoc.com/v1",
       "description": "Pogodoc API"
     }
   ]

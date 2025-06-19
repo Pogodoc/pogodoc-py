@@ -7,7 +7,7 @@ package core;
 import java.lang.String;
 
 public final class Environment {
-  public static final Environment DEFAULT = new Environment("https://api.pogodoc.com");
+  public static final Environment DEFAULT = new Environment("https://api.pogodoc.com/v1");
 
   private final String url;
 
