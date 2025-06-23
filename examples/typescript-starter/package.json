@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@pogodoc/sdk": "file:../../sdks/typescript/dist"
+    "@pogodoc/sdk": "file:../../sdks/typescript/dist",
+    "dotenv": "^16.5.0"
   }
 }
