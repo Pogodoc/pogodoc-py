@@ -11,6 +11,9 @@
   "description": "",
   "dependencies": {
     "@pogodoc/sdk": "file:../../sdks/typescript/dist",
+    "axios": "^1.10.0"
+  },
+  "devDependencies": {
     "dotenv": "^16.5.0"
   }
 }
