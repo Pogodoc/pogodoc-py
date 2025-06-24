@@ -344,7 +344,7 @@ module PogodocApiClient
     #  template in the browser.
     #
     # @param template_id [String] ID of the template to be used
-    # @param template_index [String] New index.html file of the template
+    # @param index_html [String] New index.html file of the template
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -353,8 +353,8 @@ module PogodocApiClient
     #    environment: PogodocApiClient::Environment::DEFAULT,
     #    token: "YOUR_AUTH_TOKEN"
     #  )
-    #  api.templates.upload_template_index_html(template_id: "templateId", template_index: "templateIndex")
-    def upload_template_index_html(template_id:, template_index:, request_options: nil)
+    #  api.templates.upload_template_index_html(template_id: "templateId", index_html: "indexHtml")
+    def upload_template_index_html(template_id:, index_html:, request_options: nil)
       @request_client.conn.post do |req|
         req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
         req.headers["Authorization"] = request_options.token unless request_options&.token.nil?
@@ -366,7 +366,7 @@ module PogodocApiClient
         unless request_options.nil? || request_options&.additional_query_parameters.nil?
           req.params = { **(request_options&.additional_query_parameters || {}) }.compact
         end
-        req.body = { **(request_options&.additional_body_parameters || {}), templateIndex: template_index }.compact
+        req.body = { **(request_options&.additional_body_parameters || {}), indexHtml: index_html }.compact
         req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/index-html"
       end
     end
@@ -748,7 +748,7 @@ module PogodocApiClient
     #  template in the browser.
     #
     # @param template_id [String] ID of the template to be used
-    # @param template_index [String] New index.html file of the template
+    # @param index_html [String] New index.html file of the template
     # @param request_options [PogodocApiClient::RequestOptions]
     # @return [Void]
     # @example
@@ -757,8 +757,8 @@ module PogodocApiClient
     #    environment: PogodocApiClient::Environment::DEFAULT,
     #    token: "YOUR_AUTH_TOKEN"
     #  )
-    #  api.templates.upload_template_index_html(template_id: "templateId", template_index: "templateIndex")
-    def upload_template_index_html(template_id:, template_index:, request_options: nil)
+    #  api.templates.upload_template_index_html(template_id: "templateId", index_html: "indexHtml")
+    def upload_template_index_html(template_id:, index_html:, request_options: nil)
       Async do
         @request_client.conn.post do |req|
           req.options.timeout = request_options.timeout_in_seconds unless request_options&.timeout_in_seconds.nil?
@@ -771,7 +771,7 @@ module PogodocApiClient
           unless request_options.nil? || request_options&.additional_query_parameters.nil?
             req.params = { **(request_options&.additional_query_parameters || {}) }.compact
           end
-          req.body = { **(request_options&.additional_body_parameters || {}), templateIndex: template_index }.compact
+          req.body = { **(request_options&.additional_body_parameters || {}), indexHtml: index_html }.compact
           req.url "#{@request_client.get_url(request_options: request_options)}/templates/#{template_id}/index-html"
         end
       end

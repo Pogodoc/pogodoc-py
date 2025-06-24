@@ -7,7 +7,7 @@ module PogodocApiClient
   class Templates
     class GetTemplateIndexHtmlResponse
       # @return [String] Index.html file of the template
-      attr_reader :template_index
+      attr_reader :index_html
       # @return [OpenStruct] Additional properties unmapped to the current class definition
       attr_reader :additional_properties
       # @return [Object]
@@ -16,13 +16,13 @@ module PogodocApiClient
 
       OMIT = Object.new
 
-      # @param template_index [String] Index.html file of the template
+      # @param index_html [String] Index.html file of the template
       # @param additional_properties [OpenStruct] Additional properties unmapped to the current class definition
       # @return [PogodocApiClient::Templates::GetTemplateIndexHtmlResponse]
-      def initialize(template_index:, additional_properties: nil)
-        @template_index = template_index
+      def initialize(index_html:, additional_properties: nil)
+        @index_html = index_html
         @additional_properties = additional_properties
-        @_field_set = { "templateIndex": template_index }
+        @_field_set = { "indexHtml": index_html }
       end
 
       # Deserialize a JSON object to an instance of GetTemplateIndexHtmlResponse
@@ -32,8 +32,8 @@ module PogodocApiClient
       def self.from_json(json_object:)
         struct = JSON.parse(json_object, object_class: OpenStruct)
         parsed_json = JSON.parse(json_object)
-        template_index = parsed_json["templateIndex"]
-        new(template_index: template_index, additional_properties: struct)
+        index_html = parsed_json["indexHtml"]
+        new(index_html: index_html, additional_properties: struct)
       end
 
       # Serialize an instance of GetTemplateIndexHtmlResponse to a JSON object
@@ -50,7 +50,7 @@ module PogodocApiClient
       # @param obj [Object]
       # @return [Void]
       def self.validate_raw(obj:)
-        obj.template_index.is_a?(String) != false || raise("Passed value for field obj.template_index is not the expected type, validation failed.")
+        obj.index_html.is_a?(String) != false || raise("Passed value for field obj.index_html is not the expected type, validation failed.")
       end
     end
   end

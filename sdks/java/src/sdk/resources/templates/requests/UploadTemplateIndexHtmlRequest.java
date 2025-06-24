@@ -24,22 +24,22 @@ import org.jetbrains.annotations.NotNull;
     builder = UploadTemplateIndexHtmlRequest.Builder.class
 )
 public final class UploadTemplateIndexHtmlRequest {
-  private final String templateIndex;
+  private final String indexHtml;
 
   private final Map<String, Object> additionalProperties;
 
-  private UploadTemplateIndexHtmlRequest(String templateIndex,
+  private UploadTemplateIndexHtmlRequest(String indexHtml,
       Map<String, Object> additionalProperties) {
-    this.templateIndex = templateIndex;
+    this.indexHtml = indexHtml;
     this.additionalProperties = additionalProperties;
   }
 
   /**
    * @return New index.html file of the template
    */
-  @JsonProperty("templateIndex")
-  public String getTemplateIndex() {
-    return templateIndex;
+  @JsonProperty("indexHtml")
+  public String getIndexHtml() {
+    return indexHtml;
   }
 
   @java.lang.Override
@@ -54,12 +54,12 @@ public final class UploadTemplateIndexHtmlRequest {
   }
 
   private boolean equalTo(UploadTemplateIndexHtmlRequest other) {
-    return templateIndex.equals(other.templateIndex);
+    return indexHtml.equals(other.indexHtml);
   }
 
   @java.lang.Override
   public int hashCode() {
-    return Objects.hash(this.templateIndex);
+    return Objects.hash(this.indexHtml);
   }
 
   @java.lang.Override
@@ -67,12 +67,12 @@ public final class UploadTemplateIndexHtmlRequest {
     return ObjectMappers.stringify(this);
   }
 
-  public static TemplateIndexStage builder() {
+  public static IndexHtmlStage builder() {
     return new Builder();
   }
 
-  public interface TemplateIndexStage {
-    _FinalStage templateIndex(@NotNull String templateIndex);
+  public interface IndexHtmlStage {
+    _FinalStage indexHtml(@NotNull String indexHtml);
 
     Builder from(UploadTemplateIndexHtmlRequest other);
   }
@@ -84,8 +84,8 @@ public final class UploadTemplateIndexHtmlRequest {
   @JsonIgnoreProperties(
       ignoreUnknown = true
   )
-  public static final class Builder implements TemplateIndexStage, _FinalStage {
-    private String templateIndex;
+  public static final class Builder implements IndexHtmlStage, _FinalStage {
+    private String indexHtml;
 
     @JsonAnySetter
     private Map<String, Object> additionalProperties = new HashMap<>();
@@ -95,7 +95,7 @@ public final class UploadTemplateIndexHtmlRequest {
 
     @java.lang.Override
     public Builder from(UploadTemplateIndexHtmlRequest other) {
-      templateIndex(other.getTemplateIndex());
+      indexHtml(other.getIndexHtml());
       return this;
     }
 
@@ -104,15 +104,15 @@ public final class UploadTemplateIndexHtmlRequest {
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
-    @JsonSetter("templateIndex")
-    public _FinalStage templateIndex(@NotNull String templateIndex) {
-      this.templateIndex = Objects.requireNonNull(templateIndex, "templateIndex must not be null");
+    @JsonSetter("indexHtml")
+    public _FinalStage indexHtml(@NotNull String indexHtml) {
+      this.indexHtml = Objects.requireNonNull(indexHtml, "indexHtml must not be null");
       return this;
     }
 
     @java.lang.Override
     public UploadTemplateIndexHtmlRequest build() {
-      return new UploadTemplateIndexHtmlRequest(templateIndex, additionalProperties);
+      return new UploadTemplateIndexHtmlRequest(indexHtml, additionalProperties);
     }
   }
 }

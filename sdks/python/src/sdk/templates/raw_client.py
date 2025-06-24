@@ -397,7 +397,7 @@ class RawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def upload_template_index_html(
-        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -407,7 +407,7 @@ class RawTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -421,7 +421,7 @@ class RawTemplatesClient:
             f"templates/{jsonable_encoder(template_id)}/index-html",
             method="POST",
             json={
-                "templateIndex": template_index,
+                "indexHtml": index_html,
             },
             headers={
                 "content-type": "application/json",
@@ -846,7 +846,7 @@ class AsyncRawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def upload_template_index_html(
-        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -856,7 +856,7 @@ class AsyncRawTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -870,7 +870,7 @@ class AsyncRawTemplatesClient:
             f"templates/{jsonable_encoder(template_id)}/index-html",
             method="POST",
             json={
-                "templateIndex": template_index,
+                "indexHtml": index_html,
             },
             headers={
                 "content-type": "application/json",
