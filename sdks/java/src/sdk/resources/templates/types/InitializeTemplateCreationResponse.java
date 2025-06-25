@@ -83,12 +83,18 @@ public final class InitializeTemplateCreationResponse {
   }
 
   public interface TemplateIdStage {
+    /**
+     * ID of the template
+     */
     PresignedTemplateUploadUrlStage templateId(@NotNull String templateId);
 
     Builder from(InitializeTemplateCreationResponse other);
   }
 
   public interface PresignedTemplateUploadUrlStage {
+    /**
+     * Presigned URL to upload the template to S3
+     */
     _FinalStage presignedTemplateUploadUrl(@NotNull String presignedTemplateUploadUrl);
   }
 
@@ -118,7 +124,7 @@ public final class InitializeTemplateCreationResponse {
     }
 
     /**
-     * <p>ID of the template</p>
+     * ID of the template<p>ID of the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -129,7 +135,7 @@ public final class InitializeTemplateCreationResponse {
     }
 
     /**
-     * <p>Presigned URL to upload the template to S3</p>
+     * Presigned URL to upload the template to S3<p>Presigned URL to upload the template to S3</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

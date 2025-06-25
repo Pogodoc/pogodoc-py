@@ -166,6 +166,9 @@ public final class StartImmediateRenderRequestFormatOpts {
       return this;
     }
 
+    /**
+     * <p>Selector to wait for to know when the page is loaded and can be saved as pdf, png, etc.</p>
+     */
     @JsonSetter(
         value = "waitForSelector",
         nulls = Nulls.SKIP

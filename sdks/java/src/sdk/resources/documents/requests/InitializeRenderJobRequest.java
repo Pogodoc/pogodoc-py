@@ -123,26 +123,41 @@ public final class InitializeRenderJobRequest {
   }
 
   public interface TypeStage {
+    /**
+     * Type of template to be rendered
+     */
     TargetStage type(@NotNull InitializeRenderJobRequestType type);
 
     Builder from(InitializeRenderJobRequest other);
   }
 
   public interface TargetStage {
+    /**
+     * Type of output to be rendered
+     */
     _FinalStage target(@NotNull InitializeRenderJobRequestTarget target);
   }
 
   public interface _FinalStage {
     InitializeRenderJobRequest build();
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     _FinalStage data(Optional<Map<String, Object>> data);
 
     _FinalStage data(Map<String, Object> data);
 
+    /**
+     * <p>ID of the template to be used</p>
+     */
     _FinalStage templateId(Optional<String> templateId);
 
     _FinalStage templateId(String templateId);
 
+    /**
+     * <p>Format options for the rendered document</p>
+     */
     _FinalStage formatOpts(Optional<InitializeRenderJobRequestFormatOpts> formatOpts);
 
     _FinalStage formatOpts(InitializeRenderJobRequestFormatOpts formatOpts);
@@ -179,7 +194,7 @@ public final class InitializeRenderJobRequest {
     }
 
     /**
-     * <p>Type of template to be rendered</p>
+     * Type of template to be rendered<p>Type of template to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -190,7 +205,7 @@ public final class InitializeRenderJobRequest {
     }
 
     /**
-     * <p>Type of output to be rendered</p>
+     * Type of output to be rendered<p>Type of output to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -210,6 +225,9 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Format options for the rendered document</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "formatOpts",
@@ -230,6 +248,9 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>ID of the template to be used</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "templateId",
@@ -250,6 +271,9 @@ public final class InitializeRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "data",

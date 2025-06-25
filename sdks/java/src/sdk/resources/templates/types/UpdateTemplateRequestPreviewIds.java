@@ -83,12 +83,18 @@ public final class UpdateTemplateRequestPreviewIds {
   }
 
   public interface PngJobIdStage {
+    /**
+     * ID of the job for the PNG preview
+     */
     PdfJobIdStage pngJobId(@NotNull String pngJobId);
 
     Builder from(UpdateTemplateRequestPreviewIds other);
   }
 
   public interface PdfJobIdStage {
+    /**
+     * ID of the job for the PDF preview
+     */
     _FinalStage pdfJobId(@NotNull String pdfJobId);
   }
 
@@ -118,7 +124,7 @@ public final class UpdateTemplateRequestPreviewIds {
     }
 
     /**
-     * <p>ID of the job for the PNG preview</p>
+     * ID of the job for the PNG preview<p>ID of the job for the PNG preview</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -129,7 +135,7 @@ public final class UpdateTemplateRequestPreviewIds {
     }
 
     /**
-     * <p>ID of the job for the PDF preview</p>
+     * ID of the job for the PDF preview<p>ID of the job for the PDF preview</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

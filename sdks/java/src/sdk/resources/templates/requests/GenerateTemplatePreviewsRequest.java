@@ -100,6 +100,9 @@ public final class GenerateTemplatePreviewsRequest {
   }
 
   public interface TypeStage {
+    /**
+     * Type of template to be rendered
+     */
     _FinalStage type(@NotNull GenerateTemplatePreviewsRequestType type);
 
     Builder from(GenerateTemplatePreviewsRequest other);
@@ -108,12 +111,18 @@ public final class GenerateTemplatePreviewsRequest {
   public interface _FinalStage {
     GenerateTemplatePreviewsRequest build();
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     _FinalStage data(Map<String, Object> data);
 
     _FinalStage putAllData(Map<String, Object> data);
 
     _FinalStage data(String key, Object value);
 
+    /**
+     * <p>Format options for the rendered document</p>
+     */
     _FinalStage formatOpts(Optional<GenerateTemplatePreviewsRequestFormatOpts> formatOpts);
 
     _FinalStage formatOpts(GenerateTemplatePreviewsRequestFormatOpts formatOpts);
@@ -144,7 +153,7 @@ public final class GenerateTemplatePreviewsRequest {
     }
 
     /**
-     * <p>Type of template to be rendered</p>
+     * Type of template to be rendered<p>Type of template to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -164,6 +173,9 @@ public final class GenerateTemplatePreviewsRequest {
       return this;
     }
 
+    /**
+     * <p>Format options for the rendered document</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "formatOpts",
@@ -194,6 +206,9 @@ public final class GenerateTemplatePreviewsRequest {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "data",

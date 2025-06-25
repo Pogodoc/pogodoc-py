@@ -71,6 +71,9 @@ public final class GetJobStatusResponseOutputMetadata {
   }
 
   public interface RenderTimeStage {
+    /**
+     * Time taken to render the output
+     */
     _FinalStage renderTime(double renderTime);
 
     Builder from(GetJobStatusResponseOutputMetadata other);
@@ -99,7 +102,7 @@ public final class GetJobStatusResponseOutputMetadata {
     }
 
     /**
-     * <p>Time taken to render the output</p>
+     * Time taken to render the output<p>Time taken to render the output</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
