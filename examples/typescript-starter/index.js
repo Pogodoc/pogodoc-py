@@ -5,12 +5,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const pogo = new PogodocClient({
+  baseUrl: "https://ozhkvj2l9g.execute-api.eu-west-1.amazonaws.com/v1",
   token: process.env.POGODOC_TOKEN,
 });
 
 async function render(target) {
   const res = await pogo.generateDocument({
-    templateId: "1b9b4f55-408d-4d9b-98d2-6d701f2795c0",
+    templateId: "44286b27-d5b7-431e-9e2c-d88b704b19b9",
     renderConfig: {
       target: target,
       type: "ejs",
@@ -20,51 +21,30 @@ async function render(target) {
     },
     shouldWaitForRenderCompletion: true,
     data: {
-      name: "John Doe",
-      email: "johndoe@example.com",
-      phone: "+1 234 567 890",
-      skills: ["JavaScript", "HTML/CSS", "Node.js", "React", "Git"],
-      profile:
-        "Experienced software developer with a strong background in developing award-winning applications for a diverse clientele.",
-      location: "New York, NY",
-      education: [
-        {
-          years: "2008-2012",
-          degree: "Bachelor of Science in Computer Science",
-          description:
-            "Graduated with honors, focusing on software engineering and computer systems.",
-          institution: "University of Technology",
-        },
-      ],
-      experiences: [
-        {
-          years: "2015-2020",
-          company: "Tech Solutions Inc.",
-          position: "Senior Developer",
-          description:
-            "Led a team of developers to create innovative software solutions that increased company revenue by 20%.",
-        },
-        {
-          years: "2012-2015",
-          company: "Innovatech",
-          position: "Software Engineer",
-          description:
-            "Developed numerous applications that were praised for their user-friendly design and functionality.",
-        },
-      ],
+      name: "Whiskers",
+      breed: "Siamese",
+      age: 6,
+      about:
+        "I am a playful and curious kitten who loves to explore and nap in sunny spots.",
+      skills: ["Purring", "Chasing laser pointers", "Climbing curtains"],
+      toys: ["Feather wand", "Catnip mouse", "Scratching post"],
     },
   });
-
   return res;
 }
-
 async function main() {
   console.log("Hi");
   console.time("render");
-  const arr = new Array(10).fill(0).map(async () => {
-    const png = render("png");
-    const pdf = render("pdf");
-    return Promise.all([pdf, png]);
+  const arr = new Array(5).fill(0).map(async () => {
+    const immediateRender = pogo.documents.startImmediateRender({
+      template: fs.readFileSync("../../data/templates/invoice.ejs").toString(),
+      data: readJsonFile("../../data/json_data/invoice_data_6mb.json"),
+      type: "ejs",
+      target: "pdf",
+    });
+    // const png = render("png");
+    // const pdf = render("pdf");
+    return Promise.all([immediateRender]);
   });
 
   const res = await Promise.all(arr);
@@ -73,3 +53,14 @@ async function main() {
 }
 
 main().then(console.log);
+
+function readJsonFile(filePath) {
+  try {
+    const jsonString = fs.readFileSync(filePath, "utf8");
+    const data = JSON.parse(jsonString);
+
+    return data;
+  } catch (error) {
+    console.error("Error reading the JSON file:", error);
+  }
+}
