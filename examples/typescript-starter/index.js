@@ -5,7 +5,6 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const pogo = new PogodocClient({
-  baseUrl: "https://ozhkvj2l9g.execute-api.eu-west-1.amazonaws.com/v1",
   token: process.env.POGODOC_TOKEN,
 });
 
