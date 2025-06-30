@@ -4,10 +4,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const pogo = new PogodocClient({
-  token: process.env.POGODOC_TOKEN,
-});
-
+const pogo = new PogodocClient();
 async function render(target) {
   const res = await pogo.generateDocument({
     templateId: "44286b27-d5b7-431e-9e2c-d88b704b19b9",
