@@ -131,22 +131,34 @@ public final class UpdateTemplateRequestTemplateInfo {
   }
 
   public interface TitleStage {
+    /**
+     * Title of the template
+     */
     DescriptionStage title(@NotNull String title);
 
     Builder from(UpdateTemplateRequestTemplateInfo other);
   }
 
   public interface DescriptionStage {
+    /**
+     * Description of the template
+     */
     TypeStage description(@NotNull String description);
   }
 
   public interface TypeStage {
+    /**
+     * Type of template to be rendered
+     */
     _FinalStage type(@NotNull UpdateTemplateRequestTemplateInfoType type);
   }
 
   public interface _FinalStage {
     UpdateTemplateRequestTemplateInfo build();
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     _FinalStage sampleData(Map<String, Object> sampleData);
 
     _FinalStage putAllSampleData(Map<String, Object> sampleData);
@@ -157,6 +169,9 @@ public final class UpdateTemplateRequestTemplateInfo {
 
     _FinalStage sourceCode(String sourceCode);
 
+    /**
+     * <p>Categories of the template</p>
+     */
     _FinalStage categories(List<UpdateTemplateRequestTemplateInfoCategoriesItem> categories);
 
     _FinalStage addCategories(UpdateTemplateRequestTemplateInfoCategoriesItem categories);
@@ -198,7 +213,7 @@ public final class UpdateTemplateRequestTemplateInfo {
     }
 
     /**
-     * <p>Title of the template</p>
+     * Title of the template<p>Title of the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -209,7 +224,7 @@ public final class UpdateTemplateRequestTemplateInfo {
     }
 
     /**
-     * <p>Description of the template</p>
+     * Description of the template<p>Description of the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -220,7 +235,7 @@ public final class UpdateTemplateRequestTemplateInfo {
     }
 
     /**
-     * <p>Type of template to be rendered</p>
+     * Type of template to be rendered<p>Type of template to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -251,6 +266,9 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Categories of the template</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "categories",
@@ -299,6 +317,9 @@ public final class UpdateTemplateRequestTemplateInfo {
       return this;
     }
 
+    /**
+     * <p>Sample data for the template</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "sampleData",

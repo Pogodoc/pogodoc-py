@@ -72,6 +72,9 @@ public final class GeneratePresignedGetUrlResponse {
   }
 
   public interface PresignedUrlStage {
+    /**
+     * Presigned URL to get the template
+     */
     _FinalStage presignedUrl(@NotNull String presignedUrl);
 
     Builder from(GeneratePresignedGetUrlResponse other);
@@ -100,7 +103,7 @@ public final class GeneratePresignedGetUrlResponse {
     }
 
     /**
-     * <p>Presigned URL to get the template</p>
+     * Presigned URL to get the template<p>Presigned URL to get the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

@@ -71,6 +71,9 @@ public final class GetTemplateIndexHtmlResponse {
   }
 
   public interface IndexHtmlStage {
+    /**
+     * Index.html file of the template
+     */
     _FinalStage indexHtml(@NotNull String indexHtml);
 
     Builder from(GetTemplateIndexHtmlResponse other);
@@ -99,7 +102,7 @@ public final class GetTemplateIndexHtmlResponse {
     }
 
     /**
-     * <p>Index.html file of the template</p>
+     * Index.html file of the template<p>Index.html file of the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "generate-sdks": "fern generate",
+    "generate": "fern generate --local",
     "test": "./test.sh"
   },
   "keywords": [],

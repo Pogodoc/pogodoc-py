@@ -71,6 +71,9 @@ public final class CloneTemplateResponse {
   }
 
   public interface NewTemplateIdStage {
+    /**
+     * ID of the new template
+     */
     _FinalStage newTemplateId(@NotNull String newTemplateId);
 
     Builder from(CloneTemplateResponse other);
@@ -99,7 +102,7 @@ public final class CloneTemplateResponse {
     }
 
     /**
-     * <p>ID of the new template</p>
+     * ID of the new template<p>ID of the new template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

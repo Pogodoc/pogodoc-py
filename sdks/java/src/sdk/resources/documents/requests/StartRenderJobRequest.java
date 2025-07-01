@@ -101,6 +101,9 @@ public final class StartRenderJobRequest {
       return this;
     }
 
+    /**
+     * <p>Whether to wait for the render job to complete, if false, the job will be returned immediately</p>
+     */
     @JsonSetter(
         value = "shouldWaitForRenderCompletion",
         nulls = Nulls.SKIP

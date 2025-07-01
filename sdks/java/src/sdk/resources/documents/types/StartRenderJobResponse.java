@@ -71,6 +71,9 @@ public final class StartRenderJobResponse {
   }
 
   public interface JobIdStage {
+    /**
+     * ID of the render job
+     */
     _FinalStage jobId(@NotNull String jobId);
 
     Builder from(StartRenderJobResponse other);
@@ -99,7 +102,7 @@ public final class StartRenderJobResponse {
     }
 
     /**
-     * <p>ID of the render job</p>
+     * ID of the render job<p>ID of the render job</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

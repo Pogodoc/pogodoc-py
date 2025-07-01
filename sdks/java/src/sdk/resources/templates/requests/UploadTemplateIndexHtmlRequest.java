@@ -72,6 +72,9 @@ public final class UploadTemplateIndexHtmlRequest {
   }
 
   public interface IndexHtmlStage {
+    /**
+     * New index.html file of the template
+     */
     _FinalStage indexHtml(@NotNull String indexHtml);
 
     Builder from(UploadTemplateIndexHtmlRequest other);
@@ -100,7 +103,7 @@ public final class UploadTemplateIndexHtmlRequest {
     }
 
     /**
-     * <p>New index.html file of the template</p>
+     * New index.html file of the template<p>New index.html file of the template</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

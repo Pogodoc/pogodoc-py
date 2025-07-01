@@ -108,22 +108,34 @@ public final class InitializeRenderJobResponse {
   }
 
   public interface JobIdStage {
+    /**
+     * ID of the render job
+     */
     TargetStage jobId(@NotNull String jobId);
 
     Builder from(InitializeRenderJobResponse other);
   }
 
   public interface TargetStage {
+    /**
+     * Type of output to be rendered
+     */
     _FinalStage target(@NotNull InitializeRenderJobResponseTarget target);
   }
 
   public interface _FinalStage {
     InitializeRenderJobResponse build();
 
+    /**
+     * <p>Presigned URL to upload the data for the render job to S3</p>
+     */
     _FinalStage presignedDataUploadUrl(Optional<String> presignedDataUploadUrl);
 
     _FinalStage presignedDataUploadUrl(String presignedDataUploadUrl);
 
+    /**
+     * <p>Presigned URL to upload the template for the render job to S3. Only works with EJS templates</p>
+     */
     _FinalStage presignedTemplateUploadUrl(Optional<String> presignedTemplateUploadUrl);
 
     _FinalStage presignedTemplateUploadUrl(String presignedTemplateUploadUrl);
@@ -157,7 +169,7 @@ public final class InitializeRenderJobResponse {
     }
 
     /**
-     * <p>ID of the render job</p>
+     * ID of the render job<p>ID of the render job</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -168,7 +180,7 @@ public final class InitializeRenderJobResponse {
     }
 
     /**
-     * <p>Type of output to be rendered</p>
+     * Type of output to be rendered<p>Type of output to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -188,6 +200,9 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>Presigned URL to upload the template for the render job to S3. Only works with EJS templates</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "presignedTemplateUploadUrl",
@@ -208,6 +223,9 @@ public final class InitializeRenderJobResponse {
       return this;
     }
 
+    /**
+     * <p>Presigned URL to upload the data for the render job to S3</p>
+     */
     @java.lang.Override
     @JsonSetter(
         value = "presignedDataUploadUrl",

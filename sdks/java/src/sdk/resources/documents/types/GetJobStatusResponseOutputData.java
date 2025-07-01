@@ -71,6 +71,9 @@ public final class GetJobStatusResponseOutputData {
   }
 
   public interface UrlStage {
+    /**
+     * URL of the rendered output
+     */
     _FinalStage url(@NotNull String url);
 
     Builder from(GetJobStatusResponseOutputData other);
@@ -99,7 +102,7 @@ public final class GetJobStatusResponseOutputData {
     }
 
     /**
-     * <p>URL of the rendered output</p>
+     * URL of the rendered output<p>URL of the rendered output</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

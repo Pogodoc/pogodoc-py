@@ -101,6 +101,9 @@ public final class UpdateTemplateRequest {
   }
 
   public interface ContentIdStage {
+    /**
+     * ID by which the new template content is saved
+     */
     _FinalStage contentId(@NotNull String contentId);
   }
 
@@ -147,7 +150,7 @@ public final class UpdateTemplateRequest {
     }
 
     /**
-     * <p>ID by which the new template content is saved</p>
+     * ID by which the new template content is saved<p>ID by which the new template content is saved</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

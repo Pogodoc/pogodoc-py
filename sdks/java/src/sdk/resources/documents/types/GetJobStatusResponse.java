@@ -123,16 +123,25 @@ public final class GetJobStatusResponse {
   }
 
   public interface TypeStage {
+    /**
+     * Type of template to be rendered
+     */
     JobIdStage type(@NotNull GetJobStatusResponseType type);
 
     Builder from(GetJobStatusResponse other);
   }
 
   public interface JobIdStage {
+    /**
+     * ID of the render job
+     */
     TargetStage jobId(@NotNull String jobId);
   }
 
   public interface TargetStage {
+    /**
+     * Type of output to be rendered
+     */
     _FinalStage target(@NotNull GetJobStatusResponseTarget target);
   }
 
@@ -186,7 +195,7 @@ public final class GetJobStatusResponse {
     }
 
     /**
-     * <p>Type of template to be rendered</p>
+     * Type of template to be rendered<p>Type of template to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -197,7 +206,7 @@ public final class GetJobStatusResponse {
     }
 
     /**
-     * <p>ID of the render job</p>
+     * ID of the render job<p>ID of the render job</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -208,7 +217,7 @@ public final class GetJobStatusResponse {
     }
 
     /**
-     * <p>Type of output to be rendered</p>
+     * Type of output to be rendered<p>Type of output to be rendered</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override

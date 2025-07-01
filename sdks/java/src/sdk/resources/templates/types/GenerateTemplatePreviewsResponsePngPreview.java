@@ -83,12 +83,18 @@ public final class GenerateTemplatePreviewsResponsePngPreview {
   }
 
   public interface UrlStage {
+    /**
+     * URL of the rendered preview
+     */
     JobIdStage url(@NotNull String url);
 
     Builder from(GenerateTemplatePreviewsResponsePngPreview other);
   }
 
   public interface JobIdStage {
+    /**
+     * ID of the render job
+     */
     _FinalStage jobId(@NotNull String jobId);
   }
 
@@ -118,7 +124,7 @@ public final class GenerateTemplatePreviewsResponsePngPreview {
     }
 
     /**
-     * <p>URL of the rendered preview</p>
+     * URL of the rendered preview<p>URL of the rendered preview</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
@@ -129,7 +135,7 @@ public final class GenerateTemplatePreviewsResponsePngPreview {
     }
 
     /**
-     * <p>ID of the render job</p>
+     * ID of the render job<p>ID of the render job</p>
      * @return Reference to {@code this} so that method calls can be chained together.
      */
     @java.lang.Override
