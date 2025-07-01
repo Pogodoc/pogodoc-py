@@ -18,10 +18,10 @@ async def generate_document():
     print("Generating document...")
     
     client = PogodocClient(
-        token= os.getenv("TOKEN", ""),
-        base_url= os.getenv("BASE_URL", "")
+        token = os.getenv("API_TOKEN", ""),
+        base_url = os.getenv("BASE_URL", "")
     )
-
+    
     config =  RenderConfig(
         type="html",
         target="pdf",

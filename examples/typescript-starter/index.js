@@ -33,8 +33,8 @@ async function main() {
   console.time("render");
   const arr = new Array(5).fill(0).map(async () => {
     const immediateRender = pogo.documents.startImmediateRender({
-      template: fs.readFileSync("../../data/templates/invoice.ejs").toString(),
-      data: readJsonFile("../../data/json_data/invoice_data_6mb.json"),
+      template: "<%= name %> is a <%= breed %> cat.",
+      data: {name: "Whiskers", breed: "Siamese"},
       type: "ejs",
       target: "pdf",
     });
