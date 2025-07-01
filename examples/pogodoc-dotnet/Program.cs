@@ -11,10 +11,7 @@ class Program
     {
         Env.Load();
 
-        var client = new PogodocSDK(
-            token: Environment.GetEnvironmentVariable("TOKEN") ?? throw new Exception("TOKEN is not set"),
-            baseUrl: Environment.GetEnvironmentVariable("POGODOC_API_BASE_URL") ?? "https://api.pogodoc.com"
-        );
+        var client = new PogodocSDK();
 
         var jsonString = File.ReadAllText("sampleData.json");
         var sampleData = JsonSerializer.Deserialize<Dictionary<string, object?>>(jsonString);
