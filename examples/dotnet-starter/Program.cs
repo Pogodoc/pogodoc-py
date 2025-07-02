@@ -1,37 +1,40 @@
 ﻿using System;
 using System.Text.Json;
+using DotNetEnv;
 using Pogodoc.SDK;
 using Pogodoc.SDK.Types;
 using PogodocApi;
-using DotNetEnv;
 
 class Program
 {
     static async Task Main(string[] args)
     {
-        Env.Load();
-
         var client = new PogodocSDK();
 
-        var jsonString = File.ReadAllText("sampleData.json");
-        var sampleData = JsonSerializer.Deserialize<Dictionary<string, object?>>(jsonString);
-
-        var props = new GenerateDocumentProps
-        {
-            RenderConfig = new InitializeRenderJobRequest
+        var response = await client.GenerateDocumentAsync(
+            new GenerateDocumentProps
             {
-                TemplateId = "76c6a795-953b-4c54-84e8-2af3b307a2cd",
-                Type = InitializeRenderJobRequestType.Html,
-                Target = InitializeRenderJobRequestTarget.Pdf,
-                Data = sampleData,
-                FormatOpts = new InitializeRenderJobRequestFormatOpts { FromPage = 1, ToPage = 2 },
-            },
-            ShouldWaitForRenderCompletion = true,
-        };
-
-        var response = await client.GenerateDocumentAsync(props);
+                RenderConfig = new InitializeRenderJobRequest
+                {
+                    TemplateId = "c35a914e-10ab-4d3b-adcf-cd04ffbb1659",
+                    Type = InitializeRenderJobRequestType.Ejs,
+                    Target = InitializeRenderJobRequestTarget.Pdf,
+                    Data = new Dictionary<string, object?>
+                    {
+                        { "subject", "Welcome to Our Service!" },
+                        { "senderName", "Jane Smith" },
+                        {
+                            "messageBody",
+                            "Thank you for joining our platform. We are thrilled to have you with us. Please feel free to explore our features and let us know if you have any questions."
+                        },
+                        { "contactEmail", "support@example.com" },
+                        { "recipientName", "John Doe" },
+                    },
+                },
+                ShouldWaitForRenderCompletion = true,
+            }
+        );
 
         Console.WriteLine($"URL, {response?.Output?.Data.Url}");
-
     }
 }
