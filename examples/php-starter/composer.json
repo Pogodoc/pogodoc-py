@@ -1,0 +1,26 @@
+{
+  "name": "martin/php-starter",
+  "autoload": {
+    "psr-4": {
+      "Martin\\PhpStarter\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "martin.mitev",
+      "email": "martin.mitev@codechem.com"
+    }
+  ],
+  "require": {
+    "pogodoc/pogodoc-php": "@dev"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../sdks/php",
+      "options": {
+        "symlink": true
+      }
+    }
+  ]
+}
