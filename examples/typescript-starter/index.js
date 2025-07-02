@@ -4,43 +4,39 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const pogo = new PogodocClient();
+const client = new PogodocClient();
 async function render(target) {
-  const res = await pogo.generateDocument({
-    templateId: "44286b27-d5b7-431e-9e2c-d88b704b19b9",
+  const response = await client.generateDocument({
+    templateId: "c35a914e-10ab-4d3b-adcf-cd04ffbb1659",
+    data: {
+      subject: "Welcome to Our Service!",
+      senderName: "Jane Smith",
+      messageBody:
+        "Thank you for joining our platform. We are thrilled to have you with us. Please feel free to explore our features and let us know if you have any questions.",
+      contactEmail: "support@example.com",
+      recipientName: "John Doe",
+    },
     renderConfig: {
-      target: target,
       type: "ejs",
-      formatOpts: {
-        format: "tabloid",
-      },
+      target: "pdf",
     },
     shouldWaitForRenderCompletion: true,
-    data: {
-      name: "Whiskers",
-      breed: "Siamese",
-      age: 6,
-      about:
-        "I am a playful and curious kitten who loves to explore and nap in sunny spots.",
-      skills: ["Purring", "Chasing laser pointers", "Climbing curtains"],
-      toys: ["Feather wand", "Catnip mouse", "Scratching post"],
-    },
   });
-  return res;
+  return response;
 }
 async function main() {
   console.log("Hi");
   console.time("render");
-  const arr = new Array(5).fill(0).map(async () => {
-    const immediateRender = pogo.documents.startImmediateRender({
-      template: "<%= name %> is a <%= breed %> cat.",
-      data: {name: "Whiskers", breed: "Siamese"},
-      type: "ejs",
-      target: "pdf",
-    });
+  const arr = new Array(1).fill(0).map(async () => {
+    // const immediateRender = pogo.documents.startImmediateRender({
+    //   template: "<%= name %> is a <%= breed %> cat.",
+    //   data: { name: "Whiskers", breed: "Siamese" },
+    //   type: "ejs",
+    //   target: "pdf",
+    // });
     // const png = render("png");
-    // const pdf = render("pdf");
-    return Promise.all([immediateRender]);
+    const pdf = render("pdf");
+    return Promise.all([pdf]);
   });
 
   const res = await Promise.all(arr);
