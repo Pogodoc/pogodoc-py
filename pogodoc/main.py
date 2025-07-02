@@ -8,9 +8,20 @@ from pogodoc.sdk.templates.types.save_created_template_request_template_info imp
 from pogodoc.sdk.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
 from pogodoc.sdk.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
 import typing
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
 
 class PogodocClient(PogodocApi):
-    def __init__(self, token: str, base_url: str):
+    def __init__(self, token: str = None, base_url: str = None):
+        token = token or os.getenv("POGODOC_API_TOKEN")
+        base_url = base_url or os.getenv("POGODOC_BASE_URL")
+
+        if not token:
+            raise ValueError("API token is required. Please provide it either as a parameter or set the API_TOKEN environment variable.")
+
         super().__init__(token=token, base_url=base_url)
    
     def save_template(self, path: str, template_info:SaveCreatedTemplateRequestTemplateInfo):
