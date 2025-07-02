@@ -6,43 +6,43 @@ default-group: local
 groups:
   local:
     generators:
-      - name: fernapi/fern-typescript-node-sdk
-        version: 1.8.1
-        output:
-          location: local-file-system
-          path: ../sdks/typescript/src/sdk
-        config:
-          outputSourceFiles: true
-      - name: fernapi/fern-python-sdk
-        version: 4.22.0
-        output:
-          location: local-file-system
-          path: ../sdks/python/src/sdk
+      # - name: fernapi/fern-typescript-node-sdk
+      #   version: 1.8.1
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/typescript/src/client
+      #   config:
+      #     outputSourceFiles: true
+      # - name: fernapi/fern-python-sdk
+      #   version: 4.22.0
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/python/src/client
       - name: fernapi/fern-go-sdk
         version: 0.38.0
         config:
           module:
-            path: github.com/Pogodoc/pogodoc-go/sdk
+            path: github.com/Pogodoc/pogodoc-go/client
         output:
           location: local-file-system
-          path: ../sdks/go/sdk
-      - name: fernapi/fern-csharp-sdk
-        version: 2.0.1
-        output:
-          location: local-file-system
-          path: ../sdks/csharp/sdk
-      - name: fernapi/fern-php-sdk
-        version: 0.15.0
-        output:
-          location: local-file-system
-          path: ../sdks/php/src/sdk
-      - name: fernapi/fern-java-sdk
-        version: 2.37.2
-        output:
-          location: local-file-system
-          path: ../sdks/java/src/sdk
-      - name: fernapi/fern-ruby-sdk
-        version: 0.8.2
-        output:
-          location: local-file-system
-          path: ../sdks/ruby/src/sdk
+          path: ../sdks/go/client
+      # - name: fernapi/fern-csharp-sdk
+      #   version: 2.0.1
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/csharp/client
+      # - name: fernapi/fern-php-sdk
+      #   version: 0.15.0
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/php/src/client
+      # - name: fernapi/fern-java-sdk
+      #   version: 2.37.2
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/java/src/client
+      # - name: fernapi/fern-ruby-sdk
+      #   version: 0.8.2
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/ruby/src/client
