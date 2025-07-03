@@ -1,12 +1,12 @@
 import os
 import json
 import io
-from pogodoc.sdk.client import PogodocApi
+from pogodoc.client.client import PogodocApi
 from pogodoc.utils import RenderConfig, upload_to_s3_with_url
-from pogodoc.sdk.templates.types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
-from pogodoc.sdk.templates.types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
-from pogodoc.sdk.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
-from pogodoc.sdk.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
+from pogodoc.client.templates.types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
+from pogodoc.client.templates.types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
+from pogodoc.client.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
+from pogodoc.client.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
 import typing
 from dotenv import load_dotenv
 import os

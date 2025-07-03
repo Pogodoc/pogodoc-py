@@ -11,7 +11,7 @@
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <IncludeAssets>Pogodoc.Client.dll</IncludeAssets>
     </ProjectReference>
-    <ProjectReference Include="../../sdks/csharp/sdk/src/PogodocApi/PogodocApi.csproj">
+    <ProjectReference Include="../../sdks/csharp/client/src/PogodocApi/PogodocApi.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       <IncludeAssets>PogodocApi.dll</IncludeAssets>
     </ProjectReference>

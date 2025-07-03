@@ -13,19 +13,19 @@ groups:
       #     path: ../sdks/typescript/src/client
       #   config:
       #     outputSourceFiles: true
-      # - name: fernapi/fern-python-sdk
-      #   version: 4.22.0
-      #   output:
-      #     location: local-file-system
-      #     path: ../sdks/python/src/client
-      - name: fernapi/fern-go-sdk
-        version: 0.38.0
-        config:
-          module:
-            path: github.com/Pogodoc/pogodoc-go/client
+      - name: fernapi/fern-python-sdk
+        version: 4.22.0
         output:
           location: local-file-system
-          path: ../sdks/go/client
+          path: ../sdks/python/pogodoc/client
+      # - name: fernapi/fern-go-sdk
+      #   version: 0.38.0
+      #   config:
+      #     module:
+      #       path: github.com/Pogodoc/pogodoc-go/client
+      #   output:
+      #     location: local-file-system
+      #     path: ../sdks/go/client
       # - name: fernapi/fern-csharp-sdk
       #   version: 2.0.1
       #   output:

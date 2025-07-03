@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from pogodoc import PogodocClient, RenderConfig
+from pogodoc.sdk import PogodocClient
+from pogodoc.utils import RenderConfig
 from dotenv import load_dotenv
 import os
 
