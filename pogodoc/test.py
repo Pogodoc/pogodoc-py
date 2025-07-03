@@ -1,19 +1,9 @@
 import json
 import os
-from pogodoc.main import PogodocClient
-<<<<<<< Updated upstream:sdks/python/pogodoc/test.py
-<<<<<<< Updated upstream:sdks/python/pogodoc/test.py
+from sdks.python.pogodoc.sdk import PogodocClient
 from pogodoc.utils import RenderConfig
 from dotenv import load_dotenv
-=======
-from dotenv import load_dotenv
-from pogodoc.utils import RenderConfig
->>>>>>> Stashed changes:sdks/python/src/pogodoc/test.py
-=======
-from dotenv import load_dotenv
-from pogodoc.utils import RenderConfig
->>>>>>> Stashed changes:sdks/python/src/pogodoc/test.py
-from pogodoc.sdk.templates.types import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
+from pogodoc.client.templates.types import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
 load_dotenv()
 
 def readJson(path: str):
