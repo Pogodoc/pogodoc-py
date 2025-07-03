@@ -7,12 +7,9 @@ from pogodoc.client.templates.types.save_created_template_request_preview_ids im
 from pogodoc.client.templates.types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
 from pogodoc.client.templates.types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
 from pogodoc.client.templates.types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
+from pogodoc.client.environment import PogodocApiEnvironment
 import typing
-from dotenv import load_dotenv
 import os
-
-
-load_dotenv()
 
 class PogodocClient(PogodocApi):
     def __init__(self, token: str = None, base_url: str = None):
