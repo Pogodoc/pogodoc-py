@@ -20,7 +20,6 @@ async def generate_document():
     
     client = PogodocClient(
         token = os.getenv("POGODOC_API_TOKEN"),
-        base_url = os.getenv("POGODOC_BASE_URL")
     )
     
     response = client.generate_document(

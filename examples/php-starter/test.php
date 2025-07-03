@@ -1,10 +1,13 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-use PogodocSdk\PogodocApiClient;
+use PogodocSdk\PogodocSdk;
 
-$client = new PogodocApiClient();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$client = new PogodocSdk();
 
 // $sampleData = [
 //     "name" => "John Doe",
@@ -49,10 +52,6 @@ $response = $client->generateDocument([
     'renderConfig' => [
         'type' => 'ejs',
         'target' => 'pdf',
-        'formatOpts' => [
-            'fromPage' => 1,
-            'toPage' => 1,
-        ],
     ],
     'shouldWaitForRenderCompletion' => true,
   ]);

@@ -1,7 +1,3 @@
-github.com/Pogodoc/pogodoc-go v0.2.0 h1:0tweuONpa1Ux8K1pk+8g4JFoZquWLw4fjkL8csBe8go=
-github.com/Pogodoc/pogodoc-go v0.2.0/go.mod h1:r/rurrAHz/gxf8Pa5eZBFkvpMP/a8xgqpg6e7OdgIbA=
-github.com/Pogodoc/pogodoc-go/sdk v0.2.0 h1:ATO0h6/ETToFxFq/NUTrRP8WGPXNKdRqVVd+X/9EuxE=
-github.com/Pogodoc/pogodoc-go/sdk v0.2.0/go.mod h1:8EnnCW/IKtPvmOXBm6lv+Y3TivRaEr07iqmNNuaiBLY=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/uuid v1.4.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

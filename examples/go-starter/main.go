@@ -6,11 +6,12 @@ import (
 	"fmt"
 
 	pogodoc "github.com/Pogodoc/pogodoc-go"
-	api "github.com/Pogodoc/pogodoc-go/sdk"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
-
+	err := godotenv.Load()
 	ctx := context.Background()
 	client, err := pogodoc.PogodocClientInit()
 	if err != nil {
@@ -35,13 +36,13 @@ func main() {
 	}
 
 	documentProps := pogodoc.GenerateDocumentProps{
-		InitializeRenderJobRequest: api.InitializeRenderJobRequest{
+		InitializeRenderJobRequest: pogodoc.InitializeRenderJobRequest{
 			TemplateId: pogodoc.Pointer("c35a914e-10ab-4d3b-adcf-cd04ffbb1659"),
-			Type:       api.InitializeRenderJobRequestTypeEjs,
-			Target:     api.InitializeRenderJobRequestTargetPdf,
+			Type:       pogodoc.InitializeRenderJobRequestType("ejs"),
+			Target:     pogodoc.InitializeRenderJobRequestTargetPdf,
 			Data:       sampleData,
 		},
-		StartRenderJobRequest: api.StartRenderJobRequest{
+		StartRenderJobRequest: pogodoc.StartRenderJobRequest{
 			ShouldWaitForRenderCompletion: pogodoc.Pointer(true),
 		}}
 

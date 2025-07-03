@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b98b811263837080e711ebc049dece9",
+    "content-hash": "8b76098199bd16476529e09d70584cbe",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -469,12 +469,12 @@
             "time": "2024-07-20T21:41:07+00:00"
         },
         {
-            "name": "pogodoc/pogodoc-php",
-            "version": "dev-feature/read-token-from-env",
+            "name": "pogodoc/sdk",
+            "version": "dev-fix/change-package-structure",
             "dist": {
                 "type": "path",
                 "url": "../../sdks/php",
-                "reference": "abb707aaa1de2d1515d3fe1940b7b21c23e3e4de"
+                "reference": "c942c75f85363b9d702d8b50036eacc160c2a7d3"
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.9",
@@ -484,7 +484,7 @@
             "autoload": {
                 "psr-4": {
                     "PogodocSdk\\": "src/",
-                    "Pogodoc\\": "src/sdk/src/"
+                    "Pogodoc\\": "src/client/src/"
                 }
             },
             "authors": [
@@ -1098,7 +1098,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "pogodoc/pogodoc-php": 20
+        "pogodoc/sdk": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
