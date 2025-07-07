@@ -62,7 +62,7 @@ class PogodocClient(PogodocApi):
         """
         init_response = self.templates.initialize_template_creation()
 
-        template_id = init_response.job_id
+        template_id = init_response.template_id
 
         upload_to_s3_with_url(presigned_url=init_response.presigned_template_upload_url, payload=payload, payload_length=payload_length, content_type="application/zip")
 
