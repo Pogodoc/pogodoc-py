@@ -137,7 +137,7 @@ class PogodocClient(PogodocApi):
             UpdateTemplateResponse: Response containing the updated template details
         """
         init_response = self.templates.initialize_template_creation()
-        content_id = init_response.job_id
+        content_id = init_response.template_id
 
         upload_to_s3_with_url(
             presigned_url=init_response.presigned_template_upload_url,
@@ -198,8 +198,6 @@ class PogodocClient(PogodocApi):
             template_id=template_id,
             **render_options
         )
-
-        print(init_response.job_id)
         
         if data and init_response.presigned_data_upload_url:
             data_string = json.dumps(data)
