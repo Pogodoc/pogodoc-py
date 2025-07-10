@@ -143,3 +143,7 @@ function readJsonFile(filePath: string) {
   }
 }
 ```
+
+### License
+
+MIT License
