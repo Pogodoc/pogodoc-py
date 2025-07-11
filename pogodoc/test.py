@@ -3,7 +3,7 @@ import os
 from sdks.python.pogodoc.sdk import PogodocClient
 from pogodoc.utils import RenderConfig
 from dotenv import load_dotenv
-from pogodoc.client.templates.types import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
+from pogodoc import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
 load_dotenv()
 
 def readJson(path: str):

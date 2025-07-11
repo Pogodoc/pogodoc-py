@@ -19,7 +19,7 @@ To use the SDK you will need an API key which can be obtained from the [Pogodoc 
 ```py
 from pogodoc import PogodocClient
 from pogodoc.utils import RenderConfig
-from pogodoc.client.templates.types import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
+from pogodoc import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
 from dotenv import load_dotenv
 import json
 
