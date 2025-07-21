@@ -1,10 +1,12 @@
 import httpx
-from pogodoc.client.documents.types.initialize_render_job_request_format_opts import InitializeRenderJobRequestFormatOpts
-from pogodoc.client.documents.types.initialize_render_job_request_type import InitializeRenderJobRequestType
-from pogodoc.client.core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from pogodoc.client.documents.types.initialize_render_job_request_target import InitializeRenderJobRequestTarget
 import pydantic
 import typing
+from pogodoc.client.documents.types import (
+    InitializeRenderJobRequestType,
+    InitializeRenderJobRequestFormatOpts,
+    InitializeRenderJobRequestTarget,
+)
+from pogodoc.client.core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 def upload_to_s3_with_url(presigned_url: str, payload, payload_length, content_type: str):
     headers = {
