@@ -2,6 +2,7 @@ import os
 import typing
 import json
 import io
+import time
 from pogodoc.client.client import PogodocApi
 from pogodoc.utils import RenderConfig, upload_to_s3_with_url
 from pogodoc.client.templates.types import SaveCreatedTemplateRequestPreviewIds, SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestPreviewIds, UpdateTemplateRequestTemplateInfo
@@ -161,7 +162,7 @@ class PogodocClient(PogodocApi):
         return updated_template_response
 
 
-    def generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None, should_wait_for_render_completion: typing.Optional[bool] = False,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
+    def generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None, wait_for_completion: typing.Optional[bool] = True,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
         """
         Generates a document by rendering a template with provided data.
 
@@ -216,9 +217,20 @@ class PogodocClient(PogodocApi):
 
         self.documents.start_render_job(
             job_id=init_response.job_id,
-            should_wait_for_render_completion=should_wait_for_render_completion,
             upload_presigned_s_3_url=personal_upload_presigned_s3_url
         )
 
-        results = self.documents.get_job_status(init_response.job_id)
-        return results
+        if wait_for_completion:
+            return self.poll_for_job_completion(init_response.job_id)
+        
+        return self.documents.get_job_status(init_response.job_id)
+    
+    def poll_for_job_completion(self, job_id: str, max_attempts: int = 60, interval_ms: int = 500):
+
+        time.sleep(1)
+        for attempt in range(max_attempts):
+            job = self.documents.get_job_status(job_id)
+            if job.status == "done":
+                return job
+            time.sleep(interval_ms / 1000)
+        return self.documents.get_job_status(job_id)
