@@ -14,10 +14,7 @@ sampleData = readJson("../../data/json_data/react.json")
 templatePath = "../../data/templates/React-Demo-App.zip"
 
 def main():
-    print(os.getenv("POGODOC_API_TOKEN"))
-    print(os.getenv("LAMBDA_BASE_URL"))
     client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"), base_url=os.getenv("LAMBDA_BASE_URL"))
-    
 
     templateId = client.save_template(
         path=templatePath, 
