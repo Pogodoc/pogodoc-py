@@ -161,8 +161,27 @@ class PogodocClient(PogodocApi):
         )
         return updated_template_response
 
+    def generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
+        """
+        Generates a document and returns the result immediately.
+        Use this method for quick, synchronous rendering of small documents.
+        The result is returned directly in the response.
+        For larger documents or when you need to handle rendering asynchronously, use `start_generate_document`.
 
-    def generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None, wait_for_completion: typing.Optional[bool] = True,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
+        Args:
+            data: Dictionary containing the data to populate the template with
+            render_config: Configuration object containing:
+                - type: Output format (e.g. "pdf", "png", "html")
+                - target: Render target location (e.g. "url", "s3")
+                - format_opts: Optional format-specific settings
+            personal_upload_presigned_s3_url: Optional presigned S3 URL for uploading the rendered document
+            template: Optional raw template HTML string. Either template or template_id must be provided
+            template_id: Optional template ID to use. Either template or template_id must be provided
+        """
+        init_response = self.start_generate_document(data, render_config, personal_upload_presigned_s3_url, template, template_id)
+        return self.poll_for_job_completion(init_response.job_id)
+
+    def start_generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
         """
         Generates a document by rendering a template with provided data.
 
@@ -173,12 +192,11 @@ class PogodocClient(PogodocApi):
                 - target: Render target location (e.g. "url", "s3")
                 - format_opts: Optional format-specific settings
             personal_upload_presigned_s3_url: Optional presigned S3 URL for uploading the rendered document
-            should_wait_for_render_completion: If True, waits for rendering to complete before returning
             template: Optional raw template HTML string. Either template or template_id must be provided
             template_id: Optional template ID to use. Either template or template_id must be provided
 
         Returns:
-            dict: Job status and result information including URLs to access the rendered document
+            StartRenderJobResponse: Response containing the job id of the document being generated
         """
 
         # Prepare rendering options from the render_config object
@@ -215,15 +233,40 @@ class PogodocClient(PogodocApi):
                 content_type="text/html"
             )
 
-        self.documents.start_render_job(
+        return self.documents.start_render_job(
             job_id=init_response.job_id,
             upload_presigned_s_3_url=personal_upload_presigned_s3_url
         )
+    
+    
+    def generate_document_immediate(self, data: dict, render_config: RenderConfig, template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
+        """
+        Generates a document and returns the result immediately.
+        Use this method for quick, synchronous rendering of small documents.
+        The result is returned directly in the response.
+        For larger documents or when you need to handle rendering asynchronously, use `generateDocument`.
 
-        if wait_for_completion:
-            return self.poll_for_job_completion(init_response.job_id)
-        
-        return self.documents.get_job_status(init_response.job_id)
+        Args:
+            data: Dictionary containing the data to populate the template with
+            render_config: Configuration object containing:
+                - type: Output format (e.g. "pdf", "png", "html")
+                - target: Render target location (e.g. "url", "s3")
+                - format_opts: Optional format-specific settings
+            personal_upload_presigned_s3_url: Optional presigned S3 URL for uploading the rendered document
+            template: Optional raw template HTML string. Either template or template_id must be provided
+            template_id: Optional template ID to use. Either template or template_id must be provided
+
+        Returns:
+            StartImmediateRenderResponse: Response containing the presigned url of the generated document
+        """
+        return self.documents.start_immediate_render(
+            template_id=template_id,
+            template=template,
+            type=render_config.type,
+            target=render_config.target,
+            format_opts=render_config.format_opts,
+            start_immediate_render_request_data=data,
+        )
     
     def poll_for_job_completion(self, job_id: str, max_attempts: int = 60, interval_ms: int = 500):
 

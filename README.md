@@ -17,16 +17,16 @@ To use the SDK you will need an API key which can be obtained from the [Pogodoc 
 ### Example
 
 ```py
-from pogodoc import PogodocClient, SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
-from pogodoc.utils import RenderConfig
+from pogodoc import PogodocClient, RenderConfig
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
 def main():
     client = PogodocClient()
 
-    sampleData = {
+    sample_data = {
         "name": "John Doe",
         "email": "john.doe@example.com",
         "phone": "1234567890",
@@ -35,14 +35,13 @@ def main():
     }
 
     response = client.generate_document(
-        template_id = template_id,
+        template_id = os.getenv("TEMPLATE_ID"),
         data = sample_data,
         render_config = RenderConfig(
-            type = "ejs",
+            type = "html",
             target = "pdf",
         ),
-        should_wait_for_render_completion = True,
-  )
+    )
 
     print("Generated document url:\n", response.output.data.url)
 

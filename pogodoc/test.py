@@ -1,9 +1,8 @@
 import json
 import os
-from sdks.python.pogodoc.sdk import PogodocClient
-from pogodoc.utils import RenderConfig
+from pogodoc import PogodocClient, RenderConfig, UpdateTemplateRequestTemplateInfo, SaveCreatedTemplateRequestTemplateInfo
 from dotenv import load_dotenv
-from pogodoc import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
+
 load_dotenv()
 
 def readJson(path: str):
@@ -15,6 +14,29 @@ templatePath = "../../data/templates/React-Demo-App.zip"
 
 def main():
     client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"), base_url=os.getenv("LAMBDA_BASE_URL"))
+
+    sampleData = {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone": "1234567890",
+        "address": "123 Main St, Anytown, USA",
+        "city": "Anytown",
+    }
+
+    template_id = os.getenv("TEMPLATE_ID")
+
+    immediate_document = client.generate_document_immediate(template_id=template_id, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
+    print("immediateDocument:", immediate_document)
+
+    document = client.generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("document:", document)
+
+    start_document = client.start_generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("startDocument:", start_document)
+
+    job_status = client.poll_for_job_completion(start_document.job_id)
+    print("jobStatus:", job_status)
+
 
     templateId = client.save_template(
         path=templatePath, 
