@@ -28,7 +28,7 @@ def main():
     )
 
     response = client.generate_document(
-        template_id = "some-template-id",
+        template_id = "your-template-id",
         data = {"name": "John Doe"},
         render_config = RenderConfig(
             type = "html",
