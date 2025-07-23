@@ -19,24 +19,17 @@ To use the SDK you will need an API key which can be obtained from the [Pogodoc 
 ```py
 from pogodoc import PogodocClient, RenderConfig
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
 def main():
-    client = PogodocClient()
-
-    sample_data = {
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "phone": "1234567890",
-        "address": "123 Main St, Anytown, USA",
-        "city": "Anytown",
-    }
+    client = PogodocClient(
+        token="YOUR_POGODOC_API_TOKEN",
+    )
 
     response = client.generate_document(
-        template_id = os.getenv("TEMPLATE_ID"),
-        data = sample_data,
+        template_id = "some-template-id",
+        data = {"name": "John Doe"},
         render_config = RenderConfig(
             type = "html",
             target = "pdf",
