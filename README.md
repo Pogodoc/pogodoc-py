@@ -18,9 +18,6 @@ To use the SDK you will need an API key which can be obtained from the [Pogodoc 
 
 ```py
 from pogodoc import PogodocClient, RenderConfig
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def main():
     client = PogodocClient(
@@ -33,6 +30,9 @@ def main():
         render_config = RenderConfig(
             type = "html",
             target = "pdf",
+            format_opts = InitializeRenderJobRequestFormatOpts(
+                from_page = 1,
+            ),
         ),
     )
 

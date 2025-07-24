@@ -1,6 +1,6 @@
 import json
 import os
-from pogodoc import PogodocClient, RenderConfig, UpdateTemplateRequestTemplateInfo, SaveCreatedTemplateRequestTemplateInfo
+from pogodoc import PogodocClient, RenderConfig, UpdateTemplateRequestTemplateInfo, SaveCreatedTemplateRequestTemplateInfo, InitializeRenderJobRequestFormatOpts
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -65,6 +65,9 @@ def test_readme_example():
         render_config = RenderConfig(
             type = "html",
             target = "pdf",
+            format_opts = InitializeRenderJobRequestFormatOpts(
+                from_page = 1,
+            ),
         ),
     )
 
