@@ -1,9 +1,8 @@
 import json
 import os
-from sdks.python.pogodoc.sdk import PogodocClient
-from pogodoc.utils import RenderConfig
+from pogodoc import PogodocClient, RenderConfig, UpdateTemplateRequestTemplateInfo, SaveCreatedTemplateRequestTemplateInfo, InitializeRenderJobRequestFormatOpts
 from dotenv import load_dotenv
-from pogodoc import SaveCreatedTemplateRequestTemplateInfo, UpdateTemplateRequestTemplateInfo
+
 load_dotenv()
 
 def readJson(path: str):
@@ -14,8 +13,13 @@ sampleData = readJson("../../data/json_data/react.json")
 templatePath = "../../data/templates/React-Demo-App.zip"
 
 def main():
-    client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"), base_url=os.getenv("LAMBDA_BASE_URL"))
+    client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"))
 
+    test_readme_example()
+
+    test_document_generations(client)
+
+    # save template
     templateId = client.save_template(
         path=templatePath, 
         template_info=SaveCreatedTemplateRequestTemplateInfo(
@@ -27,9 +31,11 @@ def main():
         )
     )
 
+    # generate document
     document = client.generate_document(template_id=templateId, data=sampleData,should_wait_for_render_completion=True, render_config=RenderConfig(type="html", target="pdf", should_wait_for_render_completion=True))
     print(document)
 
+    # get template index html
     templateHtml = client.templates.get_template_index_html(template_id=templateId)
     print(templateHtml)
 
@@ -37,15 +43,59 @@ def main():
     contentId = client.update_template(template_id=templateId, path=templatePath, template_info=UpdateTemplateRequestTemplateInfo(title="Test Template", description="Test Description", type="html", sample_data=sampleData, categories=["invoice"]))
     print(contentId)
 
+    # generate presigned url
     presignedUrl = client.templates.generate_presigned_get_url(template_id=templateId)
     print(presignedUrl)
 
-    immediateRender = client.documents.start_immediate_render(template="<h1>Hello <%= name %></h1>", start_immediate_render_request_data={"name": "Ferdzo"}, target="pdf", type="html")
+    # immediate render with template string
+    immediateRender = client.documents.start_immediate_render(template="<h1>Hello <%= name %></h1>", start_immediate_render_request_data={"name": "John Doe"}, target="pdf", type="html")
     print(immediateRender)
+
     # delete template
     # client.templates.delete_template(template_id=templateId)
 
+def test_readme_example():
+    client = PogodocClient(
+        token="YOUR_POGODOC_API_TOKEN",
+    )
 
+    response = client.generate_document(
+        template_id = os.getenv("TEMPLATE_ID"),
+        data = {"name": "John Doe"},
+        render_config = RenderConfig(
+            type = "html",
+            target = "pdf",
+            format_opts = InitializeRenderJobRequestFormatOpts(
+                from_page = 1,
+            ),
+        ),
+    )
+
+    print("README Generated document url:\n", response.output.data.url)
+
+def test_document_generations(client: PogodocClient):
+    template_id = os.getenv("TEMPLATE_ID")
+
+    sampleData = {
+        "name": "John Doe",
+    }
+
+    # immediate document generation
+    immediate_document = client.generate_document_immediate(template_id=template_id, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
+    print("immediateDocument:", immediate_document)
+    
+    # document generation
+    document = client.generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("document:", document)
+
+    # start document generation
+    start_document = client.start_generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("startDocument:", start_document)
+
+    # poll for job completion
+    job_status = client.poll_for_job_completion(start_document.job_id)
+    print("jobStatus:", job_status)
+    
 
 if __name__ == "__main__":
     main()
