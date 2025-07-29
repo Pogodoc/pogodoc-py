@@ -56,7 +56,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -94,8 +94,8 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
-        from pogodoc.templates import (
+        from Pogodoc import PogodocApi
+        from Pogodoc.templates import (
             SaveCreatedTemplateRequestPreviewIds,
             SaveCreatedTemplateRequestTemplateInfo,
         )
@@ -156,8 +156,8 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
-        from pogodoc.templates import (
+        from Pogodoc import PogodocApi
+        from Pogodoc.templates import (
             UpdateTemplateRequestPreviewIds,
             UpdateTemplateRequestTemplateInfo,
         )
@@ -211,7 +211,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -243,7 +243,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -291,7 +291,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -328,7 +328,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -361,7 +361,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -396,7 +396,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -432,7 +432,7 @@ class TemplatesClient:
 
         Examples
         --------
-        from pogodoc import PogodocApi
+        from Pogodoc import PogodocApi
 
         client = PogodocApi(
             token="YOUR_TOKEN",
@@ -480,7 +480,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -526,8 +526,8 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
-        from pogodoc.templates import (
+        from Pogodoc import AsyncPogodocApi
+        from Pogodoc.templates import (
             SaveCreatedTemplateRequestPreviewIds,
             SaveCreatedTemplateRequestTemplateInfo,
         )
@@ -596,8 +596,8 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
-        from pogodoc.templates import (
+        from Pogodoc import AsyncPogodocApi
+        from Pogodoc.templates import (
             UpdateTemplateRequestPreviewIds,
             UpdateTemplateRequestTemplateInfo,
         )
@@ -659,7 +659,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -699,7 +699,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -755,7 +755,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -800,7 +800,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -841,7 +841,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -884,7 +884,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -928,7 +928,7 @@ class AsyncTemplatesClient:
         --------
         import asyncio
 
-        from pogodoc import AsyncPogodocApi
+        from Pogodoc import AsyncPogodocApi
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",

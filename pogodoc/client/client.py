@@ -39,7 +39,7 @@ class PogodocApi:
 
     Examples
     --------
-    from pogodoc import PogodocApi
+    from Pogodoc import PogodocApi
 
     client = PogodocApi(
         token="YOUR_TOKEN",
@@ -103,7 +103,7 @@ class AsyncPogodocApi:
 
     Examples
     --------
-    from pogodoc import AsyncPogodocApi
+    from Pogodoc import AsyncPogodocApi
 
     client = AsyncPogodocApi(
         token="YOUR_TOKEN",
