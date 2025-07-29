@@ -159,12 +159,13 @@ class RawDocumentsClient:
     def start_immediate_render(
         self,
         *,
-        start_immediate_render_request_data: typing.Dict[str, typing.Optional[typing.Any]],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
+        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
+        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[StartImmediateRenderResponse]:
         """
@@ -172,14 +173,14 @@ class RawDocumentsClient:
 
         Parameters
         ----------
-        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
-
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
+
+        data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -189,6 +190,8 @@ class RawDocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
+
+        upload_presigned_s_3_url : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -202,14 +205,15 @@ class RawDocumentsClient:
             "documents/immediate-render",
             method="POST",
             json={
-                "data": start_immediate_render_request_data,
                 "type": type,
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
                     object_=format_opts, annotation=StartImmediateRenderRequestFormatOpts, direction="write"
                 ),
+                "data": data,
                 "template": template,
+                "uploadPresignedS3Url": upload_presigned_s_3_url,
             },
             headers={
                 "content-type": "application/json",
@@ -406,12 +410,13 @@ class AsyncRawDocumentsClient:
     async def start_immediate_render(
         self,
         *,
-        start_immediate_render_request_data: typing.Dict[str, typing.Optional[typing.Any]],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
+        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
+        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[StartImmediateRenderResponse]:
         """
@@ -419,14 +424,14 @@ class AsyncRawDocumentsClient:
 
         Parameters
         ----------
-        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
-
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
+
+        data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -436,6 +441,8 @@ class AsyncRawDocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
+
+        upload_presigned_s_3_url : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -449,14 +456,15 @@ class AsyncRawDocumentsClient:
             "documents/immediate-render",
             method="POST",
             json={
-                "data": start_immediate_render_request_data,
                 "type": type,
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
                     object_=format_opts, annotation=StartImmediateRenderRequestFormatOpts, direction="write"
                 ),
+                "data": data,
                 "template": template,
+                "uploadPresignedS3Url": upload_presigned_s_3_url,
             },
             headers={
                 "content-type": "application/json",
