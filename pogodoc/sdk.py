@@ -119,8 +119,8 @@ class PogodocClient(PogodocApi):
         It first calls `start_generate_document` to begin the process, then `poll_for_job_completion` to wait for the result.
         You must provide either a `template_id` of a saved template or a `template` string.
         """
-        init_response = self.start_generate_document(data, render_config, personal_upload_presigned_s3_url, template, template_id)
-        return self.poll_for_job_completion(init_response.job_id)
+        job_id = self.start_generate_document(data, render_config, personal_upload_presigned_s3_url, template, template_id)
+        return self.poll_for_job_completion(job_id)
 
     def start_generate_document(self, data: dict, render_config: RenderConfig, personal_upload_presigned_s3_url:typing.Optional[str] = None,  template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
         """
@@ -132,7 +132,6 @@ class PogodocClient(PogodocApi):
         You must provide either a `template_id` of a saved template or a `template` string.
         """
 
-        # Prepare rendering options from the render_config object
         render_options = {
             "type": render_config.type,
             "target": render_config.target,
@@ -166,10 +165,12 @@ class PogodocClient(PogodocApi):
                 content_type="text/html"
             )
 
-        return self.documents.start_render_job(
+        response = self.documents.start_render_job(
             job_id=init_response.job_id,
             upload_presigned_s_3_url=personal_upload_presigned_s3_url
         )
+
+        return response.job_id
     
     
     def generate_document_immediate(self, data: dict, render_config: RenderConfig, template: typing.Optional[str] = None, template_id: typing.Optional[str] = None):
@@ -186,7 +187,7 @@ class PogodocClient(PogodocApi):
             type=render_config.type,
             target=render_config.target,
             format_opts=render_config.format_opts,
-            start_immediate_render_request_data=data,
+            data=data,
         )
     
     def poll_for_job_completion(self, job_id: str, max_attempts: int = 60, interval_ms: int = 500):

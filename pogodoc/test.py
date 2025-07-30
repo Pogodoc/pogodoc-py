@@ -89,11 +89,11 @@ def test_document_generations(client: PogodocClient):
     print("document:", document)
 
     # start document generation
-    start_document = client.start_generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
-    print("startDocument:", start_document)
+    job_id = client.start_generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("startDocument:", job_id)
 
     # poll for job completion
-    job_status = client.poll_for_job_completion(start_document.job_id)
+    job_status = client.poll_for_job_completion(job_id)
     print("jobStatus:", job_status)
     
 
