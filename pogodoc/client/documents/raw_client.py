@@ -192,6 +192,7 @@ class RawDocumentsClient:
             index.html or ejs file of the template as a string
 
         upload_presigned_s_3_url : typing.Optional[str]
+            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -443,6 +444,7 @@ class AsyncRawDocumentsClient:
             index.html or ejs file of the template as a string
 
         upload_presigned_s_3_url : typing.Optional[str]
+            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
