@@ -201,4 +201,6 @@ class PogodocClient(PogodocApi):
             if job.status == "done":
                 return job
             time.sleep(interval_ms / 1000)
-        return self.documents.get_job_status(job_id)
+        job_status = self.documents.get_job_status(job_id).json()
+        print("job_status: IN FUNCTION", job_status)
+        return job_status

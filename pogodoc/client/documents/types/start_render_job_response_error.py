@@ -6,11 +6,11 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from .get_job_status_response_format_opts import GetJobStatusResponseFormatOpts
-from .get_job_status_response_output import GetJobStatusResponseOutput
+from .start_render_job_response_error_format_opts import StartRenderJobResponseErrorFormatOpts
+from .start_render_job_response_error_output import StartRenderJobResponseErrorOutput
 
 
-class GetJobStatusResponse(UniversalBaseModel):
+class StartRenderJobResponseError(UniversalBaseModel):
     job_id: typing_extensions.Annotated[str, FieldMetadata(alias="jobId")] = pydantic.Field()
     """
     ID of the render job
@@ -36,7 +36,7 @@ class GetJobStatusResponse(UniversalBaseModel):
     """
 
     format_opts: typing_extensions.Annotated[
-        typing.Optional[GetJobStatusResponseFormatOpts], FieldMetadata(alias="formatOpts")
+        typing.Optional[StartRenderJobResponseErrorFormatOpts], FieldMetadata(alias="formatOpts")
     ] = pydantic.Field(default=None)
     """
     Format options for the rendered document
@@ -52,7 +52,7 @@ class GetJobStatusResponse(UniversalBaseModel):
     Whether the render job was successful
     """
 
-    output: typing.Optional[GetJobStatusResponseOutput] = None
+    output: typing.Optional[StartRenderJobResponseErrorOutput] = None
     error: typing.Optional[str] = pydantic.Field(default=None)
     """
     Error that occurred during render

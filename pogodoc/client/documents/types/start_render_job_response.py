@@ -2,23 +2,7 @@
 
 import typing
 
-import pydantic
-import typing_extensions
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...core.serialization import FieldMetadata
+from .start_render_job_response_error import StartRenderJobResponseError
+from .start_render_job_response_one import StartRenderJobResponseOne
 
-
-class StartRenderJobResponse(UniversalBaseModel):
-    job_id: typing_extensions.Annotated[str, FieldMetadata(alias="jobId")] = pydantic.Field()
-    """
-    ID of the render job
-    """
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
+StartRenderJobResponse = typing.Union[StartRenderJobResponseError, StartRenderJobResponseOne]
