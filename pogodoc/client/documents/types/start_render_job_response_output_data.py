@@ -6,7 +6,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class StartRenderJobResponseErrorOutputData(UniversalBaseModel):
+class StartRenderJobResponseOutputData(UniversalBaseModel):
     url: str = pydantic.Field()
     """
     URL of the rendered output

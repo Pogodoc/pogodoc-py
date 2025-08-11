@@ -42,7 +42,7 @@ class GetJobStatusResponse(UniversalBaseModel):
     Format options for the rendered document
     """
 
-    status: typing.Optional[str] = pydantic.Field(default=None)
+    status: str = pydantic.Field()
     """
     Status of the render job
     """
