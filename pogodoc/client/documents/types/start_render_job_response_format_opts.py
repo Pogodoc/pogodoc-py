@@ -6,17 +6,17 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
-from .start_render_job_response_error_format_opts_format import StartRenderJobResponseErrorFormatOptsFormat
+from .start_render_job_response_format_opts_format import StartRenderJobResponseFormatOptsFormat
 
 
-class StartRenderJobResponseErrorFormatOpts(UniversalBaseModel):
+class StartRenderJobResponseFormatOpts(UniversalBaseModel):
     """
     Format options for the rendered document
     """
 
     from_page: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="fromPage")] = None
     to_page: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="toPage")] = None
-    format: typing.Optional[StartRenderJobResponseErrorFormatOptsFormat] = None
+    format: typing.Optional[StartRenderJobResponseFormatOptsFormat] = None
     wait_for_selector: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="waitForSelector")] = (
         pydantic.Field(default=None)
     )

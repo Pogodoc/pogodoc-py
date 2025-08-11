@@ -3,14 +3,16 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .start_render_job_response_error_output_data import StartRenderJobResponseErrorOutputData
-from .start_render_job_response_error_output_metadata import StartRenderJobResponseErrorOutputMetadata
+from ...core.serialization import FieldMetadata
 
 
-class StartRenderJobResponseErrorOutput(UniversalBaseModel):
-    data: StartRenderJobResponseErrorOutputData
-    metadata: StartRenderJobResponseErrorOutputMetadata
+class StartRenderJobResponseOutputMetadata(UniversalBaseModel):
+    render_time: typing_extensions.Annotated[float, FieldMetadata(alias="renderTime")] = pydantic.Field()
+    """
+    Time taken to render the output
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

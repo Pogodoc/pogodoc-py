@@ -15,43 +15,43 @@ templatePath = "../../data/templates/React-Demo-App.zip"
 def main():
     client = PogodocClient(token=os.getenv("POGODOC_API_TOKEN"))
 
-    # test_readme_example()
+    test_readme_example()
 
     test_document_generations(client)
 
-    # # save template
-    # templateId = client.save_template(
-    #     path=templatePath, 
-    #     template_info=SaveCreatedTemplateRequestTemplateInfo(
-    #         title="Test Template",
-    #         description="Test Description", 
-    #         type="html",
-    #         sample_data=sampleData, 
-    #         categories=["invoice"]
-    #     )
-    # )
+    # save template
+    templateId = client.save_template(
+        path=templatePath, 
+        template_info=SaveCreatedTemplateRequestTemplateInfo(
+            title="Test Template",
+            description="Test Description", 
+            type="html",
+            sample_data=sampleData, 
+            categories=["invoice"]
+        )
+    )
 
-    # # generate document
-    # document = client.generate_document(template_id=templateId, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
-    # print(document)
+    # generate document
+    document = client.generate_document(template_id=templateId, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
+    print(document)
 
-    # # get template index html
-    # templateHtml = client.templates.get_template_index_html(template_id=templateId)
-    # print(templateHtml)
+    # get template index html
+    templateHtml = client.templates.get_template_index_html(template_id=templateId)
+    print(templateHtml)
 
-    # # update template
-    # contentId = client.update_template(template_id=templateId, path=templatePath, template_info=UpdateTemplateRequestTemplateInfo(title="Test Template", description="Test Description", type="html", sample_data=sampleData, categories=["invoice"]))
-    # print(contentId)
+    # update template
+    contentId = client.update_template(template_id=templateId, path=templatePath, template_info=UpdateTemplateRequestTemplateInfo(title="Test Template", description="Test Description", type="html", sample_data=sampleData, categories=["invoice"]))
+    print(contentId)
 
-    # # generate presigned url
-    # presignedUrl = client.templates.generate_presigned_get_url(template_id=templateId)
-    # print(presignedUrl)
+    # generate presigned url
+    presignedUrl = client.templates.generate_presigned_get_url(template_id=templateId)
+    print(presignedUrl)
 
-    # # immediate render with template string
-    # immediateRender = client.documents.start_immediate_render(template="<h1>Hello <%= name %></h1>", data={"name": "John Doe"}, target="pdf", type="html")
-    # print(immediateRender)
+    # immediate render with template string
+    immediateRender = client.documents.start_immediate_render(template="<h1>Hello <%= name %></h1>", data={"name": "John Doe"}, target="pdf", type="html")
+    print(immediateRender)
 
-    # delete template
+    # # delete template
     # client.templates.delete_template(template_id=templateId)
 
 def test_readme_example():
@@ -80,13 +80,13 @@ def test_document_generations(client: PogodocClient):
         "name": "John Doe",
     }
 
-    # # immediate document generation
-    # immediate_document = client.generate_document_immediate(template_id=template_id, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
-    # print("immediateDocument:", immediate_document)
+    # immediate document generation
+    immediate_document = client.generate_document_immediate(template_id=template_id, data=sampleData, render_config=RenderConfig(type="html", target="pdf"))
+    print("immediateDocument:", immediate_document)
     
-    # # document generation
-    # document = client.generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
-    # print("document:", document)
+    # document generation
+    document = client.generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
+    print("document:", document)
 
     # start document generation
     job_id = client.start_generate_document(data=sampleData, render_config=RenderConfig(type="html", target="pdf"), template_id=template_id)
