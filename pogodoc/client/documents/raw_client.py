@@ -11,12 +11,18 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from .types.get_job_status_response import GetJobStatusResponse
-from .types.initialize_render_job_request_format_opts import InitializeRenderJobRequestFormatOpts
+from .types.initialize_render_job_request_format_opts import (
+    InitializeRenderJobRequestFormatOpts,
+)
 from .types.initialize_render_job_request_target import InitializeRenderJobRequestTarget
 from .types.initialize_render_job_request_type import InitializeRenderJobRequestType
 from .types.initialize_render_job_response import InitializeRenderJobResponse
-from .types.start_immediate_render_request_format_opts import StartImmediateRenderRequestFormatOpts
-from .types.start_immediate_render_request_target import StartImmediateRenderRequestTarget
+from .types.start_immediate_render_request_format_opts import (
+    StartImmediateRenderRequestFormatOpts,
+)
+from .types.start_immediate_render_request_target import (
+    StartImmediateRenderRequestTarget,
+)
 from .types.start_immediate_render_request_type import StartImmediateRenderRequestType
 from .types.start_immediate_render_response import StartImmediateRenderResponse
 from .types.start_render_job_response import StartRenderJobResponse
@@ -76,7 +82,9 @@ class RawDocumentsClient:
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts, annotation=InitializeRenderJobRequestFormatOpts, direction="write"
+                    object_=format_opts,
+                    annotation=InitializeRenderJobRequestFormatOpts,
+                    direction="write",
                 ),
             },
             headers={
@@ -97,8 +105,16 @@ class RawDocumentsClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     def start_render_job(
         self,
@@ -128,13 +144,16 @@ class RawDocumentsClient:
         HttpResponse[StartRenderJobResponse]
             Default Response
         """
+        _json: typing.Dict[str, typing.Optional[typing.Any]] = {}
+        if should_wait_for_render_completion is not OMIT:
+            _json["shouldWaitForRenderCompletion"] = should_wait_for_render_completion
+        if upload_presigned_s_3_url is not OMIT:
+            _json["uploadPresignedS3Url"] = upload_presigned_s_3_url
         _response = self._client_wrapper.httpx_client.request(
             f"documents/{jsonable_encoder(job_id)}/render",
             method="POST",
-            json={
-                "shouldWaitForRenderCompletion": should_wait_for_render_completion,
-                "uploadPresignedS3Url": upload_presigned_s_3_url,
-            },
+            json=_json if len(_json) > 0 else None,
+            content=b"{}" if len(_json) == 0 else None,
             headers={
                 "content-type": "application/json",
             },
@@ -153,19 +172,28 @@ class RawDocumentsClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     def start_immediate_render(
         self,
         *,
+        start_immediate_render_request_data: typing.Dict[
+            str, typing.Optional[typing.Any]
+        ],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
-        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
-        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[StartImmediateRenderResponse]:
         """
@@ -173,14 +201,14 @@ class RawDocumentsClient:
 
         Parameters
         ----------
+        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
+
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
-
-        data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -190,9 +218,6 @@ class RawDocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
-
-        upload_presigned_s_3_url : typing.Optional[str]
-            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -206,15 +231,16 @@ class RawDocumentsClient:
             "documents/immediate-render",
             method="POST",
             json={
+                "data": start_immediate_render_request_data,
                 "type": type,
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts, annotation=StartImmediateRenderRequestFormatOpts, direction="write"
+                    object_=format_opts,
+                    annotation=StartImmediateRenderRequestFormatOpts,
+                    direction="write",
                 ),
-                "data": data,
                 "template": template,
-                "uploadPresignedS3Url": upload_presigned_s_3_url,
             },
             headers={
                 "content-type": "application/json",
@@ -234,8 +260,16 @@ class RawDocumentsClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     def get_job_status(
         self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -273,8 +307,16 @@ class RawDocumentsClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
 
 class AsyncRawDocumentsClient:
@@ -328,7 +370,9 @@ class AsyncRawDocumentsClient:
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts, annotation=InitializeRenderJobRequestFormatOpts, direction="write"
+                    object_=format_opts,
+                    annotation=InitializeRenderJobRequestFormatOpts,
+                    direction="write",
                 ),
             },
             headers={
@@ -349,8 +393,16 @@ class AsyncRawDocumentsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     async def start_render_job(
         self,
@@ -380,13 +432,16 @@ class AsyncRawDocumentsClient:
         AsyncHttpResponse[StartRenderJobResponse]
             Default Response
         """
+        _json: typing.Dict[str, typing.Optional[typing.Any]] = {}
+        if should_wait_for_render_completion is not OMIT:
+            _json["shouldWaitForRenderCompletion"] = should_wait_for_render_completion
+        if upload_presigned_s_3_url is not OMIT:
+            _json["uploadPresignedS3Url"] = upload_presigned_s_3_url
         _response = await self._client_wrapper.httpx_client.request(
             f"documents/{jsonable_encoder(job_id)}/render",
             method="POST",
-            json={
-                "shouldWaitForRenderCompletion": should_wait_for_render_completion,
-                "uploadPresignedS3Url": upload_presigned_s_3_url,
-            },
+            json=_json if len(_json) > 0 else None,
+            content=b"{}" if len(_json) == 0 else None,
             headers={
                 "content-type": "application/json",
             },
@@ -405,19 +460,28 @@ class AsyncRawDocumentsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     async def start_immediate_render(
         self,
         *,
+        start_immediate_render_request_data: typing.Dict[
+            str, typing.Optional[typing.Any]
+        ],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
-        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
-        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[StartImmediateRenderResponse]:
         """
@@ -425,14 +489,14 @@ class AsyncRawDocumentsClient:
 
         Parameters
         ----------
+        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
+
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
-
-        data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -442,9 +506,6 @@ class AsyncRawDocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
-
-        upload_presigned_s_3_url : typing.Optional[str]
-            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -458,15 +519,16 @@ class AsyncRawDocumentsClient:
             "documents/immediate-render",
             method="POST",
             json={
+                "data": start_immediate_render_request_data,
                 "type": type,
                 "target": target,
                 "templateId": template_id,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts, annotation=StartImmediateRenderRequestFormatOpts, direction="write"
+                    object_=format_opts,
+                    annotation=StartImmediateRenderRequestFormatOpts,
+                    direction="write",
                 ),
-                "data": data,
                 "template": template,
-                "uploadPresignedS3Url": upload_presigned_s_3_url,
             },
             headers={
                 "content-type": "application/json",
@@ -486,8 +548,16 @@ class AsyncRawDocumentsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )
 
     async def get_job_status(
         self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -525,5 +595,13 @@ class AsyncRawDocumentsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+            raise ApiError(
+                status_code=_response.status_code,
+                headers=dict(_response.headers),
+                body=_response.text,
+            )
+        raise ApiError(
+            status_code=_response.status_code,
+            headers=dict(_response.headers),
+            body=_response_json,
+        )

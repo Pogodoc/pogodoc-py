@@ -374,7 +374,7 @@ class TemplatesClient:
         return _response.data
 
     def upload_template_index_html(
-        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -384,7 +384,7 @@ class TemplatesClient:
         template_id : str
             ID of the template to be used
 
-        index_html : str
+        template_index : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -403,11 +403,11 @@ class TemplatesClient:
         )
         client.templates.upload_template_index_html(
             template_id="templateId",
-            index_html="indexHtml",
+            template_index="templateIndex",
         )
         """
         _response = self._raw_client.upload_template_index_html(
-            template_id, index_html=index_html, request_options=request_options
+            template_id, template_index=template_index, request_options=request_options
         )
         return _response.data
 
@@ -860,7 +860,7 @@ class AsyncTemplatesClient:
         return _response.data
 
     async def upload_template_index_html(
-        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -870,7 +870,7 @@ class AsyncTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        index_html : str
+        template_index : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -894,14 +894,14 @@ class AsyncTemplatesClient:
         async def main() -> None:
             await client.templates.upload_template_index_html(
                 template_id="templateId",
-                index_html="indexHtml",
+                template_index="templateIndex",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.upload_template_index_html(
-            template_id, index_html=index_html, request_options=request_options
+            template_id, template_index=template_index, request_options=request_options
         )
         return _response.data
 

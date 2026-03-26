@@ -9,7 +9,7 @@ from ...core.serialization import FieldMetadata
 
 
 class GetTemplateIndexHtmlResponse(UniversalBaseModel):
-    index_html: typing_extensions.Annotated[str, FieldMetadata(alias="indexHtml")] = pydantic.Field()
+    template_index: typing_extensions.Annotated[str, FieldMetadata(alias="templateIndex")] = pydantic.Field()
     """
     Index.html file of the template
     """

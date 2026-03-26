@@ -145,13 +145,12 @@ class DocumentsClient:
     def start_immediate_render(
         self,
         *,
+        start_immediate_render_request_data: typing.Dict[str, typing.Optional[typing.Any]],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
-        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
-        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> StartImmediateRenderResponse:
         """
@@ -159,14 +158,14 @@ class DocumentsClient:
 
         Parameters
         ----------
+        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
+
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
-
-        data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -176,9 +175,6 @@ class DocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
-
-        upload_presigned_s_3_url : typing.Optional[str]
-            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -196,19 +192,18 @@ class DocumentsClient:
             token="YOUR_TOKEN",
         )
         client.documents.start_immediate_render(
+            start_immediate_render_request_data={"key": "value"},
             type="docx",
             target="pdf",
-            data={"key": "value"},
         )
         """
         _response = self._raw_client.start_immediate_render(
+            start_immediate_render_request_data=start_immediate_render_request_data,
             type=type,
             target=target,
-            data=data,
             template_id=template_id,
             format_opts=format_opts,
             template=template,
-            upload_presigned_s_3_url=upload_presigned_s_3_url,
             request_options=request_options,
         )
         return _response.data
@@ -388,13 +383,12 @@ class AsyncDocumentsClient:
     async def start_immediate_render(
         self,
         *,
+        start_immediate_render_request_data: typing.Dict[str, typing.Optional[typing.Any]],
         type: StartImmediateRenderRequestType,
         target: StartImmediateRenderRequestTarget,
-        data: typing.Dict[str, typing.Optional[typing.Any]],
         template_id: typing.Optional[str] = OMIT,
         format_opts: typing.Optional[StartImmediateRenderRequestFormatOpts] = OMIT,
         template: typing.Optional[str] = OMIT,
-        upload_presigned_s_3_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> StartImmediateRenderResponse:
         """
@@ -402,14 +396,14 @@ class AsyncDocumentsClient:
 
         Parameters
         ----------
+        start_immediate_render_request_data : typing.Dict[str, typing.Optional[typing.Any]]
+            Sample data for the template
+
         type : StartImmediateRenderRequestType
             Type of template to be rendered
 
         target : StartImmediateRenderRequestTarget
             Type of output to be rendered
-
-        data : typing.Dict[str, typing.Optional[typing.Any]]
-            Sample data for the template
 
         template_id : typing.Optional[str]
             ID of the template to be used
@@ -419,9 +413,6 @@ class AsyncDocumentsClient:
 
         template : typing.Optional[str]
             index.html or ejs file of the template as a string
-
-        upload_presigned_s_3_url : typing.Optional[str]
-            Presigned URL to upload the data for the render job to S3
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -444,22 +435,21 @@ class AsyncDocumentsClient:
 
         async def main() -> None:
             await client.documents.start_immediate_render(
+                start_immediate_render_request_data={"key": "value"},
                 type="docx",
                 target="pdf",
-                data={"key": "value"},
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.start_immediate_render(
+            start_immediate_render_request_data=start_immediate_render_request_data,
             type=type,
             target=target,
-            data=data,
             template_id=template_id,
             format_opts=format_opts,
             template=template,
-            upload_presigned_s_3_url=upload_presigned_s_3_url,
             request_options=request_options,
         )
         return _response.data

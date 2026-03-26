@@ -45,4 +45,4 @@ from .utils import RenderConfig
 from .client.templates.types import *
 from .client.documents.types import *
 
-__version__ = "0.2.1"
+__version__ = "0.5.9"
