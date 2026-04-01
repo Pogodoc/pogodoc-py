@@ -3,5 +3,5 @@
 import typing
 
 UpdateTemplateRequestTemplateInfoCategoriesItem = typing.Union[
-    typing.Literal["invoice", "mail", "report", "cv", "other"], typing.Any
+    typing.Literal["invoice", "mail", "report", "cv", "other", "favorite"], typing.Any
 ]

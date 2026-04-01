@@ -6,12 +6,35 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
+from .start_render_job_response_output import StartRenderJobResponseOutput
+from .start_render_job_response_target import StartRenderJobResponseTarget
 
 
 class StartRenderJobResponse(UniversalBaseModel):
     job_id: typing_extensions.Annotated[str, FieldMetadata(alias="jobId")] = pydantic.Field()
     """
     ID of the render job
+    """
+
+    target: typing.Optional[StartRenderJobResponseTarget] = pydantic.Field(default=None)
+    """
+    Type of output to be rendered
+    """
+
+    status: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Status of the render job
+    """
+
+    success: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the render job was successful
+    """
+
+    output: typing.Optional[StartRenderJobResponseOutput] = None
+    error: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Error that occurred during render
     """
 
     if IS_PYDANTIC_V2:
