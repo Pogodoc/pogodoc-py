@@ -7,8 +7,6 @@ from .types import (
     GetJobStatusResponseOutput,
     GetJobStatusResponseOutputData,
     GetJobStatusResponseOutputMetadata,
-    GetJobStatusResponseTarget,
-    GetJobStatusResponseType,
     InitializeRenderJobRequestFormatOpts,
     InitializeRenderJobRequestFormatOptsFormat,
     InitializeRenderJobRequestTarget,
@@ -21,6 +19,10 @@ from .types import (
     StartImmediateRenderRequestType,
     StartImmediateRenderResponse,
     StartRenderJobResponse,
+    StartRenderJobResponseOutput,
+    StartRenderJobResponseOutputData,
+    StartRenderJobResponseOutputMetadata,
+    StartRenderJobResponseTarget,
 )
 
 __all__ = [
@@ -28,8 +30,6 @@ __all__ = [
     "GetJobStatusResponseOutput",
     "GetJobStatusResponseOutputData",
     "GetJobStatusResponseOutputMetadata",
-    "GetJobStatusResponseTarget",
-    "GetJobStatusResponseType",
     "InitializeRenderJobRequestFormatOpts",
     "InitializeRenderJobRequestFormatOptsFormat",
     "InitializeRenderJobRequestTarget",
@@ -42,4 +42,8 @@ __all__ = [
     "StartImmediateRenderRequestType",
     "StartImmediateRenderResponse",
     "StartRenderJobResponse",
+    "StartRenderJobResponseOutput",
+    "StartRenderJobResponseOutputData",
+    "StartRenderJobResponseOutputMetadata",
+    "StartRenderJobResponseTarget",
 ]

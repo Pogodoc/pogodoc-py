@@ -8,10 +8,10 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 
 
-class GetTemplateIndexHtmlResponse(UniversalBaseModel):
-    index_html: typing_extensions.Annotated[str, FieldMetadata(alias="indexHtml")] = pydantic.Field()
+class StartRenderJobResponseOutputMetadata(UniversalBaseModel):
+    render_time: typing_extensions.Annotated[float, FieldMetadata(alias="renderTime")] = pydantic.Field()
     """
-    Index.html file of the template
+    Time taken to render the output
     """
 
     if IS_PYDANTIC_V2:
