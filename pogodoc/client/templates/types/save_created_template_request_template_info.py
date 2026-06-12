@@ -9,6 +9,8 @@ from ...core.serialization import FieldMetadata
 from .save_created_template_request_template_info_categories_item import (
     SaveCreatedTemplateRequestTemplateInfoCategoriesItem,
 )
+from .save_created_template_request_template_info_dimensions import SaveCreatedTemplateRequestTemplateInfoDimensions
+from .save_created_template_request_template_info_orientation import SaveCreatedTemplateRequestTemplateInfoOrientation
 from .save_created_template_request_template_info_type import SaveCreatedTemplateRequestTemplateInfoType
 
 
@@ -40,6 +42,9 @@ class SaveCreatedTemplateRequestTemplateInfo(UniversalBaseModel):
     """
     Categories of the template
     """
+
+    orientation: typing.Optional[SaveCreatedTemplateRequestTemplateInfoOrientation] = None
+    dimensions: typing.Optional[SaveCreatedTemplateRequestTemplateInfoDimensions] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
