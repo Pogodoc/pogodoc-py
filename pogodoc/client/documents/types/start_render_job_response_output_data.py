@@ -3,15 +3,13 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...core.serialization import FieldMetadata
 
 
-class GetTemplateIndexHtmlResponse(UniversalBaseModel):
-    index_html: typing_extensions.Annotated[str, FieldMetadata(alias="indexHtml")] = pydantic.Field()
+class StartRenderJobResponseOutputData(UniversalBaseModel):
+    url: str = pydantic.Field()
     """
-    Index.html file of the template
+    URL of the rendered output
     """
 
     if IS_PYDANTIC_V2:

@@ -3,16 +3,12 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...core.serialization import FieldMetadata
+from .get_user_templates_response_templates_item import GetUserTemplatesResponseTemplatesItem
 
 
-class GetTemplateIndexHtmlResponse(UniversalBaseModel):
-    index_html: typing_extensions.Annotated[str, FieldMetadata(alias="indexHtml")] = pydantic.Field()
-    """
-    Index.html file of the template
-    """
+class GetUserTemplatesResponse(UniversalBaseModel):
+    templates: typing.List[GetUserTemplatesResponseTemplatesItem]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
