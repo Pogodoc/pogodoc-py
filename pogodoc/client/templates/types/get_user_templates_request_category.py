@@ -2,7 +2,7 @@
 
 import typing
 
-SaveCreatedTemplateRequestTemplateInfoCategoriesItem = typing.Union[
+GetUserTemplatesRequestCategory = typing.Union[
     typing.Literal[
         "invoice",
         "mail",

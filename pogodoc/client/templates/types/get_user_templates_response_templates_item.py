@@ -8,11 +8,10 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 
 
-class GetTemplateIndexHtmlResponse(UniversalBaseModel):
-    index_html: typing_extensions.Annotated[str, FieldMetadata(alias="indexHtml")] = pydantic.Field()
-    """
-    Index.html file of the template
-    """
+class GetUserTemplatesResponseTemplatesItem(UniversalBaseModel):
+    uuid_: typing_extensions.Annotated[str, FieldMetadata(alias="uuid")]
+    title: str
+    description: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
