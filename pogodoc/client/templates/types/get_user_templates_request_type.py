@@ -2,6 +2,6 @@
 
 import typing
 
-UpdateTemplateRequestTemplateInfoType = typing.Union[
+GetUserTemplatesRequestType = typing.Union[
     typing.Literal["docx", "xlsx", "pptx", "ejs", "html", "latex", "framework"], typing.Any
 ]

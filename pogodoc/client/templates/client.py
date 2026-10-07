@@ -11,7 +11,12 @@ from .types.generate_presigned_get_url_response import GeneratePresignedGetUrlRe
 from .types.generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
 from .types.generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
 from .types.generate_template_previews_response import GenerateTemplatePreviewsResponse
+from .types.get_template_by_id_response import GetTemplateByIdResponse
 from .types.get_template_index_html_response import GetTemplateIndexHtmlResponse
+from .types.get_user_templates_request_category import GetUserTemplatesRequestCategory
+from .types.get_user_templates_request_sort import GetUserTemplatesRequestSort
+from .types.get_user_templates_request_type import GetUserTemplatesRequestType
+from .types.get_user_templates_response import GetUserTemplatesResponse
 from .types.initialize_template_creation_response import InitializeTemplateCreationResponse
 from .types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
 from .types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
@@ -64,6 +69,39 @@ class TemplatesClient:
         client.templates.initialize_template_creation()
         """
         _response = self._raw_client.initialize_template_creation(request_options=request_options)
+        return _response.data
+
+    def get_template_by_id(
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetTemplateByIdResponse:
+        """
+        Fetches a single template by its ID for the authenticated user.
+
+        Parameters
+        ----------
+        template_id : str
+            UUID of the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetTemplateByIdResponse
+            Default Response
+
+        Examples
+        --------
+        from Pogodoc import PogodocApi
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.get_template_by_id(
+            template_id="templateId",
+        )
+        """
+        _response = self._raw_client.get_template_by_id(template_id, request_options=request_options)
         return _response.data
 
     def save_created_template(
@@ -127,9 +165,9 @@ class TemplatesClient:
         self,
         template_id: str,
         *,
-        template_info: UpdateTemplateRequestTemplateInfo,
-        preview_ids: UpdateTemplateRequestPreviewIds,
-        content_id: str,
+        template_info: typing.Optional[UpdateTemplateRequestTemplateInfo] = OMIT,
+        preview_ids: typing.Optional[UpdateTemplateRequestPreviewIds] = OMIT,
+        content_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTemplateResponse:
         """
@@ -139,11 +177,11 @@ class TemplatesClient:
         ----------
         template_id : str
 
-        template_info : UpdateTemplateRequestTemplateInfo
+        template_info : typing.Optional[UpdateTemplateRequestTemplateInfo]
 
-        preview_ids : UpdateTemplateRequestPreviewIds
+        preview_ids : typing.Optional[UpdateTemplateRequestPreviewIds]
 
-        content_id : str
+        content_id : typing.Optional[str]
             ID by which the new template content is saved
 
         request_options : typing.Optional[RequestOptions]
@@ -157,28 +195,12 @@ class TemplatesClient:
         Examples
         --------
         from Pogodoc import PogodocApi
-        from Pogodoc.templates import (
-            UpdateTemplateRequestPreviewIds,
-            UpdateTemplateRequestTemplateInfo,
-        )
 
         client = PogodocApi(
             token="YOUR_TOKEN",
         )
         client.templates.update_template(
             template_id="templateId",
-            template_info=UpdateTemplateRequestTemplateInfo(
-                title="title",
-                description="description",
-                type="docx",
-                sample_data={"key": "value"},
-                categories=["invoice"],
-            ),
-            preview_ids=UpdateTemplateRequestPreviewIds(
-                png_job_id="pngJobId",
-                pdf_job_id="pdfJobId",
-            ),
-            content_id="contentId",
         )
         """
         _response = self._raw_client.update_template(
@@ -374,7 +396,7 @@ class TemplatesClient:
         return _response.data
 
     def upload_template_index_html(
-        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -384,7 +406,7 @@ class TemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -403,11 +425,11 @@ class TemplatesClient:
         )
         client.templates.upload_template_index_html(
             template_id="templateId",
-            template_index="templateIndex",
+            index_html="indexHtml",
         )
         """
         _response = self._raw_client.upload_template_index_html(
-            template_id, template_index=template_index, request_options=request_options
+            template_id, index_html=index_html, request_options=request_options
         )
         return _response.data
 
@@ -442,6 +464,54 @@ class TemplatesClient:
         )
         """
         _response = self._raw_client.clone_template(template_id, request_options=request_options)
+        return _response.data
+
+    def get_user_templates(
+        self,
+        *,
+        category: typing.Optional[GetUserTemplatesRequestCategory] = None,
+        search: typing.Optional[str] = None,
+        type: typing.Optional[GetUserTemplatesRequestType] = None,
+        sort: typing.Optional[GetUserTemplatesRequestSort] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetUserTemplatesResponse:
+        """
+        Fetches all templates belonging to the authenticated user. Optionally filter by category.
+
+        Parameters
+        ----------
+        category : typing.Optional[GetUserTemplatesRequestCategory]
+            Category of the template
+
+        search : typing.Optional[str]
+            Search by title or description
+
+        type : typing.Optional[GetUserTemplatesRequestType]
+            Type of template to be rendered
+
+        sort : typing.Optional[GetUserTemplatesRequestSort]
+            Sort order
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetUserTemplatesResponse
+            Default Response
+
+        Examples
+        --------
+        from Pogodoc import PogodocApi
+
+        client = PogodocApi(
+            token="YOUR_TOKEN",
+        )
+        client.templates.get_user_templates()
+        """
+        _response = self._raw_client.get_user_templates(
+            category=category, search=search, type=type, sort=sort, request_options=request_options
+        )
         return _response.data
 
 
@@ -494,6 +564,47 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.initialize_template_creation(request_options=request_options)
+        return _response.data
+
+    async def get_template_by_id(
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetTemplateByIdResponse:
+        """
+        Fetches a single template by its ID for the authenticated user.
+
+        Parameters
+        ----------
+        template_id : str
+            UUID of the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetTemplateByIdResponse
+            Default Response
+
+        Examples
+        --------
+        import asyncio
+
+        from Pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.get_template_by_id(
+                template_id="templateId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_template_by_id(template_id, request_options=request_options)
         return _response.data
 
     async def save_created_template(
@@ -565,9 +676,9 @@ class AsyncTemplatesClient:
         self,
         template_id: str,
         *,
-        template_info: UpdateTemplateRequestTemplateInfo,
-        preview_ids: UpdateTemplateRequestPreviewIds,
-        content_id: str,
+        template_info: typing.Optional[UpdateTemplateRequestTemplateInfo] = OMIT,
+        preview_ids: typing.Optional[UpdateTemplateRequestPreviewIds] = OMIT,
+        content_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateTemplateResponse:
         """
@@ -577,11 +688,11 @@ class AsyncTemplatesClient:
         ----------
         template_id : str
 
-        template_info : UpdateTemplateRequestTemplateInfo
+        template_info : typing.Optional[UpdateTemplateRequestTemplateInfo]
 
-        preview_ids : UpdateTemplateRequestPreviewIds
+        preview_ids : typing.Optional[UpdateTemplateRequestPreviewIds]
 
-        content_id : str
+        content_id : typing.Optional[str]
             ID by which the new template content is saved
 
         request_options : typing.Optional[RequestOptions]
@@ -597,10 +708,6 @@ class AsyncTemplatesClient:
         import asyncio
 
         from Pogodoc import AsyncPogodocApi
-        from Pogodoc.templates import (
-            UpdateTemplateRequestPreviewIds,
-            UpdateTemplateRequestTemplateInfo,
-        )
 
         client = AsyncPogodocApi(
             token="YOUR_TOKEN",
@@ -610,18 +717,6 @@ class AsyncTemplatesClient:
         async def main() -> None:
             await client.templates.update_template(
                 template_id="templateId",
-                template_info=UpdateTemplateRequestTemplateInfo(
-                    title="title",
-                    description="description",
-                    type="docx",
-                    sample_data={"key": "value"},
-                    categories=["invoice"],
-                ),
-                preview_ids=UpdateTemplateRequestPreviewIds(
-                    png_job_id="pngJobId",
-                    pdf_job_id="pdfJobId",
-                ),
-                content_id="contentId",
             )
 
 
@@ -860,7 +955,7 @@ class AsyncTemplatesClient:
         return _response.data
 
     async def upload_template_index_html(
-        self, template_id: str, *, template_index: str, request_options: typing.Optional[RequestOptions] = None
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -870,7 +965,7 @@ class AsyncTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -894,14 +989,14 @@ class AsyncTemplatesClient:
         async def main() -> None:
             await client.templates.upload_template_index_html(
                 template_id="templateId",
-                template_index="templateIndex",
+                index_html="indexHtml",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.upload_template_index_html(
-            template_id, template_index=template_index, request_options=request_options
+            template_id, index_html=index_html, request_options=request_options
         )
         return _response.data
 
@@ -944,4 +1039,60 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.clone_template(template_id, request_options=request_options)
+        return _response.data
+
+    async def get_user_templates(
+        self,
+        *,
+        category: typing.Optional[GetUserTemplatesRequestCategory] = None,
+        search: typing.Optional[str] = None,
+        type: typing.Optional[GetUserTemplatesRequestType] = None,
+        sort: typing.Optional[GetUserTemplatesRequestSort] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetUserTemplatesResponse:
+        """
+        Fetches all templates belonging to the authenticated user. Optionally filter by category.
+
+        Parameters
+        ----------
+        category : typing.Optional[GetUserTemplatesRequestCategory]
+            Category of the template
+
+        search : typing.Optional[str]
+            Search by title or description
+
+        type : typing.Optional[GetUserTemplatesRequestType]
+            Type of template to be rendered
+
+        sort : typing.Optional[GetUserTemplatesRequestSort]
+            Sort order
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetUserTemplatesResponse
+            Default Response
+
+        Examples
+        --------
+        import asyncio
+
+        from Pogodoc import AsyncPogodocApi
+
+        client = AsyncPogodocApi(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.get_user_templates()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_user_templates(
+            category=category, search=search, type=type, sort=sort, request_options=request_options
+        )
         return _response.data

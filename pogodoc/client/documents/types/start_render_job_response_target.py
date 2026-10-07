@@ -2,6 +2,6 @@
 
 import typing
 
-GetJobStatusResponseTarget = typing.Union[
+StartRenderJobResponseTarget = typing.Union[
     typing.Literal["pdf", "html", "docx", "xlsx", "pptx", "png", "jpg"], typing.Any
 ]
