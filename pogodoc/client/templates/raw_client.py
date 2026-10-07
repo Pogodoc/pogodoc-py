@@ -13,27 +13,20 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from .types.clone_template_response import CloneTemplateResponse
 from .types.delete_template_response import DeleteTemplateResponse
 from .types.generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
-from .types.generate_template_previews_request_format_opts import (
-    GenerateTemplatePreviewsRequestFormatOpts,
-)
-from .types.generate_template_previews_request_type import (
-    GenerateTemplatePreviewsRequestType,
-)
+from .types.generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
+from .types.generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
 from .types.generate_template_previews_response import GenerateTemplatePreviewsResponse
+from .types.get_template_by_id_response import GetTemplateByIdResponse
 from .types.get_template_index_html_response import GetTemplateIndexHtmlResponse
-from .types.initialize_template_creation_response import (
-    InitializeTemplateCreationResponse,
-)
-from .types.save_created_template_request_preview_ids import (
-    SaveCreatedTemplateRequestPreviewIds,
-)
-from .types.save_created_template_request_template_info import (
-    SaveCreatedTemplateRequestTemplateInfo,
-)
+from .types.get_user_templates_request_category import GetUserTemplatesRequestCategory
+from .types.get_user_templates_request_sort import GetUserTemplatesRequestSort
+from .types.get_user_templates_request_type import GetUserTemplatesRequestType
+from .types.get_user_templates_response import GetUserTemplatesResponse
+from .types.initialize_template_creation_response import InitializeTemplateCreationResponse
+from .types.save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
+from .types.save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
 from .types.update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
-from .types.update_template_request_template_info import (
-    UpdateTemplateRequestTemplateInfo,
-)
+from .types.update_template_request_template_info import UpdateTemplateRequestTemplateInfo
 from .types.update_template_response import UpdateTemplateResponse
 
 # this is used as the default value for optional parameters
@@ -77,16 +70,47 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_template_by_id(
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[GetTemplateByIdResponse]:
+        """
+        Fetches a single template by its ID for the authenticated user.
+
+        Parameters
+        ----------
+        template_id : str
+            UUID of the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetTemplateByIdResponse]
+            Default Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"templates/{jsonable_encoder(template_id)}",
+            method="GET",
+            request_options=request_options,
         )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetTemplateByIdResponse,
+                    parse_obj_as(
+                        type_=GetTemplateByIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def save_created_template(
         self,
@@ -119,14 +143,10 @@ class RawTemplatesClient:
             method="POST",
             json={
                 "templateInfo": convert_and_respect_annotation_metadata(
-                    object_=template_info,
-                    annotation=SaveCreatedTemplateRequestTemplateInfo,
-                    direction="write",
+                    object_=template_info, annotation=SaveCreatedTemplateRequestTemplateInfo, direction="write"
                 ),
                 "previewIds": convert_and_respect_annotation_metadata(
-                    object_=preview_ids,
-                    annotation=SaveCreatedTemplateRequestPreviewIds,
-                    direction="write",
+                    object_=preview_ids, annotation=SaveCreatedTemplateRequestPreviewIds, direction="write"
                 ),
             },
             headers={
@@ -140,24 +160,16 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_template(
         self,
         template_id: str,
         *,
-        template_info: UpdateTemplateRequestTemplateInfo,
-        preview_ids: UpdateTemplateRequestPreviewIds,
-        content_id: str,
+        template_info: typing.Optional[UpdateTemplateRequestTemplateInfo] = OMIT,
+        preview_ids: typing.Optional[UpdateTemplateRequestPreviewIds] = OMIT,
+        content_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateTemplateResponse]:
         """
@@ -167,11 +179,11 @@ class RawTemplatesClient:
         ----------
         template_id : str
 
-        template_info : UpdateTemplateRequestTemplateInfo
+        template_info : typing.Optional[UpdateTemplateRequestTemplateInfo]
 
-        preview_ids : UpdateTemplateRequestPreviewIds
+        preview_ids : typing.Optional[UpdateTemplateRequestPreviewIds]
 
-        content_id : str
+        content_id : typing.Optional[str]
             ID by which the new template content is saved
 
         request_options : typing.Optional[RequestOptions]
@@ -187,14 +199,10 @@ class RawTemplatesClient:
             method="PUT",
             json={
                 "templateInfo": convert_and_respect_annotation_metadata(
-                    object_=template_info,
-                    annotation=UpdateTemplateRequestTemplateInfo,
-                    direction="write",
+                    object_=template_info, annotation=UpdateTemplateRequestTemplateInfo, direction="write"
                 ),
                 "previewIds": convert_and_respect_annotation_metadata(
-                    object_=preview_ids,
-                    annotation=UpdateTemplateRequestPreviewIds,
-                    direction="write",
+                    object_=preview_ids, annotation=UpdateTemplateRequestPreviewIds, direction="write"
                 ),
                 "contentId": content_id,
             },
@@ -216,22 +224,11 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def delete_template(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DeleteTemplateResponse]:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
@@ -266,22 +263,11 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def extract_template_files(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -308,16 +294,8 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def generate_template_previews(
         self,
@@ -360,9 +338,7 @@ class RawTemplatesClient:
                 "type": type,
                 "data": data,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts,
-                    annotation=GenerateTemplatePreviewsRequestFormatOpts,
-                    direction="write",
+                    object_=format_opts, annotation=GenerateTemplatePreviewsRequestFormatOpts, direction="write"
                 ),
             },
             headers={
@@ -383,22 +359,11 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def generate_presigned_get_url(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GeneratePresignedGetUrlResponse]:
         """
         Generates a presigned URL for template access. Used for downloading template files from S3 storage.
@@ -433,22 +398,11 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_template_index_html(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[GetTemplateIndexHtmlResponse]:
         """
         Retrieves the template index.html file from S3 storage. Used for rendering the template in the browser.
@@ -473,42 +427,21 @@ class RawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _response_json = _response.json()
-                if (
-                    "templateIndex" not in _response_json
-                    and "indexHtml" in _response_json
-                ):
-                    _response_json = {
-                        **_response_json,
-                        "templateIndex": _response_json["indexHtml"],
-                    }
                 _data = typing.cast(
                     GetTemplateIndexHtmlResponse,
                     parse_obj_as(
                         type_=GetTemplateIndexHtmlResponse,  # type: ignore
-                        object_=_response_json,
+                        object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def upload_template_index_html(
-        self,
-        template_id: str,
-        *,
-        template_index: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -518,7 +451,7 @@ class RawTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -532,8 +465,7 @@ class RawTemplatesClient:
             f"templates/{jsonable_encoder(template_id)}/index-html",
             method="POST",
             json={
-                "templateIndex": template_index,
-                "indexHtml": template_index,
+                "indexHtml": index_html,
             },
             headers={
                 "content-type": "application/json",
@@ -546,22 +478,11 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def clone_template(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CloneTemplateResponse]:
         """
         Creates a new template by duplicating an existing template's content and metadata. Includes copying preview files and template index.
@@ -596,16 +517,68 @@ class RawTemplatesClient:
                 return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_user_templates(
+        self,
+        *,
+        category: typing.Optional[GetUserTemplatesRequestCategory] = None,
+        search: typing.Optional[str] = None,
+        type: typing.Optional[GetUserTemplatesRequestType] = None,
+        sort: typing.Optional[GetUserTemplatesRequestSort] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GetUserTemplatesResponse]:
+        """
+        Fetches all templates belonging to the authenticated user. Optionally filter by category.
+
+        Parameters
+        ----------
+        category : typing.Optional[GetUserTemplatesRequestCategory]
+            Category of the template
+
+        search : typing.Optional[str]
+            Search by title or description
+
+        type : typing.Optional[GetUserTemplatesRequestType]
+            Type of template to be rendered
+
+        sort : typing.Optional[GetUserTemplatesRequestSort]
+            Sort order
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetUserTemplatesResponse]
+            Default Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "templates",
+            method="GET",
+            params={
+                "category": category,
+                "search": search,
+                "type": type,
+                "sort": sort,
+            },
+            request_options=request_options,
         )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetUserTemplatesResponse,
+                    parse_obj_as(
+                        type_=GetUserTemplatesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
 class AsyncRawTemplatesClient:
@@ -645,16 +618,47 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_template_by_id(
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[GetTemplateByIdResponse]:
+        """
+        Fetches a single template by its ID for the authenticated user.
+
+        Parameters
+        ----------
+        template_id : str
+            UUID of the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetTemplateByIdResponse]
+            Default Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"templates/{jsonable_encoder(template_id)}",
+            method="GET",
+            request_options=request_options,
         )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetTemplateByIdResponse,
+                    parse_obj_as(
+                        type_=GetTemplateByIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def save_created_template(
         self,
@@ -687,14 +691,10 @@ class AsyncRawTemplatesClient:
             method="POST",
             json={
                 "templateInfo": convert_and_respect_annotation_metadata(
-                    object_=template_info,
-                    annotation=SaveCreatedTemplateRequestTemplateInfo,
-                    direction="write",
+                    object_=template_info, annotation=SaveCreatedTemplateRequestTemplateInfo, direction="write"
                 ),
                 "previewIds": convert_and_respect_annotation_metadata(
-                    object_=preview_ids,
-                    annotation=SaveCreatedTemplateRequestPreviewIds,
-                    direction="write",
+                    object_=preview_ids, annotation=SaveCreatedTemplateRequestPreviewIds, direction="write"
                 ),
             },
             headers={
@@ -708,24 +708,16 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_template(
         self,
         template_id: str,
         *,
-        template_info: UpdateTemplateRequestTemplateInfo,
-        preview_ids: UpdateTemplateRequestPreviewIds,
-        content_id: str,
+        template_info: typing.Optional[UpdateTemplateRequestTemplateInfo] = OMIT,
+        preview_ids: typing.Optional[UpdateTemplateRequestPreviewIds] = OMIT,
+        content_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateTemplateResponse]:
         """
@@ -735,11 +727,11 @@ class AsyncRawTemplatesClient:
         ----------
         template_id : str
 
-        template_info : UpdateTemplateRequestTemplateInfo
+        template_info : typing.Optional[UpdateTemplateRequestTemplateInfo]
 
-        preview_ids : UpdateTemplateRequestPreviewIds
+        preview_ids : typing.Optional[UpdateTemplateRequestPreviewIds]
 
-        content_id : str
+        content_id : typing.Optional[str]
             ID by which the new template content is saved
 
         request_options : typing.Optional[RequestOptions]
@@ -755,14 +747,10 @@ class AsyncRawTemplatesClient:
             method="PUT",
             json={
                 "templateInfo": convert_and_respect_annotation_metadata(
-                    object_=template_info,
-                    annotation=UpdateTemplateRequestTemplateInfo,
-                    direction="write",
+                    object_=template_info, annotation=UpdateTemplateRequestTemplateInfo, direction="write"
                 ),
                 "previewIds": convert_and_respect_annotation_metadata(
-                    object_=preview_ids,
-                    annotation=UpdateTemplateRequestPreviewIds,
-                    direction="write",
+                    object_=preview_ids, annotation=UpdateTemplateRequestPreviewIds, direction="write"
                 ),
                 "contentId": content_id,
             },
@@ -784,22 +772,11 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def delete_template(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DeleteTemplateResponse]:
         """
         Deletes a template from Strapi and associated S3 storage. Removes all associated files and metadata.
@@ -834,22 +811,11 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def extract_template_files(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
         Extracts contents from an uploaded template ZIP file and stores individual files in the appropriate S3 storage structure.
@@ -876,16 +842,8 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def generate_template_previews(
         self,
@@ -928,9 +886,7 @@ class AsyncRawTemplatesClient:
                 "type": type,
                 "data": data,
                 "formatOpts": convert_and_respect_annotation_metadata(
-                    object_=format_opts,
-                    annotation=GenerateTemplatePreviewsRequestFormatOpts,
-                    direction="write",
+                    object_=format_opts, annotation=GenerateTemplatePreviewsRequestFormatOpts, direction="write"
                 ),
             },
             headers={
@@ -951,22 +907,11 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def generate_presigned_get_url(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GeneratePresignedGetUrlResponse]:
         """
         Generates a presigned URL for template access. Used for downloading template files from S3 storage.
@@ -1001,22 +946,11 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_template_index_html(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[GetTemplateIndexHtmlResponse]:
         """
         Retrieves the template index.html file from S3 storage. Used for rendering the template in the browser.
@@ -1041,42 +975,21 @@ class AsyncRawTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _response_json = _response.json()
-                if (
-                    "templateIndex" not in _response_json
-                    and "indexHtml" in _response_json
-                ):
-                    _response_json = {
-                        **_response_json,
-                        "templateIndex": _response_json["indexHtml"],
-                    }
                 _data = typing.cast(
                     GetTemplateIndexHtmlResponse,
                     parse_obj_as(
                         type_=GetTemplateIndexHtmlResponse,  # type: ignore
-                        object_=_response_json,
+                        object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def upload_template_index_html(
-        self,
-        template_id: str,
-        *,
-        template_index: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, index_html: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
         Uploads the template index.html file to S3 storage. Used for rendering the template in the browser.
@@ -1086,7 +999,7 @@ class AsyncRawTemplatesClient:
         template_id : str
             ID of the template to be used
 
-        template_index : str
+        index_html : str
             New index.html file of the template
 
         request_options : typing.Optional[RequestOptions]
@@ -1100,8 +1013,7 @@ class AsyncRawTemplatesClient:
             f"templates/{jsonable_encoder(template_id)}/index-html",
             method="POST",
             json={
-                "templateIndex": template_index,
-                "indexHtml": template_index,
+                "indexHtml": index_html,
             },
             headers={
                 "content-type": "application/json",
@@ -1114,22 +1026,11 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
-        )
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def clone_template(
-        self,
-        template_id: str,
-        *,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, template_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CloneTemplateResponse]:
         """
         Creates a new template by duplicating an existing template's content and metadata. Includes copying preview files and template index.
@@ -1164,13 +1065,65 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
-            raise ApiError(
-                status_code=_response.status_code,
-                headers=dict(_response.headers),
-                body=_response.text,
-            )
-        raise ApiError(
-            status_code=_response.status_code,
-            headers=dict(_response.headers),
-            body=_response_json,
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_user_templates(
+        self,
+        *,
+        category: typing.Optional[GetUserTemplatesRequestCategory] = None,
+        search: typing.Optional[str] = None,
+        type: typing.Optional[GetUserTemplatesRequestType] = None,
+        sort: typing.Optional[GetUserTemplatesRequestSort] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[GetUserTemplatesResponse]:
+        """
+        Fetches all templates belonging to the authenticated user. Optionally filter by category.
+
+        Parameters
+        ----------
+        category : typing.Optional[GetUserTemplatesRequestCategory]
+            Category of the template
+
+        search : typing.Optional[str]
+            Search by title or description
+
+        type : typing.Optional[GetUserTemplatesRequestType]
+            Type of template to be rendered
+
+        sort : typing.Optional[GetUserTemplatesRequestSort]
+            Sort order
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GetUserTemplatesResponse]
+            Default Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "templates",
+            method="GET",
+            params={
+                "category": category,
+                "search": search,
+                "type": type,
+                "sort": sort,
+            },
+            request_options=request_options,
         )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetUserTemplatesResponse,
+                    parse_obj_as(
+                        type_=GetUserTemplatesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
