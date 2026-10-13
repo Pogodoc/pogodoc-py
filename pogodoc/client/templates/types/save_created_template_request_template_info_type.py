@@ -3,5 +3,5 @@
 import typing
 
 SaveCreatedTemplateRequestTemplateInfoType = typing.Union[
-    typing.Literal["docx", "xlsx", "pptx", "ejs", "html", "latex", "react"], typing.Any
+    typing.Literal["docx", "xlsx", "pptx", "ejs", "html", "latex", "framework"], typing.Any
 ]
