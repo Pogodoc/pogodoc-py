@@ -4,4 +4,4 @@ import enum
 
 
 class PogodocApiEnvironment(enum.Enum):
-    DEFAULT = "https://api.pogodoc.com"
+    DEFAULT = "https://api.pogodoc.com/v1"
