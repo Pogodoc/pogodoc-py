@@ -6,22 +6,40 @@ from .clone_template_response import CloneTemplateResponse
 from .delete_template_response import DeleteTemplateResponse
 from .generate_presigned_get_url_response import GeneratePresignedGetUrlResponse
 from .generate_template_previews_request_format_opts import GenerateTemplatePreviewsRequestFormatOpts
+from .generate_template_previews_request_format_opts_dimensions import (
+    GenerateTemplatePreviewsRequestFormatOptsDimensions,
+)
 from .generate_template_previews_request_format_opts_format import GenerateTemplatePreviewsRequestFormatOptsFormat
+from .generate_template_previews_request_format_opts_orientation import (
+    GenerateTemplatePreviewsRequestFormatOptsOrientation,
+)
 from .generate_template_previews_request_type import GenerateTemplatePreviewsRequestType
 from .generate_template_previews_response import GenerateTemplatePreviewsResponse
 from .generate_template_previews_response_pdf_preview import GenerateTemplatePreviewsResponsePdfPreview
 from .generate_template_previews_response_png_preview import GenerateTemplatePreviewsResponsePngPreview
+from .get_template_by_id_response import GetTemplateByIdResponse
+from .get_template_by_id_response_permissions import GetTemplateByIdResponsePermissions
+from .get_template_by_id_response_type import GetTemplateByIdResponseType
 from .get_template_index_html_response import GetTemplateIndexHtmlResponse
+from .get_user_templates_request_category import GetUserTemplatesRequestCategory
+from .get_user_templates_request_sort import GetUserTemplatesRequestSort
+from .get_user_templates_request_type import GetUserTemplatesRequestType
+from .get_user_templates_response import GetUserTemplatesResponse
+from .get_user_templates_response_templates_item import GetUserTemplatesResponseTemplatesItem
 from .initialize_template_creation_response import InitializeTemplateCreationResponse
 from .save_created_template_request_preview_ids import SaveCreatedTemplateRequestPreviewIds
 from .save_created_template_request_template_info import SaveCreatedTemplateRequestTemplateInfo
 from .save_created_template_request_template_info_categories_item import (
     SaveCreatedTemplateRequestTemplateInfoCategoriesItem,
 )
+from .save_created_template_request_template_info_dimensions import SaveCreatedTemplateRequestTemplateInfoDimensions
+from .save_created_template_request_template_info_orientation import SaveCreatedTemplateRequestTemplateInfoOrientation
 from .save_created_template_request_template_info_type import SaveCreatedTemplateRequestTemplateInfoType
 from .update_template_request_preview_ids import UpdateTemplateRequestPreviewIds
 from .update_template_request_template_info import UpdateTemplateRequestTemplateInfo
 from .update_template_request_template_info_categories_item import UpdateTemplateRequestTemplateInfoCategoriesItem
+from .update_template_request_template_info_dimensions import UpdateTemplateRequestTemplateInfoDimensions
+from .update_template_request_template_info_orientation import UpdateTemplateRequestTemplateInfoOrientation
 from .update_template_request_template_info_type import UpdateTemplateRequestTemplateInfoType
 from .update_template_response import UpdateTemplateResponse
 
@@ -30,20 +48,34 @@ __all__ = [
     "DeleteTemplateResponse",
     "GeneratePresignedGetUrlResponse",
     "GenerateTemplatePreviewsRequestFormatOpts",
+    "GenerateTemplatePreviewsRequestFormatOptsDimensions",
     "GenerateTemplatePreviewsRequestFormatOptsFormat",
+    "GenerateTemplatePreviewsRequestFormatOptsOrientation",
     "GenerateTemplatePreviewsRequestType",
     "GenerateTemplatePreviewsResponse",
     "GenerateTemplatePreviewsResponsePdfPreview",
     "GenerateTemplatePreviewsResponsePngPreview",
+    "GetTemplateByIdResponse",
+    "GetTemplateByIdResponsePermissions",
+    "GetTemplateByIdResponseType",
     "GetTemplateIndexHtmlResponse",
+    "GetUserTemplatesRequestCategory",
+    "GetUserTemplatesRequestSort",
+    "GetUserTemplatesRequestType",
+    "GetUserTemplatesResponse",
+    "GetUserTemplatesResponseTemplatesItem",
     "InitializeTemplateCreationResponse",
     "SaveCreatedTemplateRequestPreviewIds",
     "SaveCreatedTemplateRequestTemplateInfo",
     "SaveCreatedTemplateRequestTemplateInfoCategoriesItem",
+    "SaveCreatedTemplateRequestTemplateInfoDimensions",
+    "SaveCreatedTemplateRequestTemplateInfoOrientation",
     "SaveCreatedTemplateRequestTemplateInfoType",
     "UpdateTemplateRequestPreviewIds",
     "UpdateTemplateRequestTemplateInfo",
     "UpdateTemplateRequestTemplateInfoCategoriesItem",
+    "UpdateTemplateRequestTemplateInfoDimensions",
+    "UpdateTemplateRequestTemplateInfoOrientation",
     "UpdateTemplateRequestTemplateInfoType",
     "UpdateTemplateResponse",
 ]
