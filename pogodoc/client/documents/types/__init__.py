@@ -6,38 +6,50 @@ from .get_job_status_response import GetJobStatusResponse
 from .get_job_status_response_output import GetJobStatusResponseOutput
 from .get_job_status_response_output_data import GetJobStatusResponseOutputData
 from .get_job_status_response_output_metadata import GetJobStatusResponseOutputMetadata
-from .get_job_status_response_target import GetJobStatusResponseTarget
-from .get_job_status_response_type import GetJobStatusResponseType
 from .initialize_render_job_request_format_opts import InitializeRenderJobRequestFormatOpts
+from .initialize_render_job_request_format_opts_dimensions import InitializeRenderJobRequestFormatOptsDimensions
 from .initialize_render_job_request_format_opts_format import InitializeRenderJobRequestFormatOptsFormat
+from .initialize_render_job_request_format_opts_orientation import InitializeRenderJobRequestFormatOptsOrientation
 from .initialize_render_job_request_target import InitializeRenderJobRequestTarget
 from .initialize_render_job_request_type import InitializeRenderJobRequestType
 from .initialize_render_job_response import InitializeRenderJobResponse
 from .initialize_render_job_response_target import InitializeRenderJobResponseTarget
 from .start_immediate_render_request_format_opts import StartImmediateRenderRequestFormatOpts
+from .start_immediate_render_request_format_opts_dimensions import StartImmediateRenderRequestFormatOptsDimensions
 from .start_immediate_render_request_format_opts_format import StartImmediateRenderRequestFormatOptsFormat
+from .start_immediate_render_request_format_opts_orientation import StartImmediateRenderRequestFormatOptsOrientation
 from .start_immediate_render_request_target import StartImmediateRenderRequestTarget
 from .start_immediate_render_request_type import StartImmediateRenderRequestType
 from .start_immediate_render_response import StartImmediateRenderResponse
 from .start_render_job_response import StartRenderJobResponse
+from .start_render_job_response_output import StartRenderJobResponseOutput
+from .start_render_job_response_output_data import StartRenderJobResponseOutputData
+from .start_render_job_response_output_metadata import StartRenderJobResponseOutputMetadata
+from .start_render_job_response_target import StartRenderJobResponseTarget
 
 __all__ = [
     "GetJobStatusResponse",
     "GetJobStatusResponseOutput",
     "GetJobStatusResponseOutputData",
     "GetJobStatusResponseOutputMetadata",
-    "GetJobStatusResponseTarget",
-    "GetJobStatusResponseType",
     "InitializeRenderJobRequestFormatOpts",
+    "InitializeRenderJobRequestFormatOptsDimensions",
     "InitializeRenderJobRequestFormatOptsFormat",
+    "InitializeRenderJobRequestFormatOptsOrientation",
     "InitializeRenderJobRequestTarget",
     "InitializeRenderJobRequestType",
     "InitializeRenderJobResponse",
     "InitializeRenderJobResponseTarget",
     "StartImmediateRenderRequestFormatOpts",
+    "StartImmediateRenderRequestFormatOptsDimensions",
     "StartImmediateRenderRequestFormatOptsFormat",
+    "StartImmediateRenderRequestFormatOptsOrientation",
     "StartImmediateRenderRequestTarget",
     "StartImmediateRenderRequestType",
     "StartImmediateRenderResponse",
     "StartRenderJobResponse",
+    "StartRenderJobResponseOutput",
+    "StartRenderJobResponseOutputData",
+    "StartRenderJobResponseOutputMetadata",
+    "StartRenderJobResponseTarget",
 ]
