@@ -7,36 +7,37 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from .get_job_status_response_output import GetJobStatusResponseOutput
-from .get_job_status_response_target import GetJobStatusResponseTarget
-from .get_job_status_response_type import GetJobStatusResponseType
 
 
 class GetJobStatusResponse(UniversalBaseModel):
-    type: typing.Optional[GetJobStatusResponseType] = pydantic.Field(default=None)
-    """
-    Type of template to be rendered
-    """
-
-    job_id: typing_extensions.Annotated[str, FieldMetadata(alias="jobId")] = (
-        pydantic.Field()
-    )
+    job_id: typing_extensions.Annotated[str, FieldMetadata(alias="jobId")] = pydantic.Field()
     """
     ID of the render job
     """
 
-    target: GetJobStatusResponseTarget = pydantic.Field()
+    target: str = pydantic.Field()
     """
-    Type of output to be rendered
+    Target of the render job
+    """
+
+    status: str = pydantic.Field()
+    """
+    Status of the render job
+    """
+
+    success: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the render job was successful
     """
 
     output: typing.Optional[GetJobStatusResponseOutput] = None
-    success: typing.Optional[bool] = None
-    status: typing.Optional[str] = None
+    error: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Error that occurred during render
+    """
 
     if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(
-            extra="allow", frozen=True
-        )  # type: ignore # Pydantic v2
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
 
         class Config:
