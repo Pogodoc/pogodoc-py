@@ -7,37 +7,44 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
 from .update_template_request_template_info_categories_item import UpdateTemplateRequestTemplateInfoCategoriesItem
+from .update_template_request_template_info_dimensions import UpdateTemplateRequestTemplateInfoDimensions
+from .update_template_request_template_info_orientation import UpdateTemplateRequestTemplateInfoOrientation
 from .update_template_request_template_info_type import UpdateTemplateRequestTemplateInfoType
 
 
 class UpdateTemplateRequestTemplateInfo(UniversalBaseModel):
-    title: str = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Title of the template
     """
 
-    description: str = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of the template
     """
 
-    type: UpdateTemplateRequestTemplateInfoType = pydantic.Field()
+    type: typing.Optional[UpdateTemplateRequestTemplateInfoType] = pydantic.Field(default=None)
     """
     Type of template to be rendered
     """
 
     sample_data: typing_extensions.Annotated[
-        typing.Dict[str, typing.Optional[typing.Any]], FieldMetadata(alias="sampleData")
-    ] = pydantic.Field()
+        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="sampleData")
+    ] = pydantic.Field(default=None)
     """
     Sample data for the template
     """
 
     source_code: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="sourceCode")] = None
-    categories: typing.List[UpdateTemplateRequestTemplateInfoCategoriesItem] = pydantic.Field()
+    categories: typing.Optional[typing.List[UpdateTemplateRequestTemplateInfoCategoriesItem]] = pydantic.Field(
+        default=None
+    )
     """
     Categories of the template
     """
+
+    orientation: typing.Optional[UpdateTemplateRequestTemplateInfoOrientation] = None
+    dimensions: typing.Optional[UpdateTemplateRequestTemplateInfoDimensions] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
