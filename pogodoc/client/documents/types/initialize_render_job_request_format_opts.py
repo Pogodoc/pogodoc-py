@@ -6,7 +6,9 @@ import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...core.serialization import FieldMetadata
+from .initialize_render_job_request_format_opts_dimensions import InitializeRenderJobRequestFormatOptsDimensions
 from .initialize_render_job_request_format_opts_format import InitializeRenderJobRequestFormatOptsFormat
+from .initialize_render_job_request_format_opts_orientation import InitializeRenderJobRequestFormatOptsOrientation
 
 
 class InitializeRenderJobRequestFormatOpts(UniversalBaseModel):
@@ -23,6 +25,9 @@ class InitializeRenderJobRequestFormatOpts(UniversalBaseModel):
     """
     Selector to wait for to know when the page is loaded and can be saved as pdf, png, etc.
     """
+
+    orientation: typing.Optional[InitializeRenderJobRequestFormatOptsOrientation] = None
+    dimensions: typing.Optional[InitializeRenderJobRequestFormatOptsDimensions] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
